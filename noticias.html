@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noticias – ISES Toluca</title>
+<meta name="description" content="Últimas noticias, eventos y actualizaciones de ISES Toluca. Eventos, inscripciones, talleres vocacionales y más.">
+<link rel="stylesheet" href="shared.css">
+<style>
+.noticia-card {
+  background: #fff;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  transition: .2s;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+.noticia-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-hover);
+}
+.noticia-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, var(--azul-light), var(--verde-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  overflow: hidden;
+}
+.noticia-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.noticia-body {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.noticia-tag {
+  display: inline-block;
+  background: var(--naranja-light);
+  color: var(--naranja);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+.noticia-tag.evento { background: var(--verde-light); color: var(--verde); }
+.noticia-tag.academico { background: var(--azul-light); color: var(--azul); }
+.noticia-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--gris-dark);
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+.noticia-excerpt {
+  font-size: 13px;
+  color: var(--gris-med);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  flex: 1;
+}
+.noticia-footer {
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f0;
+  font-size: 11px;
+  color: var(--gris-med);
+  font-weight: 600;
+}
+
+/* Sobrescribir estilos CTA */
+.cta-section {
+  padding: 80px 20px !important;
+  background: linear-gradient(135deg, #141f14 0%, #1a3050 100%) !important;
+}
+.cta-inner {
+  max-width: 520px !important;
+}
+.cta-section h2 {
+  margin-bottom: 16px !important;
+  font-size: clamp(24px, 5vw, 36px) !important;
+  color: #fff !important;
+}
+.cta-section p {
+  margin-bottom: 32px !important;
+  font-size: 15px !important;
+  color: rgba(255,255,255,0.85) !important;
+}
+.cta-btns {
+  gap: 16px !important;
+  justify-content: center !important;
+}
+/* Botones visibles sobre fondo oscuro */
+.cta-section .btn-outline {
+  background: transparent !important;
+  color: #fff !important;
+  border: 2px solid rgba(255,255,255,0.6) !important;
+}
+.cta-section .btn-outline:hover {
+  background: rgba(255,255,255,0.12) !important;
+  border-color: #fff !important;
+}
+
+/* Estilos para sección de noticias */
+.section-full {
+  background: linear-gradient(135deg, rgba(42, 111, 219, 0.05) 0%, rgba(31, 138, 91, 0.05) 100%);
+}
+#noticiasContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+</style>
+</head>
+<body class="page-body">
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="logo-ises.png" alt="ISES">
+    <div class="nav-logo-text">ISES Toluca <span>Donde sí se es</span></div>
+  </a>
+  <div class="nav-actions">
+    <a href="contacto.html" class="nav-cta">Inscríbete</a>
+    <button class="nav-menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" onclick="closeMenu()"><span class="nav-icon">🏠</span> Inicio</a>
+  <a href="nosotros.html" onclick="closeMenu()"><span class="nav-icon">🎓</span> Quiénes somos</a>
+  <a href="oferta.html" onclick="closeMenu()"><span class="nav-icon">📚</span> Oferta educativa</a>
+  <a href="prepas.html" onclick="closeMenu()"><span class="nav-icon">📖</span> Preparatoria — Compara</a>
+  <a href="planteles.html" onclick="closeMenu()"><span class="nav-icon">📍</span> Nuestros planteles</a>
+  <a href="faq.html" onclick="closeMenu()"><span class="nav-icon">❓</span> Preguntas frecuentes</a>
+  <a href="contacto.html" onclick="closeMenu()"><span class="nav-icon">✉️</span> Contacto</a>
+  <a href="isela.html" class="nav-isela-link" onclick="closeMenu()"><span class="nav-icon">🤖</span> ISELA — ¿Qué estudiar?</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-badge">Vida institucional</div>
+    <h1>Noticias de <span>ISES Toluca</span></h1>
+    <p>Eventos, inscripciones, logros académicos y vida institucional. Mantente informado de todo lo que sucede en nuestros planteles.</p>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="index.html">Inicio</a>
+  <span>/</span>
+  <span>Noticias</span>
+</div>
+
+<!-- NOTICIAS GRID -->
+<section class="section-full">
+  <div class="section">
+
+    <div id="noticiasContainer"></div>
+
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2>¿Listo para empezar?</h2>
+    <p>Inscripciones abiertas para el ciclo Agosto 2026. Contáctanos para más información.</p>
+    <div class="cta-btns">
+      <a href="contacto.html" class="btn btn-primary">Solicitar información</a>
+      <a href="oferta.html" class="btn btn-outline">Ver oferta educativa</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="logo-ises.png" alt="ISES">
+      <div class="footer-logo-text">ISES Toluca <span>Donde sí se es</span></div>
+    </div>
+    <div class="footer-nav">
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html">Quiénes somos</a>
+      <a href="oferta.html">Oferta educativa</a>
+      <a href="planteles.html">Nuestros planteles</a>
+      <a href="faq.html">Preguntas frecuentes</a>
+      <a href="contacto.html">Contacto</a>
+    </div>
+    <div class="footer-socials">
+      <a href="#" class="footer-social" title="Facebook">f</a>
+      <a href="#" class="footer-social" title="Instagram">📷</a>
+      <a href="#" class="footer-social" title="WhatsApp">💬</a>
+      <a href="#" class="footer-social" title="LinkedIn">in</a>
+    </div>
+    <div class="footer-isela">
+      <span class="footer-isela-icon">🤖</span>
+      <div class="footer-isela-text">
+        <strong>¿Necesitas orientación vocacional?</strong>
+        Habla con ISELA, nuestra asistente de IA.
+      </div>
+      <a href="isela.html">Preguntar →</a>
+    </div>
+    <div class="footer-copy">
+      <p>&copy; 2026 ISES Toluca. Todos los derechos reservados.</p>
+      <p style="margin-top: 8px;">Sitio desarrollado con compromiso ético institucional.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPT NOTICIAS -->
+<script>
+function renderizarNoticias() {
+  const noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+  const hoy = new Date().toISOString().split('T')[0];
+  const container = document.getElementById('noticiasContainer');
+  
+  // Filtrar noticias activas (no ocultas, dentro del rango de fechas)
+  const noticiasFiltradas = noticias.filter(noticia => {
+    if (noticia.oculta) return false;
+    if (noticia.fechaInicio && noticia.fechaInicio > hoy) return false;
+    if (noticia.fechaFin && noticia.fechaFin < hoy) return false;
+    return true;
+  });
+
+  if (noticiasFiltradas.length === 0) {
+    container.innerHTML = '<p style="text-align:center; color:#999; padding:40px; grid-column:1/-1;">No hay noticias disponibles en este momento.</p>';
+    return;
+  }
+
+  // Mapear etiquetas del admin a clases CSS
+  const mapaEtiquetas = {
+    'Inscripciones': 'inscripcion',
+    'Eventos': 'evento',
+    'Noticias': '',
+    'Becas': 'evento',
+    'Programas': 'academico',
+    'Promoción activa': 'evento',
+    'Académico': 'academico',
+    'Otro': ''
+  };
+  
+  // Mostrar noticias filtradas
+  noticiasFiltradas.forEach(noticia => {
+    const fecha = new Date(noticia.fechaCreacion).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    const tagClass = mapaEtiquetas[noticia.etiqueta] || '';
+    const div = document.createElement('div');
+    div.className = 'noticia-card';
+    
+    const imagenHTML = noticia.imagen ? `<img src="${noticia.imagen}" alt="">` : `<span>${noticia.emoji || '📰'}</span>`;
+    
+    div.innerHTML = `
+      <div class="noticia-image">${imagenHTML}</div>
+      <div class="noticia-body">
+        ${noticia.etiqueta ? `<span class="noticia-tag ${tagClass}">${noticia.etiqueta}</span>` : ''}
+        <h2 class="noticia-title">${noticia.emoji ? noticia.emoji + ' ' : ''}${noticia.titulo}</h2>
+        <p class="noticia-excerpt">${noticia.resumen}</p>
+        <div class="noticia-footer">${fecha}</div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', renderizarNoticias);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oferta Educativa – ISES Toluca</title>
+<meta name="description" content="Licenciaturas, maestría, preparatoria y cursos en ISES Toluca. Perfiles de ingreso, egreso y campo laboral. 5 planteles en el Estado de México.">
+<link rel="stylesheet" href="shared.css">
+<script src="admin-dates.js"></script>
+<style>
+/* ── PERFILES ── */
+.prog-perfiles { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; }
+.perfil-block { border-radius:10px; padding:14px; }
+.perfil-block.ingreso { background:var(--azul-light); }
+.perfil-block.egreso { background:var(--verde-light); }
+.perfil-block h5 { font-size:10px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; }
+.perfil-block.ingreso h5 { color:var(--azul); }
+.perfil-block.egreso h5 { color:var(--verde); }
+.perfil-block ul { list-style:none; }
+.perfil-block ul li { font-size:11.5px; color:var(--gris-med); padding:3px 0 3px 14px; position:relative; line-height:1.4; }
+.perfil-block ul li::before { content:'›'; position:absolute; left:2px; font-weight:700; font-size:14px; line-height:1.3; }
+.perfil-block.ingreso ul li::before { color:var(--azul); }
+.perfil-block.egreso ul li::before { color:var(--verde); }
+
+/* ── HOOKS ── */
+.prog-hooks { display:flex; gap:7px; flex-wrap:wrap; margin:12px 0; }
+.hook-pill { display:inline-flex; align-items:center; gap:5px; background:var(--naranja-light); border:1px solid rgba(224,116,32,0.25); border-radius:20px; padding:5px 12px; font-size:11px; font-weight:800; color:var(--naranja); }
+
+/* ── CAMPO LABORAL ── */
+.campo-laboral { background:var(--gris-light); border-radius:10px; padding:14px; margin-bottom:14px; }
+.campo-laboral h5 { font-size:10px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--gris-dark); margin-bottom:8px; }
+.campo-laboral ul { list-style:none; display:flex; flex-wrap:wrap; gap:6px; }
+.campo-laboral ul li { background:#fff; border:1px solid #e0e0e0; border-radius:6px; padding:4px 10px; font-size:11px; font-weight:600; color:var(--gris-dark); }
+
+/* ── GALERÍA PLANTEL ── */
+.plantel-galeria { margin-bottom:20px; }
+.plantel-galeria-label { font-size:10px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--gris-med); margin-bottom:10px; }
+.galeria-mini { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; border-radius:var(--radio); overflow:hidden; }
+.galeria-mini-cell { aspect-ratio:1/1; background:#2a2a2a; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:20px; cursor:pointer; transition:.2s; }
+.galeria-mini-cell:first-child { grid-column:span 2; aspect-ratio:2/1; }
+.galeria-mini-cell img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.galeria-mini-cell:hover { opacity:.85; }
+.galeria-mini-placeholder { display:flex; flex-direction:column; align-items:center; gap:4px; color:rgba(255,255,255,.35); }
+.galeria-mini-placeholder span { font-size:18px; }
+.galeria-mini-placeholder p { font-size:9px; font-family:'Montserrat',sans-serif; font-weight:600; text-align:center; }
+
+/* contenedor centrado dentro de cada tab */
+.tab-inner { max-width:520px; margin:0 auto; padding:0 20px 56px; }
+.tab-panel .prog-card { margin-top:20px; }
+.tab-panel .prog-card:first-child { margin-top:0; }
+.tab-panel { background: #f0f4f0; padding-bottom: 0; }
+.plantel-galeria { margin-bottom:24px; }
+.subtabs-row { margin-bottom:20px; }
+
+/* ── CTA WhatsApp ── */
+.prog-cta a {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  background:#25D366; color:#fff; border-radius:999px;
+  padding:13px 20px; font-size:13px; font-weight:800;
+  box-shadow:0 3px 14px rgba(37,211,102,0.3); transition:.2s;
+}
+.prog-cta a:hover { transform:translateY(-1px); box-shadow:0 5px 20px rgba(37,211,102,0.45); }
+
+/* ── GALERÍA PLANTEL ── */
+.plantel-galeria { margin-bottom:20px; }
+.plantel-galeria-label { font-size:10px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--gris-med); margin-bottom:10px; }
+.galeria-mini { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; border-radius:var(--radio); overflow:hidden; }
+.galeria-mini-cell {
+  aspect-ratio:1/1; background:#2a2a2a; position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; cursor:pointer; transition:.2s;
+}
+.galeria-mini-cell:first-child { grid-column:span 2; aspect-ratio:2/1; }
+.galeria-mini-cell img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.galeria-mini-cell:hover { opacity:.85; }
+.galeria-mini-placeholder { display:flex; flex-direction:column; align-items:center; gap:4px; color:rgba(255,255,255,.35); }
+.galeria-mini-placeholder span { font-size:18px; }
+.galeria-mini-placeholder p { font-size:9px; font-family:'Montserrat',sans-serif; font-weight:600; text-align:center; }
+
+
+</style>
+</head>
+<body class="page-body">
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo-ises.png" alt="ISES"><div class="nav-logo-text">ISES Toluca <span>Donde sí se es</span></div></a>
+  <div class="nav-actions">
+    <a href="contacto.html" class="nav-cta">Inscríbete</a>
+    <button class="nav-menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" onclick="closeMenu()"><span class="nav-icon">🏠</span> Inicio</a>
+  <a href="nosotros.html" onclick="closeMenu()"><span class="nav-icon">🎓</span> Quiénes somos</a>
+  <a href="oferta.html" class="active" onclick="closeMenu()"><span class="nav-icon">📚</span> Oferta educativa</a>
+  <a href="prepas.html" onclick="closeMenu()"><span class="nav-icon">📖</span> Preparatoria — Compara</a>
+  <a href="planteles.html" onclick="closeMenu()"><span class="nav-icon">📍</span> Nuestros planteles</a>
+  <a href="faq.html" onclick="closeMenu()"><span class="nav-icon">❓</span> Preguntas frecuentes</a>
+  <a href="contacto.html" onclick="closeMenu()"><span class="nav-icon">✉️</span> Contacto</a>
+  <a href="isela.html" class="nav-isela-link" onclick="closeMenu()"><span class="nav-icon">🤖</span> ISELA — ¿Qué estudiar?</a>
+</div>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-badge">Ciclo Agosto 2026 · Inscripciones abiertas</div>
+    <h1>Oferta <span>educativa</span></h1>
+    <p>Selecciona tu plantel y explora los programas con perfiles de ingreso, egreso y campo laboral.</p>
+  </div>
+</div>
+<div class="breadcrumb"><a href="index.html">Inicio</a><span>›</span> Oferta educativa</div>
+
+<div style="max-width:520px;margin:0 auto;padding:28px 20px 0;">
+  <div class="tabs-row" id="plantelTabs">
+    <button class="tab-btn active" onclick="showTab('maq',this)">Maquinita</button>
+    <button class="tab-btn" onclick="showTab('vill',this)">Villada</button>
+    <button class="tab-btn" onclick="showTab('brav',this)">Bravo</button>
+    <button class="tab-btn" onclick="showTab('sant',this)">Santiago</button>
+    <button class="tab-btn" onclick="showTab('ixtl',this)">Ixtlahuaca</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- MAQUINITA -->
+<!-- ════════════════════════════════════ -->
+<div id="tab-maq" class="tab-panel active">
+<div class="tab-inner">
+
+  <div class="plantel-galeria">
+    <div class="plantel-galeria-label">📸 Galería Plantel Maquinita</div>
+    <div class="galeria-mini">
+      <div class="galeria-mini-cell"><img src="fotos/maq-fachada.jpg" alt="Fachada Maquinita"></div>
+      <div class="galeria-mini-cell"><img src="fotos/maq-biblioteca.jpg" alt="Biblioteca Maquinita"></div>
+      <div class="galeria-mini-cell"><img src="fotos/maq-laboratorio.jpg" alt="Laboratorio Maquinita"></div>
+    </div>
+  </div>
+
+  <div class="subtabs-row">
+    <button class="subtab-btn active" onclick="showSub('maq','pos',this)">Posgrado</button>
+    <button class="subtab-btn" onclick="showSub('maq','lic',this)">Licenciaturas</button>
+    <button class="subtab-btn" onclick="showSub('maq','ejec',this)">Ejecutivas</button>
+    <button class="subtab-btn" onclick="showSub('maq','prep',this)">Preparatoria</button>
+    <button class="subtab-btn" onclick="showSub('maq','ingles',this)">Inglés CELe</button>
+    <button class="subtab-btn" onclick="showSub('maq','ingcero',this)">Inglés desde Cero</button>
+  </div>
+
+  <!-- POSGRADO MAQ -->
+  <div id="sub-maq-pos" class="subtab-panel active">
+    <div class="prog-card" id="posgrado">
+      <div class="prog-head verde"><div class="prog-tipo">Posgrado · Virtual · RVOE SEP 20130146</div><div class="prog-nombre">Maestría en Docencia en Educación Media Superior</div><div class="prog-chips"><span class="prog-chip">22 meses</span><span class="prog-chip">100% Flexible</span><span class="prog-chip">Inicio: <span data-date-maestria>21 sep 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🖥️ 100% Virtual</span><span class="hook-pill">📜 Incluye titulación</span><span class="hook-pill">🎓 Cédula SEP</span></div>
+        <ul class="prog-list">
+          <li>Para profesionistas de cualquier disciplina que quieran enseñar en bachillerato</li>
+          <li>Horarios 100% flexibles; asesoría semanal en tiempo real con el docente</li>
+          <li>Habilidades: investigación, enseñanza-aprendizaje, diseño curricular</li>
+          <li>Profesores con Maestría o Doctorado; grupos reducidos</li>
+          <li>Titulación por tesis, tesina o artículo indexado — <strong>incluye titulación</strong></li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Licenciatura concluida (cualquier área)</li><li>Interés en la docencia</li><li>Acceso a internet y computadora</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Grado de Maestría con cédula SEP</li><li>Diseña y evalúa planes de estudio</li><li>Acceso al Sistema Nacional de Bachillerato</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Preparatorias y bachilleratos</li><li>Instituciones educativas y centros de capacitación</li><li>Coordinación académica</li><li>Educación en línea</li><li>Asesoría y diseño de programas</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Maestr%C3%ADa%20en%20Docencia%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LICENCIATURAS MAQ -->
+  <div id="sub-maq-lic" class="subtab-panel">
+    <div class="prog-card" id="licenciaturas">
+      <div class="prog-head"><div class="prog-tipo">Licenciatura Escolarizada · Incorporación UAEMéx 216.27.05.10</div><div class="prog-nombre">Administración de Empresas</div><div class="prog-chips"><span class="prog-chip">9 semestres · 4½ años</span><span class="prog-chip">Lun–Vie 7:00–12:40</span><span class="prog-chip">Inicio: <span data-date-admin>4 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🏆 Alta empleabilidad</span><span class="hook-pill">📈 Compatible con maestría</span><span class="hook-pill">🏢 Público y privado</span></div>
+        <ul class="prog-list">
+          <li>Perfil directivo y gerencial: liderazgo de grupos y organizaciones</li>
+          <li>Compatible con maestrías, doctorados y múltiples especializaciones</li>
+          <li>Amplio campo laboral con baja tasa de desempleo</li>
+          <li>Consultoría, asesoría e inversión independiente</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Interés en dirigir empresas</li><li>Habilidades de comunicación y liderazgo</li><li>Gusto por análisis estratégico</li><li>Bachillerato concluido</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Planea, organiza y dirige empresas</li><li>Diseña estrategias competitivas</li><li>Gestiona recursos humanos y financieros</li><li>Ejerce de forma independiente</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Empresas privadas</li><li>Gobierno</li><li>Consultoría</li><li>Emprendimiento</li><li>Banca</li><li>ONG</li></ul></div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., Cert. Bachillerato, Cert. Secundaria, 4 fotos b/n, CURP</p></div>
+          <div class="prog-info-block"><h5>Inscripciones</h5><p>1°, 3° y 5° semestre abiertos</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20en%20Administraci%C3%B3n%20de%20Empresas%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-head"><div class="prog-tipo">Licenciatura Escolarizada · Incorporación UAEMéx 217.27.05.10</div><div class="prog-nombre">Contaduría</div><div class="prog-chips"><span class="prog-chip">9 semestres · 4½ años</span><span class="prog-chip">Lun–Vie 7:00–12:40</span><span class="prog-chip">Inicio: <span data-date-contaduria>4 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">💰 Alta demanda</span><span class="hook-pill">🏛️ Público y privado</span><span class="hook-pill">🧾 Despacho propio</span></div>
+        <ul class="prog-list">
+          <li>Autonomía profesional: empresa o consultoría independiente</li>
+          <li>Todas las organizaciones requieren contadores; alta estabilidad</li>
+          <li>Perfil gerencial para los más altos niveles organizacionales</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Afinidad por números y finanzas</li><li>Habilidades analíticas y organizativas</li><li>Interés en el ámbito fiscal</li><li>Bachillerato concluido</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Audita y dictamina fiscalmente</li><li>Elabora estados financieros</li><li>Administra recursos públicos y privados</li><li>Puede abrir despacho propio</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Despachos contables</li><li>Empresas privadas</li><li>Gobierno</li><li>Auditoría</li><li>Consultoría fiscal</li><li>Banca</li></ul></div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., Cert. Bachillerato, Cert. Secundaria, 4 fotos b/n, CURP</p></div>
+          <div class="prog-info-block"><h5>Inscripciones</h5><p>1°, 3° y 5° semestre abiertos</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20en%20Contadur%C3%ADa%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EJECUTIVAS MAQ -->
+  <div id="sub-maq-ejec" class="subtab-panel">
+    <div class="prog-card" id="ejecutivas">
+      <div class="prog-head naranja"><div class="prog-tipo">Licenciaturas Ejecutivas · Sabatina · 38 meses · Incorporadas UAEMéx · RVOE</div><div class="prog-nombre">Administración · Derecho</div><div class="prog-chips"><span class="prog-chip">Sábados 8:00–18:00</span><span class="prog-chip">Inicio: <span data-date-ejec-admin>29 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">💼 Solo sábados</span><span class="hook-pill">⏱ 38 meses</span><span class="hook-pill">✅ Prácticas con tu empleo</span></div>
+        <ul class="prog-list">
+          <li>Trabaja sin dejar de estudiar — modalidad sabatina intensiva</li>
+          <li>Prácticas profesionales liberadas con tu empleo actual</li>
+          <li>Servicio social con convenios: ONG, gobierno municipal, estatal y federal</li>
+          <li>80% profesores con maestría/doctorado — grupos reducidos</li>
+          <li>Titulación: Ceneval, Memoria Laboral o Tesis</li>
+          <li><strong>Administración:</strong> múltiples especializaciones; compatible con posgrado · RVOE SEP-2019476</li>
+          <li><strong>Derecho:</strong> marco jurídico nacional completo; alta demanda institucional · RVOE SEP-20171726</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Personas que trabajan y quieren titularse</li><li>Bachillerato concluido; mayores de 18 años</li><li>Constancia laboral (1 año para presentarla)</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Título oficial con cédula profesional</li><li>Experiencia profesional integrada</li><li>Titulación flexible: Ceneval, Memoria o Tesis</li></ul></div>
+        </div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., CURP, Cert. Bachillerato, 4 fotos b/n, constancia laboral</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Sábados<br>8:00–18:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20las%20Licenciaturas%20Ejecutivas%20(Administraci%C3%B3n%20%2F%20Derecho)%20en%20Plantel%20Maquinita%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREPA MAQ -->
+  <div id="sub-maq-prep" class="subtab-panel">
+    <div class="prog-card" id="preparatoria">
+      <div class="prog-head verde"><div class="prog-tipo">Preparatoria · Incorporada UAEMéx · Clave No. 99 · 3 años</div><div class="prog-nombre">Preparatoria UAEMéx</div><div class="prog-chips"><span class="prog-chip">Matutino y Vespertino</span><span class="prog-chip">Inicio: <span data-date-prep-uaemex>4 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🏅 Padrón de Calidad SNB</span><span class="hook-pill">🌐 Inglés CELe 6 sem.</span><span class="hook-pill">🧭 Orientación EVAPEM gratis</span></div>
+        <ul class="prog-list">
+          <li>Miembro del Padrón de Calidad del Sistema Nacional de Bachillerato (SEMS)</li>
+          <li>Docentes acreditados a nivel nacional por la ANUIES</li>
+          <li>Acreditaciones en tecnología: Word, Excel, PowerPoint (STPS + Grupo Educare)</li>
+          <li>Inglés con acreditación CELe los 6 semestres; nivel superior certificado</li>
+          <li>Diagnóstico vocacional gratuito EVAPEM (38 rasgos evaluados)</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Egresados de secundaria</li><li>Jóvenes desde 15 años</li><li>Disponibilidad horaria matutina</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Certificado UAEMéx para licenciatura</li><li>Inglés acreditado CELe</li><li>Tecnología certificada</li><li>Orientación vocacional definida</li></ul></div>
+        </div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., Cert. Secundaria, 4 fotos b/n, CURP, Cert. médico con tipo de sangre</p></div>
+          <div class="prog-info-block"><h5>Turnos</h5><p>Matutino: L–V 7:00–14:40<br>Vespertino: L–V 13:10–19:30 + Sáb 8:00–12:30</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Preparatoria%20UAEM%C3%A9x%20en%20Plantel%20Maquinita%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGLÉS MAQ -->
+  <div id="sub-maq-ingcero" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Curso · Nivel Pre-A1 · Para principiantes absolutos</div><div class="prog-nombre">Inglés desde Cero</div><div class="prog-chips"><span class="prog-chip">Sábados 9:00–14:00</span><span class="prog-chip">Inicio: <span data-date-ingles-cero>15 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🔤 Desde cero · Pre-A1</span><span class="hook-pill">🗣️ Enfoque oral</span><span class="hook-pill">😌 Sin miedo a hablar</span></div>
+        <ul class="prog-list">
+          <li>Para adultos que nunca han tenido contacto con el idioma — el punto de partida real, un paso antes del A1</li>
+          <li>Cómo suena el inglés: alfabeto, vocales y consonantes con pronunciación real</li>
+          <li>Palabras que ya conoces sin saberlo: <em>exit, hotel, taxi, internet, coffee</em></li>
+          <li>Presentarte: nombre, edad y de dónde eres · Saludos: hello, good morning, how are you, goodbye</li>
+          <li>Números del 1 al 100 · Colores, días de la semana y meses del año</li>
+          <li>Frases para sobrevivir: <em>I don't understand, Can you repeat?, How do you say…?</em></li>
+          <li>Entender instrucciones simples habladas y escritas</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 ¿Para quién?</h5><ul><li>Nunca has estudiado inglés y no sabes por dónde empezar</li><li>Te da pena o miedo hablar en otro idioma</li><li>Quieres una base sólida antes de avanzar</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 ¿A dónde te lleva?</h5><ul><li>Al nivel A1 con bases sólidas, sin lagunas</li><li>Listo para continuar hasta nivel avanzado</li><li>Sin miedo a abrir la boca en otro idioma</li></ul></div>
+        </div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>¿Cómo son las clases?</h5><p>Grupos pequeños, mucho enfoque oral y ritmo pausado</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Sábados<br>9:00–14:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20del%20Curso%20de%20Ingl%C3%A9s%20desde%20Cero%20en%20Plantel%20Maquinita%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-maq-ingles" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head"><div class="prog-tipo">Curso · Metodología CELe UAEMéx · Constancia oficial</div><div class="prog-nombre">Inglés CELe — Niños, Adolescentes y Adultos</div><div class="prog-chips"><span class="prog-chip">Sábados 9:00–14:00</span><span class="prog-chip">Inicio: <span data-date-ingles>15 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">👨‍👩‍👧 Todas las edades</span><span class="hook-pill">📜 Constancia oficial</span><span class="hook-pill">🌍 Metodología UAEMéx</span></div>
+        <ul class="prog-list">
+          <li>5 habilidades: hablar, escribir, escuchar, leer y gramática</li>
+          <li>Constancia de acreditación a partir del 4° nivel (adultos)</li>
+          <li>Examen de ubicación disponible</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 ¿Para quién?</h5><ul><li>Niños desde 6 años</li><li>Adolescentes y adultos</li><li>Cualquier nivel de inglés previo</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Al terminar</h5><ul><li>Comunicación fluida en inglés</li><li>Constancia con validez oficial</li><li>Mayor empleabilidad global</li></ul></div>
+        </div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., constancia estudios, 2 fotos b/n, CURP</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Sábados<br>9:00–14:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20del%20Curso%20de%20Ingl%C3%A9s%20CELe%20en%20Plantel%20Maquinita%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ════════════════════════════════════ -->
+<!-- VILLADA -->
+<!-- ════════════════════════════════════ -->
+<div id="tab-vill" class="tab-panel">
+<div class="tab-inner">
+
+  <div class="plantel-galeria">
+    <div class="plantel-galeria-label">📸 Galería Plantel Villada</div>
+    <div class="galeria-mini">
+      <div class="galeria-mini-cell"><img src="fotos/villada-entrada.jpg" alt="Entrada Villada"></div>
+      <div class="galeria-mini-cell"><img src="fotos/villada-laboratorio.jpg" alt="Aulas Villada"></div>
+      <div class="galeria-mini-cell"><img src="fotos/villada-jardin.jpg" alt="Jardín Villada"></div>
+    </div>
+  </div>
+
+  <div class="subtabs-row">
+    <button class="subtab-btn active" onclick="showSub('vill','pos',this)">Posgrado</button>
+    <button class="subtab-btn" onclick="showSub('vill','lic',this)">Licenciaturas</button>
+    <button class="subtab-btn" onclick="showSub('vill','ejec',this)">Ejecutivas</button>
+    <button class="subtab-btn" onclick="showSub('vill','prep',this)">Preparatoria</button>
+    <button class="subtab-btn" onclick="showSub('vill','cursos',this)">Inglés CELe</button>
+    <button class="subtab-btn" onclick="showSub('vill','ingcero',this)">Inglés desde Cero</button>
+    <button class="subtab-btn" onclick="showSub('vill','ceneval',this)">Cursos</button>
+  </div>
+
+  <div id="sub-vill-pos" class="subtab-panel active">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Posgrado · Virtual · RVOE SEP 20130146</div><div class="prog-nombre">Maestría en Docencia en Educación Media Superior</div><div class="prog-chips"><span class="prog-chip">22 meses</span><span class="prog-chip">100% Flexible</span><span class="prog-chip">Inicio: <span data-date-maestria>21 sep 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🖥️ 100% Virtual</span><span class="hook-pill">📜 Incluye titulación</span><span class="hook-pill">🎓 Cédula SEP</span></div>
+        <ul class="prog-list">
+          <li>Para profesionistas de cualquier disciplina que quieran enseñar en bachillerato</li>
+          <li>Horarios 100% flexibles; asesoría semanal en tiempo real con el docente</li>
+          <li>Habilidades: investigación, enseñanza-aprendizaje, diseño curricular</li>
+          <li>Profesores con Maestría o Doctorado; grupos reducidos</li>
+          <li>Titulación por tesis, tesina o artículo indexado — <strong>incluye titulación</strong></li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Licenciatura concluida (cualquier área)</li><li>Interés en la docencia</li><li>Acceso a internet y computadora</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Grado de Maestría con cédula SEP</li><li>Diseña y evalúa planes de estudio EMS</li><li>Acceso al Sistema Nacional de Bachillerato</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Preparatorias y bachilleratos</li><li>Instituciones educativas y centros de capacitación</li><li>Coordinación académica</li><li>Educación en línea</li><li>Asesoría y diseño de programas</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Maestr%C3%ADa%20en%20Docencia%20en%20Plantel%20Villada%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-vill-lic" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Licenciatura Escolarizada · 4 años · RVOE SEP-20110873</div><div class="prog-nombre">Psicología con Orientación Clínica</div><div class="prog-chips"><span class="prog-chip">Escolarizada</span><span class="prog-chip">Ejecutiva</span><span class="prog-chip">Lun–Vie 7:00–15:00</span><span class="prog-chip">Inicio: <span data-date-psico>10 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🧠 Carrera versátil</span><span class="hook-pill">🏥 Prácticas desde 2° sem.</span><span class="hook-pill">🤝 Autoempleo posible</span></div>
+        <ul class="prog-list">
+          <li>Salud, educación, gobierno, industria y empresa — carrera versátil</li>
+          <li>Prácticas desde 2° semestre; +3 años de experiencia al egresar</li>
+          <li>Autoempleo: empresas de desarrollo humano para todas las edades</li>
+          <li>80% profesores con maestría/doctorado · Titulación: Ceneval o Tesis</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Interés en el comportamiento humano</li><li>Empatía y comunicación asertiva</li><li>Bachillerato concluido</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Evalúa, diagnostica e interviene clínicamente</li><li>Aplica psicología en empresas y escuelas</li><li>Puede abrir consultorio propio</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Clínicas y hospitales</li><li>Empresas (RRHH)</li><li>Escuelas</li><li>Gobierno</li><li>Consultoría privada</li><li>ONG</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20en%20Psicolog%C3%ADa%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Licenciatura Escolarizada · 4 años · RVOE SEP-20110876</div><div class="prog-nombre">Pedagogía</div><div class="prog-chips"><span class="prog-chip">Escolarizada</span><span class="prog-chip">Ejecutiva</span><span class="prog-chip">Lun–Vie 7:00–15:00</span><span class="prog-chip">Inicio: <span data-date-peda>10 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">📚 Alta empleabilidad</span><span class="hook-pill">🏫 Todos los niveles</span><span class="hook-pill">📋 Diseño curricular</span></div>
+        <ul class="prog-list">
+          <li>Innova y desarrolla programas en todos los niveles educativos</li>
+          <li>Docencia, dirección de centros, capacitación y diseño de material didáctico</li>
+          <li>Titulación: Ceneval o Tesis · Servicio social: 480 hrs con convenios</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Vocación por la enseñanza</li><li>Interés en diseño de programas educativos</li><li>Bachillerato concluido</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Diseña y evalúa planes de estudio</li><li>Dirige centros y programas educativos</li><li>Capacita personal en empresas e instituciones</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Escuelas e instituciones educativas</li><li>Coordinación y dirección académica</li><li>Capacitación empresarial</li><li>Diseño de programas educativos</li><li>Consultoría pedagógica</li><li>Proyectos educativos y sociales</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20en%20Pedagog%C3%ADa%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Licenciatura Ejecutiva · 38 meses · RVOE SEP-20110875</div><div class="prog-nombre">Recursos Humanos</div><div class="prog-chips"><span class="prog-chip">Ejecutiva</span><span class="prog-chip">Sábados 8:00–18:00</span><span class="prog-chip">Inicio: 29 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">💼 Para gente que ya trabaja</span><span class="hook-pill">⚡ Aprende y aplica de inmediato</span><span class="hook-pill">🔁 Reinscripción cada 6 meses</span></div>
+        <ul class="prog-list">
+          <li>Diseñada para personas que ya están laborando y buscan crecer en el área organizacional</li>
+          <li>Se cursa únicamente sábados, con enfoque práctico orientado a la realidad empresarial</li>
+          <li>Aprenderás a gestionar talento, fortalecer equipos y mejorar el clima organizacional</li>
+          <li>El aprendizaje se potencia con la experiencia laboral activa de los estudiantes</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Interés en el trabajo con personas y equipos</li><li>Ya estás laborando actualmente</li><li>Bachillerato concluido</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Gestiona talento y potencia el desempeño en las organizaciones</li><li>Aplica liderazgo, reclutamiento, capacitación y manejo de personal</li><li>Mejora el clima y la cultura organizacional con enfoque estratégico</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Departamentos de RH</li><li>Empresas públicas y privadas</li><li>Reclutamiento y selección</li><li>Capacitación y desarrollo</li><li>Consultoría empresarial</li><li>Gestión de talento</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20Ejecutiva%20en%20Recursos%20Humanos%20en%20Plantel%20Villada%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-vill-ejec" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Licenciaturas Ejecutivas · Sabatina · 38 meses · Incorporadas UAEMéx · RVOE</div><div class="prog-nombre">Psicología · Pedagogía · Recursos Humanos</div><div class="prog-chips"><span class="prog-chip">Sábados 8:00–18:00</span><span class="prog-chip">Inicio: <span data-date-ejec-psico>29 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">💼 Solo sábados</span><span class="hook-pill">⏱ 38 meses</span><span class="hook-pill">✅ Prácticas con tu empleo</span></div>
+        <ul class="prog-list">
+          <li>Trabaja sin dejar de estudiar — modalidad sabatina</li>
+          <li><strong>Psicología:</strong> clínica, educativa, organizacional y social · RVOE SEP-20110872</li>
+          <li><strong>Pedagogía:</strong> innovación y diseño curricular · RVOE SEP-20110877</li>
+          <li><strong>Recursos Humanos:</strong> outsourcing, consultoría y gestión de personal · RVOE SEP-20110875</li>
+          <li>80% profesores con maestría/doctorado — grupos reducidos</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Personas que trabajan y quieren titularse</li><li>Bachillerato concluido; mayores de 18 años</li><li>Constancia laboral (1 año para presentarla)</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Título oficial con cédula profesional</li><li>Titulación: Ceneval, Memoria o Tesis</li><li>Red profesional sólida</li></ul></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20las%20Licenciaturas%20Ejecutivas%20(Psicolog%C3%ADa%2C%20Pedagog%C3%ADa%2C%20RRHH)%20en%20Plantel%20Villada%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Licenciatura Ejecutiva · 38 meses · RVOE SEP-20110875</div><div class="prog-nombre">Recursos Humanos</div><div class="prog-chips"><span class="prog-chip">Ejecutiva</span><span class="prog-chip">Sábados 8:00–18:00</span><span class="prog-chip">Inicio: 29 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">💼 Para gente que ya trabaja</span><span class="hook-pill">⚡ Aprende y aplica de inmediato</span><span class="hook-pill">🔁 Reinscripción cada 6 meses</span></div>
+        <ul class="prog-list">
+          <li>Diseñada para personas que ya están laborando y buscan crecer en el área organizacional</li>
+          <li>Se cursa únicamente sábados, con enfoque práctico orientado a la realidad empresarial</li>
+          <li>Aprenderás a gestionar talento, fortalecer equipos y mejorar el clima organizacional</li>
+          <li>El aprendizaje se potencia con la experiencia laboral activa de los estudiantes</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Interés en el trabajo con personas y equipos</li><li>Ya estás laborando actualmente</li><li>Bachillerato concluido</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Gestiona talento y potencia el desempeño en las organizaciones</li><li>Aplica liderazgo, reclutamiento, capacitación y manejo de personal</li><li>Mejora el clima y la cultura organizacional con enfoque estratégico</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Departamentos de RH</li><li>Empresas públicas y privadas</li><li>Reclutamiento y selección</li><li>Capacitación y desarrollo</li><li>Consultoría empresarial</li><li>Gestión de talento</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20Ejecutiva%20en%20Recursos%20Humanos%20en%20Plantel%20Villada%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-vill-prep" data-plantel="villada" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Preparatoria · Incorporada SEP · Acuerdo 10/706 · 3 años</div><div class="prog-nombre">Preparatoria SEP</div><div class="prog-chips"><span class="prog-chip">Mat. 7:00–13:30</span><span class="prog-chip">Inicio: 17 ago 2026</span></div></div>
+      <div class="prog-body">
+        <ul class="prog-list">
+          <li>Tutorías y acompañamiento continuo; inglés los 6 semestres</li>
+          <li>Valida semestres de cualquier sistema educativo previo</li>
+          <li>Turno Matutino: lunes a viernes 7:00–13:30 hrs (semestres 1°, 2°, 3°, 5° y 6°)</li>
+          <li>Turno Vespertino: lunes a viernes 12:00–19:00 hrs (semestres 1°, 3° y 5°)</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Egresados de secundaria</li><li>Alumnos de otras preparatorias</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Certificado SEP con validez nacional</li><li>Preparado para licenciatura</li></ul></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Preparatoria%20SEP%20en%20Plantel%20Villada%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-vill-ingcero" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Curso · Nivel Pre-A1 · Para principiantes absolutos</div><div class="prog-nombre">Inglés desde Cero</div><div class="prog-chips"><span class="prog-chip">Sábados 9:00–14:00</span><span class="prog-chip">Inicio: <span data-date-ingles-cero-vill>15 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🔤 Desde cero · Pre-A1</span><span class="hook-pill">🗣️ Enfoque oral</span><span class="hook-pill">😌 Sin miedo a hablar</span></div>
+        <ul class="prog-list">
+          <li>Para adultos que nunca han tenido contacto con el idioma — el punto de partida real, un paso antes del A1</li>
+          <li>Cómo suena el inglés: alfabeto, vocales y consonantes con pronunciación real</li>
+          <li>Palabras que ya conoces sin saberlo: <em>exit, hotel, taxi, internet, coffee</em></li>
+          <li>Presentarte: nombre, edad y de dónde eres · Saludos: hello, good morning, how are you, goodbye</li>
+          <li>Números del 1 al 100 · Colores, días de la semana y meses del año</li>
+          <li>Frases para sobrevivir: <em>I don't understand, Can you repeat?, How do you say…?</em></li>
+          <li>Entender instrucciones simples habladas y escritas</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 ¿Para quién?</h5><ul><li>Nunca has estudiado inglés y no sabes por dónde empezar</li><li>Te da pena o miedo hablar en otro idioma</li><li>Quieres una base sólida antes de avanzar</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 ¿A dónde te lleva?</h5><ul><li>Al nivel A1 con bases sólidas, sin lagunas</li><li>Listo para continuar hasta nivel avanzado</li><li>Sin miedo a abrir la boca en otro idioma</li></ul></div>
+        </div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>¿Cómo son las clases?</h5><p>Grupos pequeños, mucho enfoque oral y ritmo pausado</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Sábados<br>9:00–14:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20del%20Curso%20de%20Ingl%C3%A9s%20desde%20Cero%20en%20Plantel%20Villada%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-vill-cursos" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head"><div class="prog-tipo">Curso · Metodología CELe UAEMéx · Constancia oficial</div><div class="prog-nombre">Inglés CELe — Todas las edades</div><div class="prog-chips"><span class="prog-chip">Sábados 9:00–14:00</span><span class="prog-chip">Inicio: <span data-date-ingles-vill>15 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">👨‍👩‍👧 Todas las edades</span><span class="hook-pill">📜 Constancia oficial</span><span class="hook-pill">🌍 Metodología UAEMéx</span></div>
+        <ul class="prog-list">
+          <li>5 habilidades: hablar, escribir, escuchar, leer y gramática</li>
+          <li>Constancia de acreditación a partir del 4° nivel (adultos)</li>
+          <li>Examen de ubicación disponible</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 ¿Para quién?</h5><ul><li>Niños desde 6 años</li><li>Adolescentes y adultos</li><li>Cualquier nivel de inglés previo</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Al terminar</h5><ul><li>Comunicación fluida en inglés</li><li>Constancia con validez oficial</li><li>Mayor empleabilidad global</li></ul></div>
+        </div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., constancia estudios, 2 fotos b/n, CURP</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Sábados<br>9:00–14:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20del%20Curso%20de%20Ingl%C3%A9s%20CELe%20en%20Plantel%20Villada%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-vill-ceneval" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Curso · CENEVAL · Acuerdo SEP 286 · Validez nacional</div><div class="prog-nombre">Certificado de Preparatoria CENEVAL</div><div class="prog-chips"><span class="prog-chip">10 sesiones Sáb y Dom</span><span class="prog-chip">Inicio: <span data-date-ceneval>22 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">⚡ Sin dejar de trabajar</span><span class="hook-pill">♾️ Válido hasta pasar</span><span class="hook-pill">🎓 Certificado SEP</span></div>
+        <ul class="prog-list">
+          <li>Acredita tu Bachillerato por examen único — Acuerdo SEP 286</li>
+          <li>Preparación con guías y simulacros en 10 sesiones (sábados y domingos)</li>
+          <li>Repaso de las áreas del examen: español, matemáticas, ciencias y habilidades</li>
+          <li>ISES gestiona tu inscripción: sin trámites propios</li>
+          <li>Tu pago es válido hasta que pases · Sede: Ciudad de México</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 ¿Para quién?</h5><ul><li>Mayores de edad sin certificado de prepa</li><li>Personas que trabajan y no tienen tiempo</li><li>Quieren certificar rápido y a bajo costo</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Al terminar</h5><ul><li>Certificado de Bachillerato SEP con validez nacional</li><li>Acceso a licenciatura o mejor empleo</li><li>Mismo valor oficial que una prepa tradicional</li></ul></div>
+        </div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta de nacimiento, CURP, certificado de secundaria</p></div>
+          <div class="prog-info-block"><h5>Modalidad</h5><p>10 sesiones<br>Sábados y domingos</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20del%20Certificado%20CENEVAL%20de%20Preparatoria%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ════════════════════════════════════ -->
+<!-- BRAVO -->
+<!-- ════════════════════════════════════ -->
+<div id="tab-brav" class="tab-panel">
+<div class="tab-inner">
+
+  <div class="plantel-galeria">
+    <div class="plantel-galeria-label">📸 Galería Plantel Bravo</div>
+    <div class="galeria-mini">
+      <div class="galeria-mini-cell"><img src="fotos/bravo-interior.jpg" alt="Interior Bravo"></div>
+      <div class="galeria-mini-cell"><img src="fotos/bravo-laboratorio.jpg" alt="Laboratorio Bravo"></div>
+      <div class="galeria-mini-cell"><img src="fotos/bravo-computo.jpg" alt="Aula Cómputo Bravo"></div>
+    </div>
+  </div>
+
+  <div class="subtabs-row">
+    <button class="subtab-btn active" onclick="showSub('brav','pos',this)">Posgrado</button>
+    <button class="subtab-btn" onclick="showSub('brav','prep',this)">Preparatoria SEP</button>
+    <button class="subtab-btn" onclick="showSub('brav','abierta',this)">Prep. Abierta</button>
+    <button class="subtab-btn" onclick="showSub('brav','prof',this)">Preescolar</button>
+  </div>
+
+  <div id="sub-brav-pos" class="subtab-panel active">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Posgrado · Virtual · RVOE SEP 20130146</div><div class="prog-nombre">Maestría en Docencia en Educación Media Superior</div><div class="prog-chips"><span class="prog-chip">22 meses</span><span class="prog-chip">100% Flexible</span><span class="prog-chip">Inicio: <span data-date-maestria>21 sep 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🖥️ 100% Virtual</span><span class="hook-pill">📜 Incluye titulación</span><span class="hook-pill">🎓 Cédula SEP</span></div>
+        <ul class="prog-list">
+          <li>Para profesionistas de cualquier disciplina que quieran enseñar en bachillerato</li>
+          <li>Horarios 100% flexibles; asesoría semanal en tiempo real con el docente</li>
+          <li>Habilidades: investigación, enseñanza-aprendizaje, diseño curricular</li>
+          <li>Profesores con Maestría o Doctorado; grupos reducidos</li>
+          <li>Titulación por tesis, tesina o artículo indexado — <strong>incluye titulación</strong></li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Licenciatura concluida (cualquier área)</li><li>Interés en la docencia</li><li>Acceso a internet y computadora</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Grado de Maestría con cédula SEP</li><li>Diseña y evalúa planes de estudio</li><li>Acceso al Sistema Nacional de Bachillerato</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Preparatorias y bachilleratos</li><li>Instituciones educativas y centros de capacitación</li><li>Coordinación académica</li><li>Educación en línea</li><li>Asesoría y diseño de programas</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Maestr%C3%ADa%20en%20Docencia%20desde%20Plantel%20Bravo%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-brav-prep" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Preparatoria · Incorporada SEP · Acuerdo 05/0278 · 3 años</div><div class="prog-nombre">Preparatoria SEP</div><div class="prog-chips"><span class="prog-chip">Mat. 7:20–14:40</span><span class="prog-chip">Vesp. disponible</span><span class="prog-chip">Inicio: <span data-date-prep-sep-bravo>17 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <ul class="prog-list"><li>Tutorías e inglés los 6 semestres</li><li>Valida semestres de cualquier sistema educativo previo</li><li>Turno Matutino: lunes a viernes 7:20–14:40 hrs (semestres 1°, 3°, 4° y 5°)</li><li>Horario matutino y vespertino disponibles</li></ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Egresados de secundaria o alumnos de otras prepas</li><li>Disponibilidad matutina o vespertina</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Certificado SEP con validez nacional</li><li>Inglés cursado 6 semestres</li></ul></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Preparatoria%20SEP%20en%20Plantel%20Bravo%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-brav-abierta" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head"><div class="prog-tipo">Preparatoria Abierta · SEP federal · Convenio PO1109-118 · ~1 año 8 meses</div><div class="prog-nombre">Preparatoria Abierta</div><div class="prog-chips"><span class="prog-chip">Turno Sabatino · Sáb 8:00–16:00</span><span class="prog-chip">Sin límite de edad</span><span class="prog-chip">Inicio: <span data-date-prep-abierta>29 ago 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">♾️ Sin límite de edad</span><span class="hook-pill">⏩ Tu ritmo</span><span class="hook-pill">📋 ISES hace los trámites</span></div>
+        <ul class="prog-list">
+          <li>Tú decides el ritmo y el orden de las asignaturas</li>
+          <li>Certificado SEP con validez en todo el país</li>
+          <li>Se imparte clase, no solo asesoría</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 ¿Para quién?</h5><ul><li>Adultos que dejaron la prepa</li><li>Personas que trabajan lunes a viernes</li><li>Sin límite de edad</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Al terminar</h5><ul><li>Certificado de Bachillerato SEP oficial</li><li>Acceso a cualquier licenciatura</li></ul></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Preparatoria%20Abierta%20en%20Plantel%20Bravo%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-brav-prof" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Profesional Medio · SEP Acuerdo 21012000000000L/021/2019 · 2 años · Obtiene Título</div><div class="prog-nombre">Educación Preescolar</div><div class="prog-chips"><span class="prog-chip">Lun–Vie 9:00–12:30</span><span class="prog-chip">Inicio: <span data-date-preescolar>7 sep 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">👶 Niños 0–6 años</span><span class="hook-pill">📜 Título oficial</span><span class="hook-pill">⏱ Solo 2 años</span></div>
+        <ul class="prog-list"><li>Competencias para preescolar y guardería — niños de 0 a 6 años</li><li>Al terminar obtienes Título oficial (Tesis y Examen Recepcional)</li></ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Secundaria concluida (no requiere bachillerato)</li><li>Vocación de servicio e interés en desarrollo infantil</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Atiende y estimula a niños de 0–6 años</li><li>Trabaja en guarderías, kinders y CDI</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Guarderías IMSS/ISSSTE</li><li>Kinders privados</li><li>CDI</li><li>Atención particular</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20Educaci%C3%B3n%20Preescolar%20en%20Plantel%20Bravo%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ════════════════════════════════════ -->
+<!-- SANTIAGO -->
+<!-- ════════════════════════════════════ -->
+<div id="tab-sant" class="tab-panel">
+<div class="tab-inner">
+
+  <div class="plantel-galeria">
+    <div class="plantel-galeria-label">📸 Galería Plantel Santiago</div>
+    <div class="galeria-mini">
+      <div class="galeria-mini-cell"><img src="fotos/santiago-entrada.jpg" alt="Entrada Santiago"></div>
+      <div class="galeria-mini-cell"><img src="fotos/santiago-computadora.jpg" alt="Aula Informática Santiago"></div>
+    </div>
+  </div>
+
+  <div class="subtabs-row">
+    <button class="subtab-btn active" onclick="showSub('sant','pos',this)">Posgrado</button>
+    <button class="subtab-btn" onclick="showSub('sant','prep',this)">Preparatoria SEP</button>
+  </div>
+
+  <div id="sub-sant-pos" class="subtab-panel active">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Posgrado · Virtual · RVOE SEP 20130146</div><div class="prog-nombre">Maestría en Docencia en Educación Media Superior</div><div class="prog-chips"><span class="prog-chip">22 meses</span><span class="prog-chip">100% Flexible</span><span class="prog-chip">Inicio: <span data-date-maestria>21 sep 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🖥️ 100% Virtual</span><span class="hook-pill">📜 Incluye titulación</span><span class="hook-pill">🎓 Cédula SEP</span></div>
+        <ul class="prog-list">
+          <li>Para profesionistas de cualquier disciplina que quieran enseñar en bachillerato</li>
+          <li>Horarios 100% flexibles; asesoría semanal en tiempo real con el docente</li>
+          <li>Habilidades: investigación, enseñanza-aprendizaje, diseño curricular</li>
+          <li>Profesores con Maestría o Doctorado; grupos reducidos</li>
+          <li>Titulación por tesis, tesina o artículo indexado — <strong>incluye titulación</strong></li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Licenciatura concluida (cualquier área)</li><li>Interés en la docencia</li><li>Acceso a internet y computadora</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Grado de Maestría con cédula SEP</li><li>Diseña y evalúa planes de estudio</li><li>Acceso al Sistema Nacional de Bachillerato</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Preparatorias y bachilleratos</li><li>Instituciones educativas y centros de capacitación</li><li>Coordinación académica</li><li>Educación en línea</li><li>Asesoría y diseño de programas</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Maestr%C3%ADa%20en%20Docencia%20desde%20Plantel%20Santiago%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-sant-prep" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Preparatoria · Incorporada SEP · Acuerdo 05/0285 · 3 años</div><div class="prog-nombre">Preparatoria SEP</div><div class="prog-chips"><span class="prog-chip">Ingresos ago y feb</span><span class="prog-chip">Inicio: 17 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🏅 Validez oficial SEP</span><span class="hook-pill">👥 Grupos pequeños</span><span class="hook-pill">🤝 Atención personalizada</span></div>
+        <ul class="prog-list">
+          <li>Certificado con validez oficial reconocido en todo el país</li>
+          <li>Ingresos en agosto y febrero</li>
+          <li>Metodología basada en resolución de problemas</li>
+          <li>Formación académica y herramientas para la vida</li>
+          <li>Grupos pequeños, acompañamiento académico y personal</li>
+          <li>Enfoque en que el alumno sí termine la prepa</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Egresados de secundaria</li><li>Alumnos de otras preparatorias</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Certificado SEP con validez nacional</li><li>Preparado para licenciatura</li></ul></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Preparatoria%20SEP%20en%20Plantel%20Santiago%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ════════════════════════════════════ -->
+<!-- IXTLAHUACA -->
+<!-- ════════════════════════════════════ -->
+<div id="tab-ixtl" class="tab-panel">
+<div class="tab-inner">
+
+  <div class="plantel-galeria">
+    <div class="plantel-galeria-label">📸 Galería Plantel Ixtlahuaca</div>
+    <div class="galeria-mini">
+      <div class="galeria-mini-cell"><img src="fotos/ixtlahuaca-salon.jpg" alt="Salones Ixtlahuaca"></div>
+      <div class="galeria-mini-cell"><img src="fotos/ixtlahuaca-laboratorio.jpg" alt="Laboratorio Ixtlahuaca"></div>
+    </div>
+  </div>
+
+  <div class="subtabs-row">
+    <button class="subtab-btn active" onclick="showSub('ixtl','pos',this)">Posgrado</button>
+    <button class="subtab-btn" onclick="showSub('ixtl','lic',this)">Licenciaturas</button>
+    <button class="subtab-btn" onclick="showSub('ixtl','ejec',this)">Ejecutivas</button>
+    <button class="subtab-btn" onclick="showSub('ixtl','prep',this)">Preparatoria</button>
+  </div>
+
+  <div id="sub-ixtl-pos" class="subtab-panel active">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Posgrado · Virtual · RVOE SEP 20130146</div><div class="prog-nombre">Maestría en Docencia en Educación Media Superior</div><div class="prog-chips"><span class="prog-chip">22 meses</span><span class="prog-chip">100% Flexible</span><span class="prog-chip">Inicio: <span data-date-maestria>21 sep 2026</span></span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🖥️ 100% Virtual</span><span class="hook-pill">📜 Incluye titulación</span><span class="hook-pill">🎓 Cédula SEP</span></div>
+        <ul class="prog-list">
+          <li>Para profesionistas de cualquier disciplina que quieran enseñar en bachillerato</li>
+          <li>Horarios 100% flexibles; asesoría semanal en tiempo real con el docente</li>
+          <li>Habilidades: investigación, enseñanza-aprendizaje, diseño curricular</li>
+          <li>Profesores con Maestría o Doctorado; grupos reducidos</li>
+          <li>Titulación por tesis, tesina o artículo indexado — <strong>incluye titulación</strong></li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Licenciatura concluida (cualquier área)</li><li>Interés en la docencia</li><li>Acceso a internet y computadora</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Grado de Maestría con cédula SEP</li><li>Diseña y evalúa planes de estudio</li><li>Acceso al Sistema Nacional de Bachillerato</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Preparatorias y bachilleratos</li><li>Instituciones educativas y centros de capacitación</li><li>Coordinación académica</li><li>Educación en línea</li><li>Asesoría y diseño de programas</li></ul></div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Maestr%C3%ADa%20en%20Docencia%20desde%20Plantel%20Ixtlahuaca%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-ixtl-lic" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Licenciatura Escolarizada · 4 años · RVOE SEP-20121416</div><div class="prog-nombre">Psicología con Orientación Clínica</div><div class="prog-chips"><span class="prog-chip">Lun–Vie 7:00–15:00</span><span class="prog-chip">Inicio: 10 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🧠 Carrera versátil</span><span class="hook-pill">🏥 Prácticas desde 2° sem.</span><span class="hook-pill">🤝 Consultorio propio</span></div>
+        <ul class="prog-list">
+          <li>Forma para evaluar, diagnosticar y brindar acompañamiento psicológico</li>
+          <li>Prácticas profesionales desde 2° semestre, una por semestre</li>
+          <li>2° guardería/preescolar · 3° secundaria · 4° asilo · 5° empresa</li>
+          <li>6° primaria · 7° clínica · 8° servicio social</li>
+          <li>Titulación: Ceneval o Tesis</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Interés en el comportamiento humano</li><li>Empatía y comunicación asertiva</li><li>Bachillerato concluido</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Evalúa, diagnostica e interviene clínicamente</li><li>Aplica la psicología en distintos contextos</li><li>Puede abrir consultorio propio</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Consultorio privado</li><li>Clínicas y hospitales</li><li>Escuelas</li><li>Instituciones públicas y privadas</li><li>Centros de atención psicológica</li><li>Apoyo social y comunitario</li></ul></div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., Cert. Bachillerato, Cert. Secundaria, 4 fotos b/n, CURP</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Lun–Vie<br>7:00–15:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20en%20Psicolog%C3%ADa%20en%20Plantel%20Ixtlahuaca%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Licenciatura Escolarizada · 4 años · RVOE SEEMEX-205200000/416/2011</div><div class="prog-nombre">Pedagogía</div><div class="prog-chips"><span class="prog-chip">Lun–Vie 7:00–15:00</span><span class="prog-chip">Inicio: 10 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">📚 Alta empleabilidad</span><span class="hook-pill">🏫 Prácticas todos los semestres</span><span class="hook-pill">📋 Diseño curricular</span></div>
+        <ul class="prog-list">
+          <li>Prepara para diseñar, implementar y mejorar procesos educativos</li>
+          <li>Prácticas profesionales todos los semestres</li>
+          <li>2° lactantes/maternal · 3° preescolar/estancias · 4° primaria · 5° secundaria</li>
+          <li>6° nivel medio superior · 7° DIF, USAER o clínica · 8° servicio social</li>
+          <li>Titulación: Ceneval o Tesis</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Vocación por la enseñanza</li><li>Interés en diseño de programas educativos</li><li>Bachillerato concluido</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Diseña, implementa y evalúa planes de estudio</li><li>Dirige programas y proyectos educativos</li><li>Capacita en empresas e instituciones</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Escuelas e instituciones educativas</li><li>Coordinación y dirección académica</li><li>Capacitación empresarial</li><li>Diseño de programas educativos</li><li>Consultoría pedagógica</li><li>Proyectos educativos y sociales</li></ul></div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., Cert. Bachillerato, Cert. Secundaria, 4 fotos b/n, CURP</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Lun–Vie<br>7:00–15:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20en%20Pedagog%C3%ADa%20en%20Plantel%20Ixtlahuaca%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Licenciatura Escolarizada · 4 años · RVOE SECTI-2052A0000/167/2016</div><div class="prog-nombre">Derecho</div><div class="prog-chips"><span class="prog-chip">Lun–Vie 7:00–15:00</span><span class="prog-chip">Beca 18%</span><span class="prog-chip">Inicio: 10 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">⚖️ Beca 18%</span><span class="hook-pill">🏛️ Juicios orales</span><span class="hook-pill">📑 Prácticas 5°–7°</span></div>
+        <ul class="prog-list">
+          <li>Forma profesionales capaces de interpretar y aplicar las leyes</li>
+          <li>Prácticas a partir de 5°, 6° y 7° semestre; servicio social en 8°</li>
+          <li>Derecho civil, penal, mercantil, laboral, constitucional y derechos humanos</li>
+          <li>Juicios orales, técnicas de litigación, contratos y asesoría jurídica</li>
+          <li>Mediación, derecho fiscal y administrativo, argumentación legal</li>
+          <li>Beca del 18% durante la carrera</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Interés en la justicia y las leyes</li><li>Habilidad argumentativa y de análisis</li><li>Bachillerato concluido</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Interpreta y aplica el marco jurídico</li><li>Litiga, asesora y elabora contratos</li><li>Media y resuelve conflictos</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Despachos y notarías</li><li>Empresas y corporativos</li><li>Dependencias gubernamentales</li><li>Tribunales y juzgados</li><li>Fiscalías y organismos públicos</li><li>Derechos humanos</li><li>Consultoría jurídica independiente</li></ul></div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., Cert. Bachillerato, Cert. Secundaria, 4 fotos b/n, CURP</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Lun–Vie<br>7:00–15:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20en%20Derecho%20en%20Plantel%20Ixtlahuaca%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-ixtl-ejec" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Licenciatura Ejecutiva · Sabatina · 38 meses · RVOE SEP-20121415</div><div class="prog-nombre">Recursos Humanos</div><div class="prog-chips"><span class="prog-chip">Sábados 8:00–18:00</span><span class="prog-chip">Inicio: 29 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">💼 Solo sábados</span><span class="hook-pill">⏱ 38 meses</span><span class="hook-pill">✅ Prácticas con tu empleo</span></div>
+        <ul class="prog-list">
+          <li>Para personas que ya trabajan y buscan crecer en el área organizacional</li>
+          <li>Reclutamiento y selección de personal</li>
+          <li>Desarrollo, capacitación y evaluación del desempeño</li>
+          <li>Clima y cultura organizacional; liderazgo y manejo de personal</li>
+          <li>Legislación laboral básica · Reinscripción cada 6 meses</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Personas que trabajan y quieren titularse</li><li>Bachillerato concluido; mayores de 18 años</li><li>Constancia laboral (1 año para presentarla)</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Título oficial con cédula profesional</li><li>Gestiona talento y cultura organizacional</li><li>Titulación: Ceneval, Memoria o Tesis</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Departamentos de RRHH</li><li>Empresas públicas y privadas</li><li>Reclutamiento y selección</li><li>Capacitación y desarrollo</li><li>Consultoría empresarial</li><li>Gestión de talento</li></ul></div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., 2 CURP, Cert. bachillerato, 4 fotos b/n, constancia laboral</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Sábados<br>8:00–18:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20Ejecutiva%20en%20Recursos%20Humanos%20en%20Plantel%20Ixtlahuaca%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Licenciatura Ejecutiva · Sabatina · 38 meses · RVOE SEP-20190483</div><div class="prog-nombre">Administración</div><div class="prog-chips"><span class="prog-chip">Sábados 8:00–18:00</span><span class="prog-chip">Inicio: 29 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">💼 Solo sábados</span><span class="hook-pill">⏱ 38 meses</span><span class="hook-pill">🚀 Emprendimiento</span></div>
+        <ul class="prog-list">
+          <li>Para personas que ya trabajan y buscan dirigir y hacer crecer negocios</li>
+          <li>Administración y organización de empresas</li>
+          <li>Finanzas básicas y toma de decisiones</li>
+          <li>Liderazgo, planeación estratégica y manejo de equipos</li>
+          <li>Emprendimiento, innovación y mejora de procesos · Reinscripción cada 6 meses</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Personas que trabajan y quieren titularse</li><li>Bachillerato concluido; mayores de 18 años</li><li>Constancia laboral (1 año para presentarla)</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Título oficial con cédula profesional</li><li>Dirige, organiza y hace crecer negocios</li><li>Titulación: Ceneval, Memoria o Tesis</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Empresas públicas y privadas</li><li>Áreas administrativas y operativas</li><li>Emprendimiento y negocios propios</li><li>Gestión de proyectos</li><li>Consultoría empresarial</li><li>Dirección de equipos</li></ul></div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., 2 CURP, Cert. bachillerato, 4 fotos b/n, constancia laboral</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Sábados<br>8:00–18:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20Ejecutiva%20en%20Administraci%C3%B3n%20en%20Plantel%20Ixtlahuaca%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-head naranja"><div class="prog-tipo">Licenciatura Ejecutiva · Sabatina · 38 meses · RVOE SEP-2018086</div><div class="prog-nombre">Contaduría</div><div class="prog-chips"><span class="prog-chip">Sábados 8:00–18:00</span><span class="prog-chip">Inicio: 29 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">💼 Solo sábados</span><span class="hook-pill">⏱ 38 meses</span><span class="hook-pill">🧾 Despacho propio</span></div>
+        <ul class="prog-list">
+          <li>Para personas que ya trabajan y buscan desarrollarse en lo contable y financiero</li>
+          <li>Contabilidad financiera e impuestos</li>
+          <li>Obligaciones fiscales y auditoría</li>
+          <li>Análisis financiero, costos y presupuestos</li>
+          <li>Legislación contable · Reinscripción cada 6 meses</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Personas que trabajan y quieren titularse</li><li>Bachillerato concluido; mayores de 18 años</li><li>Constancia laboral (1 año para presentarla)</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Título oficial con cédula profesional</li><li>Maneja contabilidad, impuestos y auditoría</li><li>Titulación: Ceneval, Memoria o Tesis</li></ul></div>
+        </div>
+        <div class="campo-laboral"><h5>🗂 Campo laboral</h5><ul><li>Despachos contables</li><li>Empresas públicas y privadas</li><li>Áreas de contabilidad y finanzas</li><li>Auditoría</li><li>Consultoría financiera y fiscal</li><li>Servicios contables propios</li></ul></div>
+        <div class="prog-info-grid">
+          <div class="prog-info-block"><h5>Requisitos</h5><p>Acta cert., 2 CURP, Cert. bachillerato, 4 fotos b/n, constancia laboral</p></div>
+          <div class="prog-info-block"><h5>Horario</h5><p>Sábados<br>8:00–18:00 hrs</p></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Licenciatura%20Ejecutiva%20en%20Contadur%C3%ADa%20en%20Plantel%20Ixtlahuaca%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-ixtl-prep" class="subtab-panel">
+    <div class="prog-card">
+      <div class="prog-head verde"><div class="prog-tipo">Preparatoria · Incorporada SEP · Acuerdo 05/0277 · 3 años</div><div class="prog-nombre">Preparatoria SEP</div><div class="prog-chips"><span class="prog-chip">Ingresos ago y feb</span><span class="prog-chip">Inicio: 17 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">🏅 Validez oficial SEP</span><span class="hook-pill">👥 Grupos pequeños</span><span class="hook-pill">🤝 Atención personalizada</span></div>
+        <ul class="prog-list">
+          <li>Certificado con validez oficial reconocido en todo el país</li>
+          <li>Ingresos en agosto y febrero</li>
+          <li>Metodología basada en resolución de problemas</li>
+          <li>Formación académica y herramientas para la vida</li>
+          <li>Grupos pequeños, acompañamiento académico y personal</li>
+          <li>Enfoque en que el alumno sí termine la prepa</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 Perfil de Ingreso</h5><ul><li>Egresados de secundaria</li><li>Alumnos de otras preparatorias</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Perfil de Egreso</h5><ul><li>Certificado SEP con validez nacional</li><li>Preparado para licenciatura</li></ul></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Preparatoria%20SEP%20en%20Plantel%20Ixtlahuaca%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-head"><div class="prog-tipo">Preparatoria Abierta · SEP federal · Convenio PO1109-118 · ~1 año 8 meses</div><div class="prog-nombre">Preparatoria Abierta</div><div class="prog-chips"><span class="prog-chip">Turno Sabatino · Sáb 8:00–16:00</span><span class="prog-chip">Inicio: 29 ago 2026</span></div></div>
+      <div class="prog-body">
+        <div class="prog-hooks"><span class="hook-pill">♾️ Sin límite de edad</span><span class="hook-pill">⏩ Tu ritmo</span><span class="hook-pill">📋 ISES hace los trámites</span></div>
+        <ul class="prog-list">
+          <li>Sin límite de edad y sin tiempos fijos para concluir</li>
+          <li>El estudio se realiza al propio ritmo del alumno</li>
+          <li>Certificado emitido por la SEP con validez oficial en todo el país</li>
+          <li>ISES realiza todos los trámites administrativos sin costo</li>
+        </ul>
+        <div class="prog-perfiles">
+          <div class="perfil-block ingreso"><h5>📥 ¿Para quién?</h5><ul><li>Adultos que dejaron la prepa</li><li>Personas que trabajan entre semana</li><li>Sin límite de edad</li></ul></div>
+          <div class="perfil-block egreso"><h5>🎓 Al terminar</h5><ul><li>Certificado de Bachillerato SEP oficial</li><li>Acceso a cualquier licenciatura</li></ul></div>
+        </div>
+        <div class="prog-cta"><a href="https://wa.me/527226753239?text=Hola%2C%20me%20regalas%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20la%20Preparatoria%20Abierta%20en%20Plantel%20Ixtlahuaca%2C%20ya%20revis%C3%A9%20la%20p%C3%A1gina." target="_blank" rel="noopener">💬 Solicitar información por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ISELA BANNER -->
+<div style="max-width:520px;margin:0 auto;padding:0 20px 48px;">
+  <a href="isela.html" style="display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#1e0a3c,#1a3a6b);border-radius:var(--radio);padding:18px 20px;text-decoration:none;">
+    <span style="font-size:28px;">🤖</span>
+    <div><div style="font-size:14px;font-weight:900;color:#fff;margin-bottom:2px;">¿No sabes qué programa es para ti?</div><div style="font-size:12px;color:rgba(255,255,255,0.7);">Habla con ISELA — nuestra IA de orientación vocacional. Gratis y en minutos.</div></div>
+    <span style="margin-left:auto;background:linear-gradient(135deg,#7c3aed,#2563a8);color:#fff;font-size:12px;font-weight:800;padding:8px 14px;border-radius:999px;white-space:nowrap;">Hablar →</span>
+  </a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="logo-ises.png" alt="ISES"><div class="footer-logo-text">ISES Toluca <span>Donde sí se es</span></div></div>
+    <div class="footer-isela"><div class="footer-isela-icon">🤖</div><div class="footer-isela-text"><strong>¿No sabes qué estudiar? Habla con ISELA</strong>Nuestra IA te orienta según tu perfil.</div><a href="isela.html">Probar →</a></div>
+    <div class="footer-nav">
+      <a href="index.html">Inicio</a><a href="nosotros.html">Quiénes somos</a>
+      <a href="planteles.html">Planteles</a><a href="faq.html">FAQ</a>
+      <a href="contacto.html">Contacto</a><a href="isela.html">ISELA IA</a>
+    </div>
+    <div class="footer-copy">© 2026 <strong>ISES Toluca</strong> · Todos los derechos reservados. <span style="margin-left:12px; opacity:0.5;">|</span> <a href="#" onclick="document.getElementById('adminModal').style.display='flex'; return false;" style="margin-left:12px; font-size:12px; opacity:0.6; text-decoration:none; cursor:pointer; font-weight:600;">⚙️ Admin</a></div>
+  </div>
+</footer>
+
+<!-- Modal Admin -->
+<div id="adminModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:white; border-radius:12px; padding:40px; max-width:400px; width:90%; box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+    <h2 style="margin:0 0 20px 0; font-size:20px; font-weight:900; text-align:center;">Panel de Administración</h2>
+    <p style="margin:0 0 24px 0; font-size:13px; color:#666; text-align:center;">Ingresa la contraseña para acceder</p>
+    <input id="adminPassword" type="password" placeholder="Contraseña" style="width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:6px; font-size:14px; box-sizing:border-box; margin-bottom:16px;">
+    <button onclick="checkAdminPassword()" style="width:100%; padding:12px; background:#2a6fdb; color:white; border:none; border-radius:6px; font-size:14px; font-weight:800; cursor:pointer; margin-bottom:8px;">Acceder</button>
+    <button onclick="document.getElementById('adminModal').style.display='none'" style="width:100%; padding:12px; background:#f0f4f0; color:#2a2a2a; border:none; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer;">Cerrar</button>
+  </div>
+</div>
+
+<script>
+function checkAdminPassword() {
+  const password = document.getElementById('adminPassword').value;
+  // Contraseña: 'ises2026'
+  if (password === 'ises2026') {
+    sessionStorage.setItem('adminAuth', 'true');
+    window.location.href = 'admin.html';
+  } else {
+    alert('Contraseña incorrecta');
+    document.getElementById('adminPassword').value = '';
+  }
+}
+document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') checkAdminPassword();
+});
+</script>
+
+<div class="fab-group">
+  <div class="fab-wrap"><span class="fab-label">WhatsApp</span><a href="https://wa.me/527226753239" target="_blank" rel="noopener" class="fab fab-wa">💬</a></div>
+  <div class="fab-wrap"><span class="fab-label">Llamar</span><a href="tel:7222721215" class="fab fab-sm fab-call">📞</a></div>
+</div>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navDrawer = document.getElementById('navDrawer');
+menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); navDrawer.classList.toggle('open'); });
+function closeMenu() { menuBtn.classList.remove('open'); navDrawer.classList.remove('open'); }
+document.addEventListener('click', e => { if (!menuBtn.contains(e.target) && !navDrawer.contains(e.target)) closeMenu(); });
+
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#plantelTabs .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function showSub(prefix, id, btn) {
+  const panel = document.getElementById('tab-' + prefix);
+  panel.querySelectorAll('.subtab-panel').forEach(p => p.classList.remove('active'));
+  panel.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sub-' + prefix + '-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ════════════════════════════════════════════════════════════════
+// SISTEMA DE FECHAS DINÁMICAS
+// ════════════════════════════════════════════════════════════════
+function updateDateInElement(selector, progId) {
+  const elements = document.querySelectorAll(selector);
+  elements.forEach(el => {
+    const date = adminDates.getDate(progId);
+    if (date) {
+      el.textContent = date;
+    }
+  });
+}
+
+function initDynamicDates() {
+  // Maquinita
+  updateDateInElement('[data-date-maestria]', 'maestria-docencia');
+  updateDateInElement('[data-date-admin]', 'admin-empresas');
+  updateDateInElement('[data-date-contaduria]', 'contaduria');
+  updateDateInElement('[data-date-ejec-admin]', 'ejecutivas-admin');
+  updateDateInElement('[data-date-ejec-derecho]', 'ejecutivas-derecho');
+  updateDateInElement('[data-date-prep-uaemex]', 'preparatoria-uaemex');
+  updateDateInElement('[data-date-ingles]', 'ingles-cele');
+  updateDateInElement('[data-date-ingles-cero]', 'ingles-cero');
+  
+  // Villada
+  updateDateInElement('[data-date-psico]', 'psicologia');
+  updateDateInElement('[data-date-peda]', 'pedagogia');
+  updateDateInElement('[data-date-ejec-psico]', 'ejecutivas-psico');
+  updateDateInElement('[data-date-ejec-peda]', 'ejecutivas-peda');
+  updateDateInElement('[data-date-ejec-rrhh]', 'ejecutivas-rrhh');
+  updateDateInElement('[data-date-prep-sep-vill]', 'preparatoria-sep-vill');
+  updateDateInElement('[data-date-ingles-vill]', 'ingles-cele-vill');
+  updateDateInElement('[data-date-ingles-cero-vill]', 'ingles-cero-vill');
+  updateDateInElement('[data-date-ceneval]', 'ceneval');
+  
+  // Bravo
+  updateDateInElement('[data-date-prep-sep-bravo]', 'preparatoria-sep-bravo');
+  updateDateInElement('[data-date-prep-abierta]', 'preparatoria-abierta');
+  updateDateInElement('[data-date-preescolar]', 'educacion-preescolar');
+}
+
+// Escuchar cambios desde el admin
+window.addEventListener('datesUpdated', () => {
+  initDynamicDates();
+});
+
+window.addEventListener('load', () => {
+  // Inicializar fechas dinámicas
+  initDynamicDates();
+
+  const hash = window.location.hash;
+  const map = { '#licenciaturas':'maq', '#ejecutivas':'maq', '#posgrado':'maq', '#preparatoria':'maq' };
+  if (map[hash]) {
+    const tabs = ['maq','vill','brav','sant','ixtl'];
+    const idx = tabs.indexOf(map[hash]);
+    if (idx >= 0) showTab(map[hash], document.querySelectorAll('#plantelTabs .tab-btn')[idx]);
+  }
+});
+</script>
+</body>
+</html>

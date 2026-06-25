@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Administración — ISES Toluca</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  body {
+    background: #f5f7f6;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  #loginScreen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #1e3a5f, #2d5a8c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+  }
+
+  #loginScreen.hidden {
+    display: none;
+  }
+
+  .login-box {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    text-align: center;
+  }
+
+  .login-box h1 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 900;
+  }
+
+  .login-box p {
+    margin: 0 0 32px 0;
+    font-size: 13px;
+    color: #666;
+  }
+
+  .login-box input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    font-family: inherit;
+  }
+
+  .login-box button {
+    width: 100%;
+    padding: 12px;
+    background: var(--azul, #2a6fdb);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-bottom: 8px;
+  }
+
+  .login-box button:hover {
+    background: #1e5ac7;
+  }
+
+  .login-box a {
+    display: block;
+    margin: 20px 0 0 0;
+    font-size: 12px;
+    color: #2a6fdb;
+    text-decoration: none;
+  }
+
+  .admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .admin-header {
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, #1e3a5f, #2d5a8c);
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .admin-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 900;
+  }
+
+  .btn-logout {
+    padding: 10px 20px;
+    background: #f0f4f0;
+    color: #2a2a2a;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .btn-logout:hover {
+    background: #e0e4e0;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .tab-btn {
+    padding: 14px 20px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 14px;
+    font-weight: 800;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tab-btn:hover {
+    color: #2a2a2a;
+  }
+
+  .tab-btn.active {
+    color: var(--azul, #2a6fdb);
+    border-bottom-color: var(--azul, #2a6fdb);
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* ─── NOTICIAS ─── */
+  .noticias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .noticia-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 2px solid #f0f4f0;
+  }
+
+  .noticia-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: #2a2a2a;
+    word-break: break-word;
+  }
+
+  .noticia-card p {
+    margin: 0 0 12px 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .noticia-fecha {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 12px;
+  }
+
+  .noticia-btns {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-edit, .btn-delete {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .btn-edit {
+    background: var(--azul, #2a6fdb);
+    color: white;
+  }
+
+  .btn-edit:hover {
+    background: #1e5ac7;
+  }
+
+  .btn-delete {
+    background: #f0f4f0;
+    color: #2a2a2a;
+  }
+
+  .btn-delete:hover {
+    background: #e0e4e0;
+  }
+
+  .form-noticia {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 32px;
+  }
+
+  .form-noticia h2 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 900;
+    color: #2a2a2a;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2a2a2a;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--azul, #2a6fdb);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .form-btns {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn-submit {
+    flex: 1;
+    padding: 12px;
+    background: var(--verde, #1f8a5b);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .btn-submit:hover {
+    background: #186849;
+  }
+
+  .btn-cancel {
+    flex: 1;
+    padding: 12px;
+    background: #f0f4f0;
+    color: #2a2a2a;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .btn-cancel:hover {
+    background: #e0e4e0;
+  }
+
+  .status-message {
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  .status-message.show {
+    display: block;
+  }
+
+  .status-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  /* ─── FECHAS ─── */
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 24px;
+  }
+
+  .admin-section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .admin-section h2 {
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 20px 0;
+    color: var(--gris-dark, #2a2a2a);
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f4f0;
+  }
+
+  .date-row {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .date-row:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .date-row label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2a2a2a;
+    margin-bottom: 6px;
+  }
+
+  .date-inputs {
+    display: flex;
+    gap: 8px;
+  }
+
+  .date-inputs input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+
+  .date-inputs input:focus {
+    outline: none;
+    border-color: var(--azul, #2a6fdb);
+  }
+
+  .date-inputs select {
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .date-inputs select:focus {
+    outline: none;
+    border-color: var(--azul, #2a6fdb);
+  }
+
+  .btn-save-section {
+    width: 100%;
+    padding: 12px;
+    background: var(--verde, #1f8a5b);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 12px;
+  }
+
+  .btn-save-section:hover {
+    background: #186849;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px rgba(31, 138, 91, 0.3);
+  }
+
+  .instructions {
+    background: #f9f9f9;
+    border-left: 4px solid var(--azul, #2a6fdb);
+    padding: 16px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .admin-grid {
+      grid-template-columns: 1fr;
+    }
+    .admin-header {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+    .tabs {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+</head>
+<body class="page-body">
+
+<!-- PANTALLA DE LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div style="font-size: 48px; margin-bottom: 16px;">🔐</div>
+    <h1>Panel de Administración</h1>
+    <p>Ingresa la contraseña para continuar</p>
+    <input id="adminPasswordLogin" type="password" placeholder="Contraseña">
+    <button onclick="verifyAdminPassword()">Acceder</button>
+    <a href="index.html">← Volver al inicio</a>
+  </div>
+</div>
+
+<!-- CONTENIDO DEL ADMIN -->
+<div id="adminContent" style="display: none;">
+
+<div class="admin-container">
+  <div class="admin-header">
+    <h1>⚙️ Panel de Administración</h1>
+    <button class="btn-logout" onclick="logoutAdmin()">Cerrar sesión</button>
+  </div>
+
+  <!-- PESTAÑAS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('noticias')">📰 Noticias</button>
+    <button class="tab-btn" onclick="switchTab('fechas')">📅 Fechas de Inicio</button>
+  </div>
+
+  <!-- TAB: NOTICIAS -->
+  <div id="tab-noticias" class="tab-content active">
+    <div class="instructions">
+      <strong>📰 Gestiona las noticias de la web</strong><br>
+      Crea, edita o elimina noticias. Aparecerán en la página de noticias automáticamente.
+    </div>
+
+    <div id="status-noticias" class="status-message"></div>
+
+    <!-- FORMULARIO NUEVA NOTICIA -->
+    <div class="form-noticia">
+      <h2>✍️ Nueva noticia</h2>
+      <div class="form-group">
+        <label>Emoji (opcional)</label>
+        <input type="text" id="noticia-emoji" placeholder="Ej: 🎉 📢 📚" maxlength="5">
+      </div>
+      <div class="form-group">
+        <label>Título</label>
+        <input type="text" id="noticia-titulo" placeholder="Ej: Se abren inscripciones a licenciatura en Psicología">
+      </div>
+      <div class="form-group">
+        <label>Etiqueta</label>
+        <select id="noticia-etiqueta">
+          <option value="">Selecciona una etiqueta</option>
+          <option value="Inscripciones">Inscripciones</option>
+          <option value="Eventos">Eventos</option>
+          <option value="Noticias">Noticias</option>
+          <option value="Becas">Becas</option>
+          <option value="Programas">Programas</option>
+          <option value="Promoción activa">Promoción activa</option>
+          <option value="Académico">Académico</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Resumen/Descripción</label>
+        <textarea id="noticia-resumen" placeholder="Escribe el contenido de la noticia..." style="min-height: 80px;"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Fecha de inicio (publicación)</label>
+        <input type="date" id="noticia-fecha-inicio" style="padding:10px 12px; border:2px solid #e0e0e0; border-radius:6px; font-size:13px; font-family:inherit; width:100%; box-sizing:border-box;">
+      </div>
+      <div class="form-group">
+        <label>Fecha de fin (opcional - se ocultará automáticamente)</label>
+        <input type="date" id="noticia-fecha-fin" style="padding:10px 12px; border:2px solid #e0e0e0; border-radius:6px; font-size:13px; font-family:inherit; width:100%; box-sizing:border-box;">
+      </div>
+      <div class="form-group">
+        <label style="display:flex; align-items:center; gap:8px; font-weight:400; cursor:pointer;">
+          <input type="checkbox" id="noticia-auto-publish" style="width:18px; height:18px; cursor:pointer;">
+          Publicar automáticamente (si no marcas, la noticia quedará oculta)
+        </label>
+      </div>
+      <div class="form-btns">
+        <button class="btn-submit" onclick="addNoticia()">✅ Publicar noticia</button>
+      </div>
+    </div>
+
+    <!-- LISTADO DE NOTICIAS -->
+    <h3 style="font-size: 16px; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Noticias activas</h3>
+    <div id="noticias-list" class="noticias-grid"></div>
+
+    <!-- NOTICIAS PASADAS -->
+    <h3 style="font-size: 16px; font-weight: 900; margin-top: 40px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">📜 Noticias pasadas (archivo)</h3>
+    <div id="noticias-pasadas-list" class="noticias-grid"></div>
+  </div>
+
+  <!-- TAB: FECHAS DE INICIO -->
+  <div id="tab-fechas" class="tab-content">
+    <div class="instructions">
+      <strong>📅 Gestiona las fechas de inicio de clases</strong><br>
+      Para cada programa, elige: una fecha exacta o marca como "Por definir" si aún no está confirmada.
+    </div>
+
+    <div class="admin-grid">
+      <!-- MAQUINITA -->
+      <div class="admin-section">
+        <h2>📍 Plantel Maquinita</h2>
+        <div id="status-maquinita" class="status-message"></div>
+        
+        <div class="date-row">
+          <label>Licenciaturas (Admon/Contaduría)</label>
+          <div class="date-inputs">
+            <input type="date" id="date-maquinita-lic">
+            <select id="status-maquinita-lic">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Licenciatura Derecho</label>
+          <div class="date-inputs">
+            <input type="date" id="date-maquinita-der">
+            <select id="status-maquinita-der">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Preparatoria UAEMéx</label>
+          <div class="date-inputs">
+            <input type="date" id="date-maquinita-prep">
+            <select id="status-maquinita-prep">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Inglés CELe</label>
+          <div class="date-inputs">
+            <input type="date" id="date-maquinita-ing">
+            <select id="status-maquinita-ing">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Licenciaturas Ejecutivas (Sábados)</label>
+          <div class="date-inputs">
+            <input type="date" id="date-maquinita-exec">
+            <select id="status-maquinita-exec">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-save-section" onclick="saveSection('maquinita')">💾 Guardar cambios</button>
+      </div>
+
+      <!-- VILLADA -->
+      <div class="admin-section">
+        <h2>📍 Plantel Villada</h2>
+        <div id="status-villada" class="status-message"></div>
+        
+        <div class="date-row">
+          <label>Psicología</label>
+          <div class="date-inputs">
+            <input type="date" id="date-villada-psi">
+            <select id="status-villada-psi">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Pedagogía</label>
+          <div class="date-inputs">
+            <input type="date" id="date-villada-ped">
+            <select id="status-villada-ped">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Preparatoria SEP (Vespertino)</label>
+          <div class="date-inputs">
+            <input type="date" id="date-villada-prep">
+            <select id="status-villada-prep">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Inglés CELe</label>
+          <div class="date-inputs">
+            <input type="date" id="date-villada-ing">
+            <select id="status-villada-ing">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>CENEVAL Preparatoria</label>
+          <div class="date-inputs">
+            <input type="date" id="date-villada-ceneval">
+            <select id="status-villada-ceneval">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Licenciaturas Ejecutivas (Sábados)</label>
+          <div class="date-inputs">
+            <input type="date" id="date-villada-exec">
+            <select id="status-villada-exec">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-save-section" onclick="saveSection('villada')">💾 Guardar cambios</button>
+      </div>
+
+      <!-- BRAVO -->
+      <div class="admin-section">
+        <h2>📍 Plantel Bravo</h2>
+        <div id="status-bravo" class="status-message"></div>
+        
+        <div class="date-row">
+          <label>Maestría en Docencia EMES</label>
+          <div class="date-inputs">
+            <input type="date" id="date-bravo-maestria">
+            <select id="status-bravo-maestria">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Preparatoria SEP</label>
+          <div class="date-inputs">
+            <input type="date" id="date-bravo-prep">
+            <select id="status-bravo-prep">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Preparatoria Abierta</label>
+          <div class="date-inputs">
+            <input type="date" id="date-bravo-abierta">
+            <select id="status-bravo-abierta">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Profesional Medio Preescolar</label>
+          <div class="date-inputs">
+            <input type="date" id="date-bravo-preesc">
+            <select id="status-bravo-preesc">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-save-section" onclick="saveSection('bravo')">💾 Guardar cambios</button>
+      </div>
+
+      <!-- IXTLAHUACA -->
+      <div class="admin-section">
+        <h2>📍 Plantel Ixtlahuaca</h2>
+        <div id="status-ixtlahuaca" class="status-message"></div>
+        
+        <div class="date-row">
+          <label>Maestría en Docencia EMES</label>
+          <div class="date-inputs">
+            <input type="date" id="date-ixtlahuaca-maestria">
+            <select id="status-ixtlahuaca-maestria">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Psicología</label>
+          <div class="date-inputs">
+            <input type="date" id="date-ixtlahuaca-psi">
+            <select id="status-ixtlahuaca-psi">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Pedagogía</label>
+          <div class="date-inputs">
+            <input type="date" id="date-ixtlahuaca-ped">
+            <select id="status-ixtlahuaca-ped">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Licenciatura Derecho</label>
+          <div class="date-inputs">
+            <input type="date" id="date-ixtlahuaca-der">
+            <select id="status-ixtlahuaca-der">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Preparatoria SEP</label>
+          <div class="date-inputs">
+            <input type="date" id="date-ixtlahuaca-prep">
+            <select id="status-ixtlahuaca-prep">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Preparatoria Abierta</label>
+          <div class="date-inputs">
+            <input type="date" id="date-ixtlahuaca-abierta">
+            <select id="status-ixtlahuaca-abierta">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Licenciaturas Ejecutivas (Sábados)</label>
+          <div class="date-inputs">
+            <input type="date" id="date-ixtlahuaca-exec">
+            <select id="status-ixtlahuaca-exec">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-save-section" onclick="saveSection('ixtlahuaca')">💾 Guardar cambios</button>
+      </div>
+
+      <!-- SANTIAGO -->
+      <div class="admin-section">
+        <h2>📍 Plantel Santiago</h2>
+        <div id="status-santiago" class="status-message"></div>
+        
+        <div class="date-row">
+          <label>Maestría en Docencia EMES</label>
+          <div class="date-inputs">
+            <input type="date" id="date-santiago-maestria">
+            <select id="status-santiago-maestria">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="date-row">
+          <label>Preparatoria SEP</label>
+          <div class="date-inputs">
+            <input type="date" id="date-santiago-prep">
+            <select id="status-santiago-prep">
+              <option value="">Confirmado</option>
+              <option value="pending">Por definir</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-save-section" onclick="saveSection('santiago')">💾 Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+// Verificar autenticación al cargar
+window.addEventListener('load', () => {
+  if (sessionStorage.getItem('adminAuth') === 'true') {
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('adminContent').style.display = 'block';
+    loadDates();
+    loadNoticias();
+  }
+});
+
+function verifyAdminPassword() {
+  const password = document.getElementById('adminPasswordLogin').value;
+  if (password === 'ises2026') {
+    sessionStorage.setItem('adminAuth', 'true');
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('adminContent').style.display = 'block';
+    document.getElementById('adminPasswordLogin').value = '';
+    loadDates();
+    loadNoticias();
+  } else {
+    alert('❌ Contraseña incorrecta. Intenta de nuevo.');
+    document.getElementById('adminPasswordLogin').value = '';
+  }
+}
+
+document.getElementById('adminPasswordLogin').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') verifyAdminPassword();
+});
+
+// ─── FUNCIONES PESTAÑAS ───
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  
+  event.target.classList.add('active');
+  document.getElementById(`tab-${tab}`).classList.add('active');
+}
+
+function loadNoticias() {
+  const noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+  const hoy = new Date().toISOString().split('T')[0];
+  
+  const noticiaActivas = [];
+  const noticiasPasadas = [];
+
+  noticias.forEach((noticia, index) => {
+    const esPasada = noticia.fechaFin && noticia.fechaFin < hoy;
+    if (esPasada) {
+      noticiasPasadas.push({noticia, index});
+    } else {
+      noticiaActivas.push({noticia, index});
+    }
+  });
+
+  // Render noticias activas
+  const listActivas = document.getElementById('noticias-list');
+  listActivas.innerHTML = noticiaActivas.length === 0 ? '<p style="grid-column:1/-1; text-align:center; color:#999;">No hay noticias activas</p>' : '';
+  
+  noticiaActivas.forEach(({noticia, index}) => {
+    listActivas.innerHTML += renderNoticia(noticia, index, false);
+  });
+
+  // Render noticias pasadas
+  const listPasadas = document.getElementById('noticias-pasadas-list');
+  if (listPasadas) {
+    listPasadas.innerHTML = noticiasPasadas.length === 0 ? '<p style="grid-column:1/-1; text-align:center; color:#999;">No hay noticias pasadas</p>' : '';
+    noticiasPasadas.forEach(({noticia, index}) => {
+      listPasadas.innerHTML += renderNoticia(noticia, index, true);
+    });
+  }
+}
+
+function renderNoticia(noticia, index, esPasada) {
+  const fecha = new Date(noticia.fechaCreacion).toLocaleDateString('es-MX', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  const emoji = noticia.emoji ? `${noticia.emoji} ` : '';
+  const etiqueta = noticia.etiqueta ? `<span style="display:inline-block; background:#f0f4f0; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:700; margin-bottom:8px; color:#666;">${noticia.etiqueta}</span>` : '';
+  const imagen = noticia.imagen ? `<img src="${noticia.imagen}" alt="" style="width:100%; height:140px; object-fit:cover; border-radius:6px; margin-bottom:12px;">` : '';
+  
+  const estado = noticia.oculta ? '👁️ Oculta' : '✓ Visible';
+  const btnToggle = noticia.oculta ? '👁️ Publicar' : '👁️‍🗨️ Ocultar';
+  const fechasRango = `${noticia.fechaInicio}${noticia.fechaFin ? ' → ' + noticia.fechaFin : ''}`;
+
+  return `
+    <div class="noticia-card" style="${noticia.oculta ? 'opacity:0.6; border-color:#ccc;' : ''}">
+      ${etiqueta}
+      ${imagen}
+      <h3>${emoji}${noticia.titulo}</h3>
+      <p>${noticia.resumen}</p>
+      <div class="noticia-fecha">📅 Vigencia: ${fechasRango}<br>Creada: ${fecha} · ${estado}</div>
+      <div class="noticia-btns">
+        <button class="btn-edit" onclick="editNoticia(${index})" style="flex:1.5;">✏️ Editar</button>
+        <button class="btn-edit" onclick="toggleNoticia(${index})" style="flex:1; background:#666;">${btnToggle}</button>
+        <button class="btn-delete" onclick="deleteNoticia(${index})">🗑️ Borrar</button>
+      </div>
+    </div>
+  `;
+}
+
+function addNoticia() {
+  const emoji = document.getElementById('noticia-emoji').value.trim();
+  const titulo = document.getElementById('noticia-titulo').value.trim();
+  const etiqueta = document.getElementById('noticia-etiqueta').value;
+  const resumen = document.getElementById('noticia-resumen').value.trim();
+  const fechaInicio = document.getElementById('noticia-fecha-inicio').value;
+  const fechaFin = document.getElementById('noticia-fecha-fin').value;
+  const imagenFile = document.getElementById('noticia-imagen').files[0];
+  const autoPublish = document.getElementById('noticia-auto-publish').checked;
+
+  if (!titulo || !resumen) {
+    alert('Completa al menos título y resumen');
+    return;
+  }
+
+  if (!fechaInicio) {
+    alert('La fecha de inicio es obligatoria');
+    return;
+  }
+
+  // Procesar imagen
+  let imagenBase64 = '';
+  if (imagenFile) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      imagenBase64 = e.target.result;
+      guardarNoticia(emoji, titulo, etiqueta, resumen, imagenBase64, !autoPublish, fechaInicio, fechaFin);
+    };
+    reader.readAsDataURL(imagenFile);
+  } else {
+    guardarNoticia(emoji, titulo, etiqueta, resumen, '', !autoPublish, fechaInicio, fechaFin);
+  }
+}
+
+function guardarNoticia(emoji, titulo, etiqueta, resumen, imagen, oculta, fechaInicio, fechaFin) {
+  const noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+  noticias.unshift({
+    emoji,
+    titulo,
+    etiqueta,
+    resumen,
+    imagen,
+    oculta: oculta,
+    fechaInicio,
+    fechaFin,
+    fechaCreacion: new Date().toISOString()
+  });
+
+  localStorage.setItem('noticias', JSON.stringify(noticias));
+  
+  document.getElementById('noticia-emoji').value = '';
+  document.getElementById('noticia-titulo').value = '';
+  document.getElementById('noticia-etiqueta').value = '';
+  document.getElementById('noticia-resumen').value = '';
+  document.getElementById('noticia-imagen').value = '';
+  document.getElementById('noticia-fecha-inicio').value = '';
+  document.getElementById('noticia-fecha-fin').value = '';
+  document.getElementById('noticia-auto-publish').checked = true;
+
+  const msg = oculta ? '✅ Noticia creada (oculta)' : '✅ Noticia publicada';
+  showStatusMessage('status-noticias', msg);
+  loadNoticias();
+}
+
+function deleteNoticia(index) {
+  if (!confirm('⚠️ Eliminar permanentemente esta noticia?')) return;
+
+  const noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+  noticias.splice(index, 1);
+  localStorage.setItem('noticias', JSON.stringify(noticias));
+
+  showStatusMessage('status-noticias', '✅ Noticia eliminada');
+  loadNoticias();
+}
+
+function toggleNoticia(index) {
+  const noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+  noticias[index].oculta = !noticias[index].oculta;
+  localStorage.setItem('noticias', JSON.stringify(noticias));
+
+  const estado = noticias[index].oculta ? 'Noticia ocultada' : 'Noticia publicada';
+  showStatusMessage('status-noticias', `✅ ${estado}`);
+  loadNoticias();
+}
+
+function editNoticia(index) {
+  const noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+  const noticia = noticias[index];
+
+  const nuevoTitulo = prompt('Editar título:', noticia.titulo);
+  if (nuevoTitulo === null) return;
+
+  const nuevoResumen = prompt('Editar resumen:', noticia.resumen);
+  if (nuevoResumen === null) return;
+
+  noticias[index].titulo = nuevoTitulo || noticia.titulo;
+  noticias[index].resumen = nuevoResumen || noticia.resumen;
+
+  localStorage.setItem('noticias', JSON.stringify(noticias));
+  showStatusMessage('status-noticias', '✅ Noticia actualizada');
+  loadNoticias();
+}
+
+// ─── FUNCIONES FECHAS ───
+function loadDates() {
+  const allInputs = document.querySelectorAll('input[type="date"]');
+  allInputs.forEach(input => {
+    const key = input.id;
+    const stored = localStorage.getItem(key);
+    if (stored) {
+      input.value = stored;
+    }
+  });
+
+  const allSelects = document.querySelectorAll('select[id^="status-"]');
+  allSelects.forEach(select => {
+    const key = select.id;
+    const stored = localStorage.getItem(key);
+    if (stored) {
+      select.value = stored;
+    }
+  });
+}
+
+function saveSection(plantel) {
+  const inputs = document.querySelectorAll(`input[id^="date-${plantel}"]`);
+  const selects = document.querySelectorAll(`select[id^="status-${plantel}"]`);
+  let saved = false;
+
+  inputs.forEach(input => {
+    if (input.value) {
+      localStorage.setItem(input.id, input.value);
+      saved = true;
+    }
+  });
+
+  selects.forEach(select => {
+    localStorage.setItem(select.id, select.value);
+  });
+
+  if (saved) {
+    showStatusMessage(`status-${plantel}`, '✅ Cambios guardados');
+  }
+}
+
+function showStatusMessage(elementId, message) {
+  const el = document.getElementById(elementId);
+  el.textContent = message;
+  el.classList.add('show', 'success');
+  setTimeout(() => {
+    el.classList.remove('show');
+  }, 3000);
+}
+
+function logoutAdmin() {
+  sessionStorage.removeItem('adminAuth');
+  window.location.href = 'index.html';
+}
+</script>
+
+</body>
+</html>

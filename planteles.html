@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestros Planteles – ISES Toluca</title>
+<meta name="description" content="ISES Toluca tiene 5 planteles en el Estado de México: Maquinita, Villada, Bravo, Santiago Tianguistenco e Ixtlahuaca. Consulta mapas y teléfonos.">
+<link rel="stylesheet" href="shared.css">
+<style>
+.mapa-box { border-radius: var(--radio); overflow:hidden; box-shadow:var(--sombra); }
+.mapa-box iframe { width:100%; height:260px; border:none; display:block; }
+.plantel-info { background:#fff; padding:18px 20px; }
+.plantel-info-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:12px; }
+.info-icon { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.info-icon.verde { background:var(--verde-light); }
+.info-icon.naranja { background:var(--naranja-light); }
+.info-icon.azul { background:var(--azul-light); }
+.info-text { font-size:13px; color:var(--gris-med); line-height:1.5; }
+.info-text strong { display:block; font-size:13px; color:var(--gris-dark); font-weight:800; }
+.plantel-foto {
+  width:100%; aspect-ratio:16/9; background:#2a2a2a;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Courier New',monospace; font-size:11px;
+  color:rgba(255,255,255,0.35); text-align:center; padding:12px;
+  position:relative; overflow:hidden;
+}
+.plantel-foto img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.plantel-foto-placeholder { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.plantel-foto-placeholder span { font-size:28px; }
+.plantel-foto-placeholder p { font-size:11px; font-family:'Montserrat',sans-serif; font-weight:600; color:rgba(255,255,255,0.4); }
+.plantel-foto-placeholder small { font-size:9px; opacity:.6; }
+.plantel-btns { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+.btn-call { display:flex; align-items:center; justify-content:center; gap:8px; background:var(--verde); color:#fff; border-radius:999px; padding:12px; font-size:13px; font-weight:800; transition:.2s; }
+.btn-call:hover { background:var(--verde-med); }
+.btn-maps { display:flex; align-items:center; justify-content:center; gap:8px; background:var(--azul-light); color:var(--azul); border-radius:999px; padding:12px; font-size:13px; font-weight:800; transition:.2s; }
+.btn-maps:hover { background:var(--azul); color:#fff; }
+.plantel-section { margin-bottom:40px; scroll-margin-top:72px; }
+.plantel-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; padding:0 2px; }
+.plantel-number { width:36px; height:36px; border-radius:50%; background:var(--grad); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
+.plantel-title { font-size:18px; font-weight:900; color:var(--verde); }
+.plantel-subtitle { font-size:12px; color:var(--gris-med); }
+
+/* ── GALERIA DE FOTOS ── */
+.maq-gallery { background:#fff; }
+.maq-hero { display:block; width:100%; aspect-ratio:16/9; position:relative; overflow:hidden; border:none; padding:0; cursor:pointer; background:#1d3d24; }
+.maq-hero img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.maq-hero:hover img { transform:scale(1.04); }
+.maq-hero-cap { position:absolute; left:0; right:0; bottom:0; padding:34px 16px 14px; display:flex; align-items:center; gap:8px;
+  background:linear-gradient(to top, rgba(15,30,18,0.78), transparent); color:#fff; font-size:12px; font-weight:700; }
+.maq-hero-cap .pin { color:var(--naranja-med); }
+.maq-hero-zoom { position:absolute; top:12px; right:12px; width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,0.92);
+  display:flex; align-items:center; justify-content:center; font-size:15px; box-shadow:0 2px 8px rgba(0,0,0,0.25); transition:.2s; }
+.maq-hero:hover .maq-hero-zoom { background:#fff; transform:scale(1.08); }
+.maq-thumbs { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; padding:6px; background:#fff; }
+.maq-thumb { position:relative; aspect-ratio:4/3; overflow:hidden; border:none; padding:0; cursor:pointer; border-radius:7px; background:#1d3d24; }
+.maq-thumb img { width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+.maq-thumb:hover img { transform:scale(1.07); }
+.maq-thumb-lbl { position:absolute; left:0; right:0; bottom:0; padding:16px 8px 6px; font-size:9.5px; font-weight:800; letter-spacing:.3px;
+  text-transform:uppercase; color:#fff; text-align:left; background:linear-gradient(to top, rgba(15,30,18,0.82), transparent); }
+
+/* ── LIGHTBOX ── */
+.lb { position:fixed; inset:0; z-index:200; background:rgba(12,22,14,0.94); display:none; align-items:center; justify-content:center; padding:20px; }
+.lb.open { display:flex; }
+.lb-stage { max-width:1100px; width:100%; display:flex; flex-direction:column; align-items:center; gap:14px; }
+.lb-imgwrap { position:relative; width:100%; max-height:78vh; display:flex; align-items:center; justify-content:center; }
+.lb-img { max-width:100%; max-height:78vh; border-radius:10px; box-shadow:0 12px 50px rgba(0,0,0,0.5); display:block; }
+.lb-cap { color:#fff; font-size:13px; font-weight:700; text-align:center; display:flex; align-items:center; gap:8px; }
+.lb-cap .pin { color:var(--naranja-med); }
+.lb-count { color:rgba(255,255,255,0.45); font-size:11px; font-weight:800; letter-spacing:1px; }
+.lb-nav { position:absolute; top:50%; transform:translateY(-50%); width:46px; height:46px; border-radius:50%; border:none;
+  background:rgba(255,255,255,0.14); color:#fff; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.2s; backdrop-filter:blur(4px); }
+.lb-nav:hover { background:var(--naranja); }
+.lb-prev { left:-4px; }
+.lb-next { right:-4px; }
+.lb-close { position:absolute; top:18px; right:18px; width:42px; height:42px; border-radius:50%; border:none; background:rgba(255,255,255,0.14);
+  color:#fff; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.2s; }
+.lb-close:hover { background:rgba(255,255,255,0.28); }
+@media (min-width:560px){ .lb-prev{left:8px;} .lb-next{right:8px;} }
+</style>
+</head>
+<body class="page-body">
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo-ises.png" alt="ISES"><div class="nav-logo-text">ISES Toluca <span>Donde sí se es</span></div></a>
+  <div class="nav-actions">
+    <a href="contacto.html" class="nav-cta">Inscríbete</a>
+    <button class="nav-menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" onclick="closeMenu()"><span class="nav-icon">🏠</span> Inicio</a>
+  <a href="nosotros.html" onclick="closeMenu()"><span class="nav-icon">🎓</span> Quiénes somos</a>
+  <a href="oferta.html" onclick="closeMenu()"><span class="nav-icon">📚</span> Oferta educativa</a>
+  <a href="prepas.html" onclick="closeMenu()"><span class="nav-icon">📖</span> Preparatoria — Compara</a>
+  <a href="planteles.html" class="active" onclick="closeMenu()"><span class="nav-icon">📍</span> Nuestros planteles</a>
+  <a href="noticias.html" onclick="closeMenu()"><span class="nav-icon">📰</span> Noticias</a>
+  <a href="contacto.html" onclick="closeMenu()"><span class="nav-icon">✉️</span> Contacto</a>
+  <a href="isela.html" class="nav-isela-link" onclick="closeMenu()"><span class="nav-icon">🤖</span> ISELA — ¿Qué estudiar?</a>
+</div>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-badge">5 sedes en el Estado de México</div>
+    <h1>Nuestros <span>planteles</span></h1>
+    <p>Cerca de ti, con la misma calidad educativa. Haz clic en "Cómo llegar" para abrir Google Maps.</p>
+  </div>
+</div>
+<div class="breadcrumb"><a href="index.html">Inicio</a><span>›</span> Nuestros planteles</div>
+
+<div class="section" style="padding-bottom:48px;">
+
+  <!-- MAQUINITA -->
+  <div class="plantel-section" id="maquinita">
+    <div class="plantel-header">
+      <div class="plantel-number">1</div>
+      <div><div class="plantel-title">Plantel Maquinita</div><div class="plantel-subtitle">Toluca · Sede principal</div></div>
+    </div>
+    <div class="mapa-box">
+      <div class="maq-gallery">
+        <button class="maq-hero" type="button" onclick="openLb(0)">
+          <img src="fotos/maq-fachada.jpg" alt="Fachada del Plantel Maquinita ISES UAEM">
+          <div class="maq-hero-zoom">⚶</div>
+          <div class="maq-hero-cap"><span class="pin">📍</span> Plantel Maquinita · Sede principal ISES–UAEM</div>
+        </button>
+        <div class="maq-thumbs">
+          <button class="maq-thumb" type="button" onclick="openLb(1)"><img src="fotos/maq-aula.jpg" alt="Aula"><span class="maq-thumb-lbl">Aulas</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(2)"><img src="fotos/maq-laboratorio.jpg" alt="Laboratorio"><span class="maq-thumb-lbl">Laboratorio</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(3)"><img src="fotos/maq-biblioteca.jpg" alt="Biblioteca"><span class="maq-thumb-lbl">Biblioteca</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(4)"><img src="fotos/maq-auditorio.jpg" alt="Auditorio"><span class="maq-thumb-lbl">Auditorio</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(5)"><img src="fotos/maq-patio.jpg" alt="Patio"><span class="maq-thumb-lbl">Patio</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(6)"><img src="fotos/maq-pasillo.jpg" alt="Pasillos"><span class="maq-thumb-lbl">Pasillos</span></button>
+        </div>
+      </div>
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Isidro+Fabela+Norte+905+Santiago+Miltepec+Toluca+Mexico&output=embed&z=16"></iframe>
+      <div class="plantel-info">
+        <div class="plantel-info-row"><div class="info-icon verde">📍</div><div class="info-text"><strong>Dirección</strong>Isidro Fabela Nte. 905, Santiago Miltepec, Toluca, Méx.</div></div>
+        <div class="plantel-info-row"><div class="info-icon naranja">📞</div><div class="info-text"><strong>Teléfono</strong>722 272 1215</div></div>
+        <div class="plantel-info-row"><div class="info-icon azul">📚</div><div class="info-text"><strong>Programas</strong>Lic. Administración, Lic. Contaduría, Ejecutivas (Adm + Der), Preparatoria UAEMéx, Inglés CELe</div></div>
+        <div class="plantel-btns">
+          <a href="tel:7222721215" class="btn-call">📞 Llamar a Maquinita</a>
+          <a href="https://maps.google.com/?q=Isidro+Fabela+Norte+905+Santiago+Miltepec+Toluca" target="_blank" rel="noopener" class="btn-maps">🗺 Cómo llegar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VILLADA -->
+  <div class="plantel-section" id="villada">
+    <div class="plantel-header">
+      <div class="plantel-number">2</div>
+      <div><div class="plantel-title">Plantel Villada</div><div class="plantel-subtitle">Toluca · Col. El Ranchito</div></div>
+    </div>
+    <div class="mapa-box">
+      <div class="maq-gallery">
+        <button class="maq-hero" type="button" onclick="openLb(7)">
+          <img src="fotos/villada-entrada.jpg" alt="Entrada del Plantel Villada">
+          <div class="maq-hero-zoom">⚶</div>
+          <div class="maq-hero-cap"><span class="pin">📍</span> Plantel Villada</div>
+        </button>
+        <div class="maq-thumbs">
+          <button class="maq-thumb" type="button" onclick="openLb(7)"><img src="fotos/villada-entrada.jpg" alt="Entrada"><span class="maq-thumb-lbl">Entrada</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(8)"><img src="fotos/villada-escaleras.jpg" alt="Escaleras"><span class="maq-thumb-lbl">Escaleras</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(9)"><img src="fotos/villada-jardin.jpg" alt="Jardín"><span class="maq-thumb-lbl">Jardín</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(10)"><img src="fotos/villada-laboratorio.jpg" alt="Aulas"><span class="maq-thumb-lbl">Aulas</span></button>
+        </div>
+      </div>
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Jose+V+Villada+440+El+Ranchito+Toluca+Mexico&output=embed&z=16"></iframe>
+      <div class="plantel-info">
+        <div class="plantel-info-row"><div class="info-icon verde">📍</div><div class="info-text"><strong>Dirección</strong>José V. Villada 440, Col. El Ranchito, Toluca, Méx.</div></div>
+        <div class="plantel-info-row"><div class="info-icon naranja">📞</div><div class="info-text"><strong>Teléfono</strong>722 215 5800</div></div>
+        <div class="plantel-info-row"><div class="info-icon azul">📚</div><div class="info-text"><strong>Programas</strong>Maestría en Docencia, Lic. Psicología, Lic. Pedagogía, Ejecutivas (Psi+Ped+RRHH), Preparatoria SEP, Inglés CELe, CENEVAL</div></div>
+        <div class="plantel-btns">
+          <a href="tel:7222155800" class="btn-call">📞 Llamar a Villada</a>
+          <a href="https://maps.google.com/?q=Jose+V+Villada+440+El+Ranchito+Toluca" target="_blank" rel="noopener" class="btn-maps">🗺 Cómo llegar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRAVO -->
+  <div class="plantel-section" id="bravo">
+    <div class="plantel-header">
+      <div class="plantel-number">3</div>
+      <div><div class="plantel-title">Plantel Bravo</div><div class="plantel-subtitle">Toluca · Col. Centro</div></div>
+    </div>
+    <div class="mapa-box">
+      <div class="maq-gallery">
+        <button class="maq-hero" type="button" onclick="openLb(15)">
+          <img src="fotos/bravo-interior.jpg" alt="Interior del Plantel Bravo">
+          <div class="maq-hero-zoom">⚶</div>
+          <div class="maq-hero-cap"><span class="pin">📍</span> Plantel Bravo</div>
+        </button>
+        <div class="maq-thumbs">
+          <button class="maq-thumb" type="button" onclick="openLb(15)"><img src="fotos/bravo-interior.jpg" alt="Interior"><span class="maq-thumb-lbl">Interior</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(16)"><img src="fotos/bravo-computo.jpg" alt="Aula de Cómputo"><span class="maq-thumb-lbl">Cómputo</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(17)"><img src="fotos/bravo-laboratorio.jpg" alt="Laboratorio"><span class="maq-thumb-lbl">Laboratorio</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(18)"><img src="fotos/bravo-interior-abajo.jpg" alt="Pasillos"><span class="maq-thumb-lbl">Pasillos</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(19)"><img src="fotos/bravo-sala-computo.jpg" alt="Sala Cómputo"><span class="maq-thumb-lbl">Sala TBD</span></button>
+        </div>
+      </div>
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Bravo+Norte+307+Centro+Toluca+Mexico&output=embed&z=16"></iframe>
+      <div class="plantel-info">
+        <div class="plantel-info-row"><div class="info-icon verde">📍</div><div class="info-text"><strong>Dirección</strong>Bravo Nte. 307-2, Col. Centro, Toluca, Méx.</div></div>
+        <div class="plantel-info-row"><div class="info-icon naranja">📞</div><div class="info-text"><strong>Teléfono</strong>722 215 1050</div></div>
+        <div class="plantel-info-row"><div class="info-icon azul">📚</div><div class="info-text"><strong>Programas</strong>Preparatoria SEP, Preparatoria Abierta, Educación Preescolar (Profesional Medio)</div></div>
+        <div class="plantel-btns">
+          <a href="tel:7222151050" class="btn-call">📞 Llamar a Bravo</a>
+          <a href="https://maps.google.com/?q=Bravo+Norte+307+Centro+Toluca" target="_blank" rel="noopener" class="btn-maps">🗺 Cómo llegar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SANTIAGO -->
+  <div class="plantel-section" id="santiago">
+    <div class="plantel-header">
+      <div class="plantel-number">4</div>
+      <div><div class="plantel-title">Plantel Santiago</div><div class="plantel-subtitle">Santiago Tianguistenco</div></div>
+    </div>
+    <div class="mapa-box">
+      <div class="maq-gallery">
+        <button class="maq-hero" type="button" onclick="openLb(11)">
+          <img src="fotos/santiago-entrada.jpg" alt="Entrada del Plantel Santiago">
+          <div class="maq-hero-zoom">⚶</div>
+          <div class="maq-hero-cap"><span class="pin">📍</span> Plantel Santiago Tianguistenco</div>
+        </button>
+        <div class="maq-thumbs">
+          <button class="maq-thumb" type="button" onclick="openLb(11)"><img src="fotos/santiago-entrada.jpg" alt="Entrada"><span class="maq-thumb-lbl">Entrada</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(12)"><img src="fotos/santiago-computadora.jpg" alt="Aula Informática"><span class="maq-thumb-lbl">Cómputo</span></button>
+        </div>
+      </div>
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Vicente+Guerrero+203+Santiago+Tianguistenco+Mexico&output=embed&z=16"></iframe>
+      <div class="plantel-info">
+        <div class="plantel-info-row"><div class="info-icon verde">📍</div><div class="info-text"><strong>Dirección</strong>Vicente Guerrero 203, Santiago Tianguistenco, Méx.</div></div>
+        <div class="plantel-info-row"><div class="info-icon naranja">📞</div><div class="info-text"><strong>Teléfono</strong>713 135 2437</div></div>
+        <div class="plantel-info-row"><div class="info-icon azul">📚</div><div class="info-text"><strong>Programas</strong>Preparatoria SEP, Licenciaturas ejecutivas, Cursos</div></div>
+        <div class="plantel-btns">
+          <a href="tel:7131352437" class="btn-call">📞 Llamar a Santiago</a>
+          <a href="https://maps.google.com/?q=Vicente+Guerrero+203+Santiago+Tianguistenco" target="_blank" rel="noopener" class="btn-maps">🗺 Cómo llegar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IXTLAHUACA -->
+  <div class="plantel-section" id="ixtlahuaca">
+    <div class="plantel-header">
+      <div class="plantel-number">5</div>
+      <div><div class="plantel-title">Plantel Ixtlahuaca</div><div class="plantel-subtitle">Ixtlahuaca, Estado de México</div></div>
+    </div>
+    <div class="mapa-box">
+      <div class="maq-gallery">
+        <button class="maq-hero" type="button" onclick="openLb(13)">
+          <img src="fotos/ixtlahuaca-salon.jpg" alt="Salón del Plantel Ixtlahuaca">
+          <div class="maq-hero-zoom">⚶</div>
+          <div class="maq-hero-cap"><span class="pin">📍</span> Plantel Ixtlahuaca</div>
+        </button>
+        <div class="maq-thumbs">
+          <button class="maq-thumb" type="button" onclick="openLb(13)"><img src="fotos/ixtlahuaca-salon.jpg" alt="Salones"><span class="maq-thumb-lbl">Salones</span></button>
+          <button class="maq-thumb" type="button" onclick="openLb(14)"><img src="fotos/ixtlahuaca-laboratorio.jpg" alt="Laboratorio"><span class="maq-thumb-lbl">Laboratorio</span></button>
+        </div>
+      </div>
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Francisco+Lopez+Rayon+8+Ixtlahuaca+Mexico&output=embed&z=16"></iframe>
+      <div class="plantel-info">
+        <div class="plantel-info-row"><div class="info-icon verde">📍</div><div class="info-text"><strong>Dirección</strong>Fco. López Rayón 8, Ixtlahuaca, Méx.</div></div>
+        <div class="plantel-info-row"><div class="info-icon naranja">📞</div><div class="info-text"><strong>Teléfono</strong>712 283 0073</div></div>
+        <div class="plantel-info-row"><div class="info-icon azul">📚</div><div class="info-text"><strong>Programas</strong>Maestría en Docencia, Preparatoria, Licenciaturas ejecutivas, Cursos</div></div>
+        <div class="plantel-btns">
+          <a href="tel:7122830073" class="btn-call">📞 Llamar a Ixtlahuaca</a>
+          <a href="https://maps.google.com/?q=Francisco+Lopez+Rayon+8+Ixtlahuaca+Estado+de+Mexico" target="_blank" rel="noopener" class="btn-maps">🗺 Cómo llegar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="logo-ises.png" alt="ISES"><div class="footer-logo-text">ISES Toluca</div></div>
+    <div class="footer-isela"><div class="footer-isela-icon">🤖</div><div class="footer-isela-text"><strong>¿No sabes qué estudiar? Habla con ISELA</strong>Orientación vocacional personalizada con IA.</div><a href="isela.html">Probar →</a></div>
+    <div class="footer-nav">
+      <a href="index.html">Inicio</a><a href="oferta.html">Oferta educativa</a>
+      <a href="contacto.html">Contacto</a><a href="isela.html">ISELA IA</a>
+    </div>
+    <div class="footer-copy">© 2026 <strong>ISES Toluca</strong> · Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<div class="fab-group">
+  <div class="fab-wrap"><span class="fab-label">WhatsApp</span><a href="https://wa.me/527226753239" target="_blank" rel="noopener" class="fab fab-wa">💬</a></div>
+  <div class="fab-wrap"><span class="fab-label">Llamar</span><a href="tel:7222721215" class="fab fab-sm fab-call">📞</a></div>
+</div>
+
+<div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
+  <button class="lb-close" type="button" onclick="closeLb()" aria-label="Cerrar">✕</button>
+  <div class="lb-stage">
+    <div class="lb-imgwrap">
+      <button class="lb-nav lb-prev" type="button" onclick="stepLb(-1)" aria-label="Anterior">‹</button>
+      <img class="lb-img" id="lbImg" alt="">
+      <button class="lb-nav lb-next" type="button" onclick="stepLb(1)" aria-label="Siguiente">›</button>
+    </div>
+    <div class="lb-cap"><span class="pin">📍</span><span id="lbCap"></span> <span class="lb-count" id="lbCount"></span></div>
+  </div>
+</div>
+
+<script>
+const lbFotos = [
+  { src:'fotos/maq-fachada.jpg',     cap:'Plantel Maquinita - Fachada principal' },
+  { src:'fotos/maq-aula.jpg',        cap:'Plantel Maquinita - Aula con vista a la ciudad' },
+  { src:'fotos/maq-laboratorio.jpg', cap:'Plantel Maquinita - Laboratorio de ciencias' },
+  { src:'fotos/maq-biblioteca.jpg',  cap:'Plantel Maquinita - Biblioteca y sala de estudio' },
+  { src:'fotos/maq-auditorio.jpg',   cap:'Plantel Maquinita - Auditorio' },
+  { src:'fotos/maq-patio.jpg',       cap:'Plantel Maquinita - Patio central' },
+  { src:'fotos/maq-pasillo.jpg',     cap:'Plantel Maquinita - Pasillos y áreas comunes' },
+  { src:'fotos/villada-entrada.jpg',      cap:'Plantel Villada - Entrada principal' },
+  { src:'fotos/villada-escaleras.jpg',    cap:'Plantel Villada - Escaleras y acceso' },
+  { src:'fotos/villada-jardin.jpg',       cap:'Plantel Villada - Jardín y áreas verdes' },
+  { src:'fotos/villada-laboratorio.jpg',  cap:'Plantel Villada - Aulas y espacios educativos' },
+  { src:'fotos/santiago-entrada.jpg',     cap:'Plantel Santiago - Entrada principal' },
+  { src:'fotos/santiago-computadora.jpg', cap:'Plantel Santiago - Aula de informática' },
+  { src:'fotos/ixtlahuaca-salon.jpg',     cap:'Plantel Ixtlahuaca - Salones de clase' },
+  { src:'fotos/ixtlahuaca-laboratorio.jpg', cap:'Plantel Ixtlahuaca - Laboratorio' },
+  { src:'fotos/bravo-interior.jpg',       cap:'Plantel Bravo - Interior principal' },
+  { src:'fotos/bravo-computo.jpg',        cap:'Plantel Bravo - Aula de cómputo' },
+  { src:'fotos/bravo-laboratorio.jpg',    cap:'Plantel Bravo - Laboratorio' },
+  { src:'fotos/bravo-interior-abajo.jpg', cap:'Plantel Bravo - Pasillos' },
+  { src:'fotos/bravo-sala-computo.jpg',   cap:'Plantel Bravo - Sala de cómputo' }
+];
+let lbIndex = 0;
+const lbEl = document.getElementById('lb');
+function renderLb(){
+  const f = lbFotos[lbIndex];
+  document.getElementById('lbImg').src = f.src;
+  document.getElementById('lbImg').alt = f.cap;
+  document.getElementById('lbCap').textContent = f.cap;
+  document.getElementById('lbCount').textContent = (lbIndex+1)+' / '+lbFotos.length;
+}
+function openLb(i){ lbIndex=i; renderLb(); lbEl.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLb(){ lbEl.classList.remove('open'); document.body.style.overflow=''; }
+function stepLb(d){ lbIndex=(lbIndex+d+lbFotos.length)%lbFotos.length; renderLb(); }
+document.addEventListener('keydown', e=>{
+  if(!lbEl.classList.contains('open')) return;
+  if(e.key==='Escape') closeLb();
+  if(e.key==='ArrowRight') stepLb(1);
+  if(e.key==='ArrowLeft') stepLb(-1);
+});
+</script>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navDrawer = document.getElementById('navDrawer');
+menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); navDrawer.classList.toggle('open'); });
+function closeMenu() { menuBtn.classList.remove('open'); navDrawer.classList.remove('open'); }
+document.addEventListener('click', e => { if (!menuBtn.contains(e.target) && !navDrawer.contains(e.target)) closeMenu(); });
+</script>
+</body>
+</html>

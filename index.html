@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISES Toluca</title>
+<meta name="description" content="ISES Toluca ofrece licenciaturas, posgrados, preparatorias y cursos en 5 planteles del Estado de México. Inscripciones abiertas ciclo Agosto 2026.">
+<link rel="stylesheet" href="shared.css">
+<style>
+.hero { background: var(--grad); color: #fff; padding: 52px 20px 60px; position: relative; overflow: hidden; min-height: 440px; display: flex; align-items: center; }
+.hero::before { content:''; position:absolute; top:-80px; right:-60px; width:320px; height:320px; border-radius:50%; background:rgba(255,255,255,0.06); }
+.hero::after { content:''; position:absolute; bottom:-100px; left:-50px; width:260px; height:260px; border-radius:50%; background:rgba(255,255,255,0.04); }
+.hero-inner { position:relative; z-index:1; max-width:420px; margin:0 auto; width:100%; }
+.hero-badge { display:inline-block; background:var(--naranja); color:#fff; font-size:10px; font-weight:800; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border-radius:20px; margin-bottom:16px; }
+.hero h1 { font-size:clamp(28px,8vw,50px); font-weight:900; line-height:1.1; margin-bottom:12px; }
+.hero h1 span { color:var(--naranja-med); }
+.hero p { font-family:'Lora',serif; font-style:italic; font-size:15px; color:rgba(255,255,255,0.85); margin-bottom:28px; line-height:1.7; }
+.hero-btns { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:32px; }
+.btn-secondary { background:rgba(255,255,255,0.15); color:#fff; border:1.5px solid rgba(255,255,255,0.4); border-radius:999px; padding:13px 24px; font-size:14px; font-weight:700; backdrop-filter:blur(4px); transition:.2s; }
+.btn-secondary:hover { background:rgba(255,255,255,0.25); }
+.hero-stats { display:flex; gap:24px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.2); }
+.hero-stat-num { font-size:28px; font-weight:900; color:var(--naranja-med); line-height:1; }
+.hero-stat-lbl { font-size:10px; font-weight:600; opacity:.8; text-transform:uppercase; letter-spacing:1px; margin-top:3px; }
+
+/* PROGRAMAS PREVIEW — TARJETAS COMPLETAS */
+.section-full#programas {
+  position: relative;
+  background-image: url('fotos/hero-students.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.section-full#programas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0.92;
+  z-index: 0;
+}
+.section-full#programas .section {
+  position: relative;
+  z-index: 1;
+}
+.programas-toggle {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  width:100%; max-width:420px; margin:0 auto 18px;
+  padding:14px 18px; background:var(--verde); border:none; border-radius:var(--radio);
+  color:#fff; font-size:13px; font-weight:800; letter-spacing:.3px;
+  font-family:'Montserrat',sans-serif; cursor:pointer; transition:.2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.programas-toggle:hover { background:var(--verde-med); }
+.programas-toggle-icon {
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:900; transition:transform .3s ease;
+}
+.programas-toggle[aria-expanded="true"] .programas-toggle-icon { transform:rotate(180deg); }
+
+.programas-collapsible {
+  max-height:0; overflow:hidden;
+  transition:max-height .4s cubic-bezier(.4,0,.2,1), opacity .4s ease;
+  opacity:0;
+}
+.programas-collapsible.open {
+  max-height:2000px;
+  opacity:1;
+}
+
+.prog-carousel-wrap {
+  overflow-x:auto; scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch; margin:0 -20px; padding:0 20px;
+}
+.prog-preview-grid { display:flex; flex-direction:row; gap:14px; padding-bottom:8px; }
+
+/* FILTRO POR NIVEL */
+.nivel-filter { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+.nivel-chip {
+  display:inline-flex; align-items:center; gap:6px;
+  background:#fff; border:1.5px solid #e5e5e5; color:var(--gris-med);
+  font-size:12px; font-weight:800; letter-spacing:.3px;
+  padding:8px 14px; border-radius:999px; cursor:pointer;
+  transition:.2s; -webkit-tap-highlight-color:transparent;
+  font-family:'Montserrat',sans-serif;
+}
+.nivel-chip:hover { border-color:var(--verde); color:var(--verde); }
+.nivel-chip.active { background:var(--verde); border-color:var(--verde); color:#fff; box-shadow:0 4px 12px rgba(26,96,85,.2); }
+.nivel-chip-count { font-size:10px; opacity:.7; font-weight:700; }
+.prog-preview-card.is-hidden { display:none !important; }
+
+/* SABER MÁS botón */
+.prog-saber-mas {
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  margin-top:12px; padding:10px 14px;
+  background:#f7f7f5; border-radius:10px;
+  font-size:12px; font-weight:800; color:var(--gris-dark);
+  letter-spacing:.2px; transition:.2s;
+  font-family:'Montserrat',sans-serif;
+}
+.prog-saber-mas:hover { background:var(--verde); color:#fff; }
+.prog-saber-mas .arrow { font-size:14px; transition:transform .2s; }
+.prog-saber-mas:hover .arrow { transform:translateX(4px); }
+.prog-preview-card.azul .prog-saber-mas:hover { background:var(--azul); }
+.prog-preview-card.naranja .prog-saber-mas:hover { background:var(--naranja); }
+.prog-preview-card.morado .prog-saber-mas:hover { background:#7c3aed; }
+
+/* GALERÍA COLAPSABLE */
+.galeria-toggle {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  max-width:420px; margin:0 auto 18px; padding:14px 20px;
+  background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+  color:#fff; border-radius:var(--radio); cursor:pointer;
+  font-size:13px; font-weight:800; letter-spacing:.3px;
+  font-family:'Montserrat',sans-serif; transition:.2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.galeria-toggle:hover { background:rgba(255,255,255,0.14); }
+.galeria-toggle-icon {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:24px; height:24px; border-radius:50%;
+  background:var(--naranja); color:#fff; font-size:14px; font-weight:900;
+  transition:transform .3s ease;
+}
+.galeria-toggle.open .galeria-toggle-icon { transform:rotate(45deg); }
+.galeria-collapsible {
+  max-height:0; overflow:hidden;
+  transition:max-height .5s cubic-bezier(.4,0,.2,1);
+}
+.galeria-collapsible.open { max-height:3000px; }
+.prog-preview-card {
+  background:#fff; border-radius:var(--radio); box-shadow:var(--sombra);
+  padding:18px 18px 16px; transition:.2s; border-left:4px solid var(--verde);
+  display:block; flex:0 0 min(100%, 300px); min-width:280px;
+  scroll-snap-align:start; box-sizing:border-box;
+}
+.prog-preview-card:hover { transform:translateY(-3px); box-shadow:var(--sombra-hover); }
+.prog-preview-card.azul { border-left-color:var(--azul); }
+.prog-preview-card.naranja { border-left-color:var(--naranja); }
+.prog-preview-card.morado { border-left-color:#7c3aed; }
+.prog-preview-head { display:flex; align-items:flex-start; gap:12px; margin-bottom:10px; }
+.prog-preview-icon { font-size:26px; flex-shrink:0; line-height:1; }
+.prog-preview-titles { flex:1; min-width:0; }
+.prog-preview-name { font-size:14px; font-weight:900; color:var(--gris-dark); line-height:1.3; }
+.prog-preview-meta { font-size:11px; color:var(--gris-med); margin-top:2px; }
+.prog-preview-rvoe { display:inline-block; font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase; padding:3px 8px; border-radius:4px; background:var(--verde-light); color:var(--verde); margin-top:5px; }
+.prog-preview-rvoe.azul { background:var(--azul-light); color:var(--azul); }
+.prog-preview-rvoe.naranja { background:var(--naranja-light); color:var(--naranja); }
+.prog-preview-chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
+.prog-preview-chip { display:inline-flex; align-items:center; gap:4px; background:#f5f5f5; color:var(--gris-med); font-size:10px; font-weight:700; padding:4px 9px; border-radius:999px; }
+.prog-preview-chip.plantel { background:var(--verde-light); color:var(--verde); }
+.prog-preview-chip.plantel::before { content:'📍'; font-size:9px; }
+
+/* CHIPS DE OFERTA (sub-programas dentro de una tarjeta) */
+.prog-offer-label { font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--gris-med); margin-top:12px; margin-bottom:7px; }
+.prog-offer-gallery {
+  display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; margin:0 -18px; padding-left:18px; padding-right:18px;
+  scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+}
+.prog-offer-gallery::-webkit-scrollbar { height:4px; }
+.prog-offer-gallery::-webkit-scrollbar-thumb { background:#e5e5e5; border-radius:4px; }
+.prog-offer-chip {
+  flex:0 0 auto; scroll-snap-align:start;
+  background:#fff; border:1.5px solid #e5e5e5; border-radius:14px;
+  padding:10px 14px; min-width:130px; transition:.2s; text-align:left;
+}
+.prog-offer-chip:hover { border-color:var(--verde); transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,.06); }
+.prog-offer-chip.morado:hover { border-color:#7c3aed; }
+.prog-offer-chip.naranja:hover { border-color:var(--naranja); }
+.prog-offer-chip-name { font-size:12px; font-weight:800; color:var(--gris-dark); line-height:1.2; }
+.prog-offer-chip-meta { font-size:10px; color:var(--gris-med); margin-top:3px; line-height:1.3; }
+.prog-offer-chip-badge { display:inline-block; font-size:8px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; padding:2px 6px; border-radius:3px; background:var(--naranja-light); color:var(--naranja); margin-top:5px; }
+
+.prog-help-btn {
+  display:flex; align-items:center; gap:8px; margin-top:12px;
+  background:#f5f0ff; color:#7c3aed; border:1.5px dashed #7c3aed;
+  border-radius:10px; padding:10px 12px; font-size:12px; font-weight:800; transition:.2s;
+}
+.prog-help-btn:hover { background:#7c3aed; color:#fff; }
+.prog-help-btn-icon { font-size:14px; }
+.prog-help-btn-arrow { margin-left:auto; }
+.prog-preview-more {
+  background:var(--verde-light); border-radius:var(--radio); padding:14px;
+  text-align:center; font-size:13px; font-weight:800; color:var(--verde);
+  transition:.2s; display:block; flex:0 0 min(100%, 300px); min-width:280px;
+  scroll-snap-align:start; box-sizing:border-box;
+}
+.prog-preview-more:hover { background:var(--verde); color:#fff; }
+
+/* PLANTELES PREVIEW */
+.plantel-list { display:flex; flex-direction:column; gap:10px; }
+.plantel-item { background:#fff; border-radius:var(--radio); box-shadow:var(--sombra); padding:14px 16px; display:flex; align-items:center; gap:14px; transition:.2s; }
+.plantel-item:hover { transform:translateX(4px); box-shadow:var(--sombra-hover); }
+.plantel-dot { width:40px; height:40px; border-radius:50%; background:var(--verde-light); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.plantel-name { font-size:13px; font-weight:800; color:var(--gris-dark); line-height:1.2; }
+.plantel-addr { font-size:11px; color:var(--gris-med); margin-top:1px; }
+.plantel-tel { margin-left:auto; font-size:11px; font-weight:700; color:var(--verde); white-space:nowrap; }
+
+/* NOTICIAS PREVIEW */
+.noticia-preview { background:#fff; border-radius:var(--radio); box-shadow:var(--sombra); overflow:hidden; display:flex; gap:0; }
+.noticia-preview-img { width:90px; flex-shrink:0; background:var(--azul-light); display:flex; align-items:center; justify-content:center; font-family:'Courier New',monospace; font-size:10px; color:var(--azul); text-align:center; padding:8px; border-right:2px dashed var(--azul-med); }
+.noticia-preview-body { padding:14px; }
+.noticia-tag { display:inline-block; background:var(--naranja-light); color:var(--naranja); font-size:9px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:2px 8px; border-radius:4px; margin-bottom:5px; }
+.noticia-title { font-size:13px; font-weight:800; color:var(--gris-dark); line-height:1.35; margin-bottom:4px; }
+.noticia-fecha { font-size:11px; color:var(--gris-med); }
+.noticias-list { display:flex; flex-direction:column; gap:10px; }
+
+/* CTA SECTION */
+.cta-section { background:var(--grad); padding:80px 20px; text-align:center; }
+.cta-inner { max-width:520px; margin:0 auto; }
+.cta-section h2 { font-size:clamp(24px,5vw,36px); font-weight:900; color:#fff; margin-bottom:16px; }
+.cta-section p { font-family:'Lora',serif; font-size:15px; color:rgba(255,255,255,0.85); margin-bottom:32px; line-height:1.8; }
+.cta-btns { display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
+.btn-white { background:#fff; color:var(--verde); border-radius:999px; padding:13px 24px; font-size:14px; font-weight:800; box-shadow:0 4px 18px rgba(0,0,0,0.15); transition:.2s; }
+.btn-white:hover { transform:translateY(-2px); }
+
+/* ── GALERÍA ── */
+.galeria-section { background: var(--gris-dark); overflow: hidden; }
+.galeria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.galeria-cell {
+  aspect-ratio: 1/1; background: #2a2a2a;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace; font-size: 10px; color: rgba(255,255,255,0.35);
+  text-align: center; padding: 0; position: relative; overflow: hidden;
+  cursor: pointer; transition: .2s;
+}
+.galeria-cell:hover { opacity: .9; }
+.galeria-cell img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.galeria-cell.tall { grid-row: span 2; aspect-ratio: auto; }
+.galeria-cell.wide { grid-column: span 2; aspect-ratio: 16/7; }
+.galeria-cell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.galeria-cell-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+  padding: 20px 10px 10px; pointer-events: none;
+}
+.galeria-placeholder {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.3);
+}
+.galeria-placeholder span { font-size: 22px; }
+.galeria-placeholder p { font-size: 10px; font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: .5px; text-align: center; }
+
+/* ── TESTIMONIOS ── */
+/* ── TESTIMONIOS ── */
+.testimonios-section { background: var(--verde-pale); }
+
+/* Carousel */
+.test-carousel { position: relative; }
+.test-track-wrap { overflow: hidden; border-radius: var(--radio); }
+.test-track {
+  display: flex;
+  transition: transform .45s cubic-bezier(.4,.0,.2,1);
+  will-change: transform;
+}
+.test-slide { flex: 0 0 100%; min-width: 0; padding: 4px; box-sizing: border-box; }
+
+.test-card {
+  background: #fff; border-radius: var(--radio); box-shadow: var(--sombra);
+  padding: 22px 20px; position: relative; transition: .2s;
+  height: 100%; box-sizing: border-box;
+}
+.test-card:hover { box-shadow: var(--sombra-hover); transform: translateY(-2px); }
+
+.test-controls {
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px; margin-top: 16px;
+}
+.test-arrow {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #fff; border: 1px solid #e5e5e5;
+  color: var(--verde); font-size: 18px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: .2s; box-shadow: var(--sombra);
+  -webkit-tap-highlight-color: transparent;
+}
+.test-arrow:hover { background: var(--verde); color: #fff; border-color: var(--verde); transform: translateY(-1px); }
+.test-arrow:active { transform: translateY(0); }
+.test-dots { display: flex; gap: 7px; align-items: center; }
+.test-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #d4dbd4; border: none; padding: 0; cursor: pointer;
+  transition: .25s;
+}
+.test-dot.active { background: var(--verde); width: 22px; border-radius: 4px; }
+.test-quote {
+  font-family: 'Lora', serif; font-style: italic; font-size: 14px; color: var(--gris-med);
+  line-height: 1.75; margin-bottom: 16px; position: relative; padding-left: 16px;
+}
+.test-quote::before {
+  content: '"'; position: absolute; left: 0; top: -4px;
+  font-size: 36px; color: var(--verde-light); font-style: normal; line-height: 1;
+}
+.test-author { display: flex; align-items: center; gap: 12px; }
+.test-avatar {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 900; color: #fff;
+}
+.test-avatar.v { background: var(--grad); }
+.test-avatar.n { background: linear-gradient(135deg, var(--naranja), #f28c3a); }
+.test-avatar.a { background: linear-gradient(135deg, var(--azul), var(--azul-med)); }
+.test-name { font-size: 13px; font-weight: 800; color: var(--gris-dark); }
+.test-prog { font-size: 11px; color: var(--gris-med); margin-top: 1px; }
+.test-stars { color: #f59e0b; font-size: 13px; margin-left: auto; }
+
+/* ── ANIMACIONES SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+.delay-1 { transition-delay: .08s; }
+.delay-2 { transition-delay: .16s; }
+.delay-3 { transition-delay: .24s; }
+.delay-4 { transition-delay: .32s; }
+.delay-5 { transition-delay: .40s; }
+
+/* Contador animado */
+.hero-stat-num { transition: opacity .4s; }
+
+/* ── HERO ENTRANCE (al cargar) ── */
+.hero-inner > * { transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+.hero-inner.is-hidden > * { opacity: 0; transform: translateY(26px); }
+.hero-inner .hero-badge { transition-delay: .05s; }
+.hero-inner h1          { transition-delay: .16s; }
+.hero-inner p           { transition-delay: .30s; }
+.hero-inner .hero-btns  { transition-delay: .44s; }
+.hero-inner .hero-stats { transition-delay: .58s; }
+
+/* Brillo que cruza el badge */
+.hero-badge { position: relative; overflow: hidden; }
+.hero-badge::after {
+  content:''; position:absolute; top:0; left:-60%; width:50%; height:100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+  transform: skewX(-18deg);
+  animation: badgeSheen 4.5s ease-in-out 1.2s infinite;
+}
+@keyframes badgeSheen { 0%,72%,100% { left:-60%; } 84% { left:130%; } }
+
+/* Círculos decorativos del hero flotando */
+@keyframes floatBlob {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%     { transform: translate(-16px,20px) scale(1.06); }
+}
+.hero::before { animation: floatBlob 9s ease-in-out infinite; }
+.hero::after  { animation: floatBlob 12s ease-in-out infinite reverse; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-inner.is-hidden > *, .hero::before, .hero::after,
+  .hero-badge::after, .isela-avatar { animation: none; transition: none; opacity: 1; transform: none; }
+}
+
+/* ── FAQ ── */
+.faq-section { background: var(--verde-pale); }
+.faq-list { display: flex; flex-direction: column; gap: 10px; }
+.faq-item {
+  background: #fff;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  transition: box-shadow .2s;
+}
+.faq-item.open { box-shadow: var(--sombra-hover); }
+.faq-q {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 16px 18px;
+  background: none; border: none; text-align: left;
+  font-family: inherit; font-size: 14px; font-weight: 800; color: var(--gris-dark);
+  cursor: pointer; transition: .15s; line-height: 1.4;
+}
+.faq-q:hover { background: var(--verde-pale); }
+.faq-item.open .faq-q { color: var(--verde); }
+.faq-chevron {
+  width: 28px; height: 28px; border-radius: 50%; background: var(--verde-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0; transition: transform .3s ease;
+  color: var(--verde);
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); background: var(--verde); color: #fff; }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height .35s ease, padding .25s ease;
+  font-size: 13.5px; color: var(--gris-med); line-height: 1.75;
+  font-family: 'Lora', serif; padding: 0 18px;
+}
+.faq-item.open .faq-a { max-height: 400px; padding: 0 18px 18px; }
+.faq-a strong { color: var(--verde); font-style: normal; }
+
+</style>
+</head>
+<body class="page-body">
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="logo-ises.png" alt="ISES">
+    <div class="nav-logo-text">ISES Toluca <span>Donde sí se es</span></div>
+  </a>
+  <div class="nav-actions">
+    <a href="contacto.html" class="nav-cta">Inscríbete</a>
+    <button class="nav-menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" class="active" onclick="closeMenu()"><span class="nav-icon">🏠</span> Inicio</a>
+  <a href="nosotros.html" onclick="closeMenu()"><span class="nav-icon">🎓</span> Quiénes somos</a>
+  <a href="oferta.html" onclick="closeMenu()"><span class="nav-icon">📚</span> Oferta educativa</a>
+  <a href="prepas.html" onclick="closeMenu()"><span class="nav-icon">📖</span> Preparatoria — Compara</a>
+  <a href="planteles.html" onclick="closeMenu()"><span class="nav-icon">📍</span> Nuestros planteles</a>
+  <a href="faq.html" onclick="closeMenu()"><span class="nav-icon">❓</span> Preguntas frecuentes</a>
+  <a href="contacto.html" onclick="closeMenu()"><span class="nav-icon">✉️</span> Contacto</a>
+
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner is-hidden">
+    <div class="hero-badge">Ciclo Agosto 2026 · Inscripciones abiertas</div>
+    <h1>Formando <span>generaciones</span> de éxito</h1>
+    <p>Educación de calidad con compromiso ético institucional. Licenciaturas, posgrados, preparatorias y cursos en 5 planteles del Estado de México.</p>
+    <div class="hero-btns">
+      <a href="contacto.html" class="btn btn-primary">Solicitar información</a>
+      <a href="#programas" class="btn-secondary btn">Ver Oferta Educativa</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-lbl">Planteles</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">15+</div><div class="hero-stat-lbl">Programas</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">40+</div><div class="hero-stat-lbl">Años</div></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- PROGRAMAS PREVIEW (FIRST FOLD) -->
+<section class="section-full" id="programas">
+  <div class="section">
+    <p class="section-label reveal">Oferta Educativa</p>
+    <h2 class="section-title reveal">¿Qué quieres estudiar?</h2>
+    <p class="section-sub reveal">Licenciaturas, posgrado, preparatoria y cursos para todos los perfiles.</p>
+
+    <button class="programas-toggle" id="programasToggle" type="button" aria-expanded="true" aria-controls="programasCollapsible">
+      <span class="programas-toggle-label">Ver programas</span>
+      <span class="programas-toggle-icon">▲</span>
+    </button>
+
+    <div class="programas-collapsible open" id="programasCollapsible">
+      <div class="nivel-filter reveal" id="nivelFilter" role="tablist" aria-label="Filtrar por nivel educativo">
+        <button class="nivel-chip active" data-nivel="todos" type="button">Todos <span class="nivel-chip-count">6</span></button>
+        <button class="nivel-chip" data-nivel="preparatoria" type="button">📖 Preparatoria</button>
+        <button class="nivel-chip" data-nivel="licenciatura" type="button">🎓 Licenciatura</button>
+        <button class="nivel-chip" data-nivel="posgrado" type="button">🔬 Posgrado</button>
+        <button class="nivel-chip" data-nivel="profesional" type="button">👶 Prof. Medio</button>
+        <button class="nivel-chip" data-nivel="curso" type="button">🌐 Inglés</button>
+      </div>
+
+      <div class="prog-carousel-wrap">
+        <div class="prog-preview-grid" id="progGrid">
+
+      <div class="prog-preview-card morado reveal" data-nivel="preparatoria">
+        <a href="prepas.html" style="display:block;">
+          <div class="prog-preview-head">
+            <div class="prog-preview-icon">📖</div>
+            <div class="prog-preview-titles">
+              <div class="prog-preview-name">Preparatoria</div>
+              <div class="prog-preview-meta">4 modalidades · Compara y elige</div>
+              <span class="prog-preview-rvoe">Incorporadas UAEMéx y SEP</span>
+            </div>
+          </div>
+        </a>
+        <div class="prog-offer-label">Elige tu modalidad</div>
+        <div class="prog-offer-gallery">
+          <a href="prepas.html#uaemex" class="prog-offer-chip morado">
+            <div class="prog-offer-chip-name">UAEMéx</div>
+            <div class="prog-offer-chip-meta">Lun–Vie matutino<br>3 años</div>
+          </a>
+          <a href="prepas.html#sep" class="prog-offer-chip morado">
+            <div class="prog-offer-chip-name">SEP</div>
+            <div class="prog-offer-chip-meta">Matutino o vesp.<br>3 años</div>
+          </a>
+          <a href="prepas.html#abierta" class="prog-offer-chip morado">
+            <div class="prog-offer-chip-name">Abierta SEP</div>
+            <div class="prog-offer-chip-meta">Sábados · sin límite de edad</div>
+          </a>
+          <a href="prepas.html#ceneval" class="prog-offer-chip morado">
+            <div class="prog-offer-chip-name">CENEVAL</div>
+            <div class="prog-offer-chip-meta">10 sesiones<br>Certificación rápida</div>
+          </a>
+        </div>
+        <a href="prepas.html" class="prog-help-btn">
+          <span class="prog-help-btn-icon">🤔</span>
+          <span>¿Tienes dudas de cuál te conviene? Compáralas</span>
+          <span class="prog-help-btn-arrow">→</span>
+        </a>
+        <div class="prog-preview-chips" style="margin-top:10px;">
+          <span class="prog-preview-chip plantel">Maquinita</span>
+          <span class="prog-preview-chip plantel">Villada</span>
+          <span class="prog-preview-chip plantel">Bravo</span>
+        </div>
+        <a href="prepas.html" class="prog-saber-mas"><span>Quiero saber más</span><span class="arrow">→</span></a>
+      </div>
+
+      <a href="oferta.html#posgrado" class="prog-preview-card azul reveal" data-nivel="posgrado">
+        <div class="prog-preview-head">
+          <div class="prog-preview-icon">🔬</div>
+          <div class="prog-preview-titles">
+            <div class="prog-preview-name">Maestría en Docencia en Educación Media Superior</div>
+            <div class="prog-preview-meta">Posgrado · 22 meses · 100% Virtual</div>
+            <span class="prog-preview-rvoe azul">RVOE SEP 20130146</span>
+          </div>
+        </div>
+        <div class="prog-preview-chips">
+          <span class="prog-preview-chip">📜 Incluye titulación</span>
+          <span class="prog-preview-chip">🎁 34% de beca</span>
+          <span class="prog-preview-chip">⏱ Inicio: 8 sep</span>
+        </div>
+        <div class="prog-preview-chips" style="margin-top:6px;">
+          <span class="prog-preview-chip plantel">Disponible desde los 5 planteles · 100% Virtual</span>
+        </div>
+        <span class="prog-saber-mas"><span>Quiero saber más</span><span class="arrow">→</span></span>
+      </a>
+
+      <div class="prog-preview-card reveal delay-1" data-nivel="licenciatura">
+        <a href="oferta.html#licenciaturas" style="display:block;">
+          <div class="prog-preview-head">
+            <div class="prog-preview-icon">🎓</div>
+            <div class="prog-preview-titles">
+              <div class="prog-preview-name">Licenciaturas Escolarizadas</div>
+              <div class="prog-preview-meta">4½ años · Lun–Vie matutino</div>
+              <span class="prog-preview-rvoe">UAEMéx 216, 217 · RVOE SEP</span>
+            </div>
+          </div>
+        </a>
+        <div class="prog-offer-label">Carreras</div>
+        <div class="prog-offer-gallery">
+          <a href="oferta.html#licenciaturas" class="prog-offer-chip">
+            <div class="prog-offer-chip-name">Administración</div>
+            <div class="prog-offer-chip-meta">Incorporada UAEMéx</div>
+          </a>
+          <a href="oferta.html#licenciaturas" class="prog-offer-chip">
+            <div class="prog-offer-chip-name">Contaduría</div>
+            <div class="prog-offer-chip-meta">Incorporada UAEMéx</div>
+          </a>
+          <a href="oferta.html#licenciaturas" class="prog-offer-chip">
+            <div class="prog-offer-chip-name">Psicología</div>
+            <div class="prog-offer-chip-meta">Incorporada UAEMéx</div>
+          </a>
+          <a href="oferta.html#licenciaturas" class="prog-offer-chip">
+            <div class="prog-offer-chip-name">Pedagogía</div>
+            <div class="prog-offer-chip-meta">Incorporada UAEMéx</div>
+          </a>
+          <a href="oferta.html#licenciaturas" class="prog-offer-chip">
+            <div class="prog-offer-chip-name">Derecho</div>
+            <div class="prog-offer-chip-meta">Incorporada SEP<br>(RVOE SEP)</div>
+          </a>
+        </div>
+        <div class="prog-preview-chips" style="margin-top:10px;">
+          <span class="prog-preview-chip plantel">Maquinita</span>
+          <span class="prog-preview-chip plantel">Villada</span>
+        </div>
+        <a href="oferta.html#licenciaturas" class="prog-saber-mas"><span>Quiero saber más</span><span class="arrow">→</span></a>
+      </div>
+
+      <div class="prog-preview-card naranja reveal delay-2" data-nivel="licenciatura">
+        <a href="oferta.html#ejecutivas" style="display:block;">
+          <div class="prog-preview-head">
+            <div class="prog-preview-icon">💼</div>
+            <div class="prog-preview-titles">
+              <div class="prog-preview-name">Licenciaturas Ejecutivas (Sabatinas)</div>
+              <div class="prog-preview-meta">38 meses · Sábados 8:00–18:00</div>
+              <span class="prog-preview-rvoe naranja">Incorporadas UAEMéx · RVOE SEP</span>
+            </div>
+          </div>
+        </a>
+        <div class="prog-offer-label">Carreras</div>
+        <div class="prog-offer-gallery">
+          <a href="oferta.html#ejecutivas" class="prog-offer-chip naranja">
+            <div class="prog-offer-chip-name">Administración</div>
+            <div class="prog-offer-chip-meta">Sabatina</div>
+          </a>
+          <a href="oferta.html#ejecutivas" class="prog-offer-chip naranja">
+            <div class="prog-offer-chip-name">Psicología</div>
+            <div class="prog-offer-chip-meta">Sabatina</div>
+          </a>
+          <a href="oferta.html#ejecutivas" class="prog-offer-chip naranja">
+            <div class="prog-offer-chip-name">Pedagogía</div>
+            <div class="prog-offer-chip-meta">Sabatina</div>
+          </a>
+          <a href="oferta.html#ejecutivas" class="prog-offer-chip naranja">
+            <div class="prog-offer-chip-name">Recursos Humanos</div>
+            <div class="prog-offer-chip-meta">Sabatina</div>
+          </a>
+        </div>
+        <div class="prog-preview-chips" style="margin-top:10px;">
+          <span class="prog-preview-chip plantel">Maquinita</span>
+          <span class="prog-preview-chip plantel">Villada</span>
+          <span class="prog-preview-chip plantel">Santiago</span>
+          <span class="prog-preview-chip plantel">Ixtlahuaca</span>
+        </div>
+        <a href="oferta.html#ejecutivas" class="prog-saber-mas"><span>Quiero saber más</span><span class="arrow">→</span></a>
+      </div>
+
+      <a href="oferta.html#tab-brav" class="prog-preview-card naranja reveal delay-4" data-nivel="profesional">
+        <div class="prog-preview-head">
+          <div class="prog-preview-icon">👶</div>
+          <div class="prog-preview-titles">
+            <div class="prog-preview-name">Profesional Medio en Educación Preescolar</div>
+            <div class="prog-preview-meta">2 años · Lun–Vie 9:00–12:30 · Obtiene Título</div>
+            <span class="prog-preview-rvoe naranja">Incorporada SEP</span>
+          </div>
+        </div>
+        <div class="prog-preview-chips">
+          <span class="prog-preview-chip">📜 Título oficial</span>
+          <span class="prog-preview-chip">⏱ Solo 2 años</span>
+          <span class="prog-preview-chip">⏰ Inicio: 1 sep</span>
+        </div>
+        <div class="prog-preview-chips" style="margin-top:6px;">
+          <span class="prog-preview-chip plantel">Bravo</span>
+        </div>
+        <span class="prog-saber-mas"><span>Quiero saber más</span><span class="arrow">→</span></span>
+      </a>
+
+      <div class="prog-preview-card reveal" data-nivel="curso">
+        <a href="oferta.html#tab-maq" style="display:block;">
+          <div class="prog-preview-head">
+            <div class="prog-preview-icon">🌐</div>
+            <div class="prog-preview-titles">
+              <div class="prog-preview-name">Cursos de Inglés</div>
+              <div class="prog-preview-meta">Sáb 9:00–14:00 · Constancia oficial</div>
+              <span class="prog-preview-rvoe">Metodología CELe UAEMéx</span>
+            </div>
+          </div>
+        </a>
+        <div class="prog-offer-label">Elige tu nivel</div>
+        <div class="prog-offer-gallery">
+          <a href="oferta.html#tab-maq" class="prog-offer-chip">
+            <div class="prog-offer-chip-name">Inglés desde 0</div>
+            <div class="prog-offer-chip-meta">Propedéutico<br>Desde 15 años · sin base previa</div>
+            <span class="prog-offer-chip-badge">Nuevo</span>
+          </a>
+          <a href="oferta.html#tab-maq" class="prog-offer-chip">
+            <div class="prog-offer-chip-name">CELe Niños</div>
+            <div class="prog-offer-chip-meta">Grupos por edad</div>
+          </a>
+          <a href="oferta.html#tab-maq" class="prog-offer-chip">
+            <div class="prog-offer-chip-name">CELe Adolescentes</div>
+            <div class="prog-offer-chip-meta">Niveles A1–B2</div>
+          </a>
+          <a href="oferta.html#tab-maq" class="prog-offer-chip">
+            <div class="prog-offer-chip-name">CELe Adultos</div>
+            <div class="prog-offer-chip-meta">5 habilidades</div>
+          </a>
+        </div>
+        <div class="prog-preview-chips" style="margin-top:10px;">
+          <span class="prog-preview-chip plantel">Maquinita</span>
+          <span class="prog-preview-chip plantel">Villada</span>
+        </div>
+        <a href="oferta.html#tab-maq" class="prog-saber-mas"><span>Quiero saber más</span><span class="arrow">→</span></a>
+      </div>
+
+      <a href="oferta.html" class="prog-preview-more">Ver toda la Oferta Educativa →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- PLANTELES -->
+<section class="section">
+  <p class="section-label reveal">Dónde estamos</p>
+  <h2 class="section-title reveal">Nuestros planteles</h2>
+  <p class="section-sub reveal">5 sedes en el Estado de México, cerca de ti.</p>
+  <div class="plantel-list">
+    <a href="planteles.html#maquinita" class="plantel-item reveal-left">
+      <div class="plantel-dot">📍</div>
+      <div><div class="plantel-name">Plantel Maquinita</div><div class="plantel-addr">Isidro Fabela Nte. 905, Santiago Miltepec, Toluca</div></div>
+      <div class="plantel-tel">722 272 1215</div>
+    </a>
+    <a href="planteles.html#villada" class="plantel-item reveal-left delay-1">
+      <div class="plantel-dot">📍</div>
+      <div><div class="plantel-name">Plantel Villada</div><div class="plantel-addr">José V. Villada 440, Col. El Ranchito, Toluca</div></div>
+      <div class="plantel-tel">722 215 5800</div>
+    </a>
+    <a href="planteles.html#bravo" class="plantel-item reveal-left delay-2">
+      <div class="plantel-dot">📍</div>
+      <div><div class="plantel-name">Plantel Bravo</div><div class="plantel-addr">Bravo Nte. 307-2, Col. Centro, Toluca</div></div>
+      <div class="plantel-tel">722 215 1050</div>
+    </a>
+    <a href="planteles.html#santiago" class="plantel-item reveal-left delay-3">
+      <div class="plantel-dot">📍</div>
+      <div><div class="plantel-name">Plantel Santiago</div><div class="plantel-addr">Vicente Guerrero 203, Santiago Tianguistenco</div></div>
+      <div class="plantel-tel">713 135 2437</div>
+    </a>
+    <a href="planteles.html#ixtlahuaca" class="plantel-item reveal-left delay-4">
+      <div class="plantel-dot">📍</div>
+      <div><div class="plantel-name">Plantel Ixtlahuaca</div><div class="plantel-addr">Fco. López Rayón 8, Ixtlahuaca</div></div>
+      <div class="plantel-tel">712 283 0073</div>
+    </a>
+  </div>
+  <div style="margin-top:16px;"><a href="planteles.html" class="btn btn-outline btn-block">Ver mapas y direcciones →</a></div>
+</section>
+
+<!-- GALERÍA -->
+<section class="galeria-section">
+  <div style="max-width:420px;margin:0 auto;padding:32px 20px 8px;">
+    <p class="section-label reveal" style="color:var(--naranja);">Nuestros espacios</p>
+    <h2 class="section-title reveal" style="color:#fff;border-left-color:var(--naranja);">Galería</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px;font-family:'Lora',serif;font-style:italic;">Conoce nuestras instalaciones. Toca para ampliar.</p>
+    <button class="galeria-toggle" id="galeriaToggle" type="button" aria-expanded="false" aria-controls="galeriaCollapsible">
+      <span class="galeria-toggle-icon">+</span>
+      <span id="galeriaToggleLabel">Mostrar galería (10 fotos)</span>
+    </button>
+  </div>
+  <div class="galeria-collapsible" id="galeriaCollapsible">
+  <div class="galeria-grid" style="max-width:420px;margin:0 auto;">
+    <div class="galeria-cell tall">
+      <img src="fotos/maq-fachada.jpg" alt="Plantel Maquinita">
+      <div class="galeria-cell-label">Plantel Maquinita</div>
+    </div>
+    <div class="galeria-cell">
+      <img src="fotos/maq-aula.jpg" alt="Aulas modernas">
+      <div class="galeria-cell-label">Aulas modernas</div>
+    </div>
+    <div class="galeria-cell">
+      <img src="fotos/maq-biblioteca.jpg" alt="Biblioteca">
+      <div class="galeria-cell-label">Biblioteca</div>
+    </div>
+    <div class="galeria-cell wide">
+      <img src="fotos/maq-auditorio.jpg" alt="Auditorio">
+      <div class="galeria-cell-label">Auditorio</div>
+    </div>
+    <div class="galeria-cell">
+      <img src="fotos/maq-laboratorio.jpg" alt="Laboratorio">
+      <div class="galeria-cell-label">Laboratorio</div>
+    </div>
+    <div class="galeria-cell">
+      <img src="fotos/bravo-sala-computo.jpg" alt="Centro de cómputo">
+      <div class="galeria-cell-label">Centro de cómputo</div>
+    </div>
+    <div class="galeria-cell wide">
+      <img src="fotos/villada-entrada.jpg" alt="Plantel Villada">
+      <div class="galeria-cell-label">Plantel Villada</div>
+    </div>
+    <div class="galeria-cell">
+      <img src="fotos/maq-patio.jpg" alt="Patio y áreas comunes">
+      <div class="galeria-cell-label">Áreas comunes</div>
+    </div>
+    <div class="galeria-cell">
+      <img src="fotos/villada-laboratorio.jpg" alt="Laboratorio">
+      <div class="galeria-cell-label">Espacios académicos</div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:20px 20px 32px;">
+    <p style="font-size:11px;color:rgba(255,255,255,0.3);">Las fotos se agregarán próximamente · Contáctanos para más información</p>
+  </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- TESTIMONIOS -->
+<section class="testimonios-section section-full">
+  <div class="section">
+    <p class="section-label reveal">Voces de nuestros alumnos</p>
+    <h2 class="section-title reveal">Lo que dicen de ISES</h2>
+    <p class="section-sub reveal">Más de 40 años formando profesionistas exitosos en el Estado de México.</p>
+
+    <div class="test-carousel reveal" id="testCarousel">
+      <div class="test-track-wrap">
+        <div class="test-track" id="testTrack">
+
+          <div class="test-slide">
+            <div class="test-card">
+              <div class="test-quote">Estudié la Licenciatura en Administración en el Plantel Maquinita mientras trabajaba. Los horarios matutinos me permitieron combinar ambas cosas. Hoy dirijo mi propio negocio y le debo mucho a la formación que recibí en ISES.</div>
+              <div class="test-author">
+                <div class="test-avatar v">MR</div>
+                <div><div class="test-name">Miguel R.</div><div class="test-prog">Lic. en Administración · Plantel Maquinita</div></div>
+                <div class="test-stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <div class="test-card">
+              <div class="test-quote">La Licenciatura Ejecutiva en Psicología fue perfecta para mí. Solo los sábados, con maestros excelentes y grupos pequeños. En 38 meses logré titularme sin dejar mi trabajo en el sector salud.</div>
+              <div class="test-author">
+                <div class="test-avatar n">AL</div>
+                <div><div class="test-name">Ana L.</div><div class="test-prog">Lic. Ejecutiva en Psicología · Plantel Villada</div></div>
+                <div class="test-stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <div class="test-card">
+              <div class="test-quote">Hice la Preparatoria Abierta en el Plantel Bravo a los 32 años. Sin límite de edad, a mi ritmo y con clase real. Fue la mejor decisión que tomé. Ahora estoy estudiando una licenciatura.</div>
+              <div class="test-author">
+                <div class="test-avatar a">JM</div>
+                <div><div class="test-name">Jorge M.</div><div class="test-prog">Preparatoria Abierta · Plantel Bravo</div></div>
+                <div class="test-stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <div class="test-card">
+              <div class="test-quote">La Maestría en Docencia es 100% en línea con horario flexible. Puedo estudiar desde casa, los profesores son muy preparados y el programa incluye la titulación. Totalmente recomendable para docentes que quieren crecer.</div>
+              <div class="test-author">
+                <div class="test-avatar v">CP</div>
+                <div><div class="test-name">Carmen P.</div><div class="test-prog">Maestría en Docencia · Plantel Villada</div></div>
+                <div class="test-stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="test-controls">
+        <button class="test-arrow" id="testPrev" aria-label="Anterior">‹</button>
+        <div class="test-dots" id="testDots"></div>
+        <button class="test-arrow" id="testNext" aria-label="Siguiente">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// PROGRAMAS TOGGLE
+(function(){
+  var toggle = document.getElementById('programasToggle');
+  var collapsible = document.getElementById('programasCollapsible');
+  
+  if(toggle && collapsible){
+    toggle.addEventListener('click', function(){
+      var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', !isOpen);
+      collapsible.classList.toggle('open');
+    });
+  }
+})();
+
+(function(){
+  var track = document.getElementById('testTrack');
+  if(!track) return;
+  var slides = track.querySelectorAll('.test-slide');
+  var total = slides.length;
+  var idx = 0;
+  var dotsWrap = document.getElementById('testDots');
+  var prevBtn = document.getElementById('testPrev');
+  var nextBtn = document.getElementById('testNext');
+  var autoplay;
+
+  // build dots
+  for(var i=0;i<total;i++){
+    var d = document.createElement('button');
+    d.className = 'test-dot' + (i===0?' active':'');
+    d.setAttribute('aria-label','Ir a reseña '+(i+1));
+    (function(n){ d.addEventListener('click', function(){ go(n); reset(); }); })(i);
+    dotsWrap.appendChild(d);
+  }
+
+  function go(n){
+    idx = (n + total) % total;
+    track.style.transform = 'translateX(-' + (idx*100) + '%)';
+    var dots = dotsWrap.querySelectorAll('.test-dot');
+    for(var i=0;i<dots.length;i++) dots[i].classList.toggle('active', i===idx);
+  }
+  function next(){ go(idx+1); }
+  function prev(){ go(idx-1); }
+  function reset(){ clearInterval(autoplay); autoplay = setInterval(next, 6000); }
+
+  nextBtn.addEventListener('click', function(){ next(); reset(); });
+  prevBtn.addEventListener('click', function(){ prev(); reset(); });
+
+  // touch swipe
+  var sx=0, dx=0, dragging=false;
+  track.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; dx=0; dragging=true; }, {passive:true});
+  track.addEventListener('touchmove',  function(e){ if(dragging) dx = e.touches[0].clientX - sx; }, {passive:true});
+  track.addEventListener('touchend',   function(){
+    if(!dragging) return; dragging=false;
+    if(Math.abs(dx) > 40){ if(dx<0) next(); else prev(); reset(); }
+  });
+
+  // pause on hover
+  var carousel = document.getElementById('testCarousel');
+  carousel.addEventListener('mouseenter', function(){ clearInterval(autoplay); });
+  carousel.addEventListener('mouseleave', reset);
+
+  reset();
+})();
+</script>
+
+<div class="sep"></div>
+
+<!-- NOTICIAS -->
+<section class="section-full">
+  <div class="section">
+    <p class="section-label reveal">Vida institucional</p>
+    <h2 class="section-title reveal">Noticias</h2>
+    <div class="noticias-list">
+      <div id="noticiasPreview" class="noticias-list"></div>
+    </div>
+    <div style="margin-top:16px;"><a href="noticias.html" class="btn btn-outline btn-block">Ver todas las noticias →</a></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section section-full" id="faq">
+  <div class="section">
+    <p class="section-label reveal" style="font-family: sans-serif; color: rgb(26, 96, 85)">Preguntas frecuentes</p>
+    <h2 class="section-title reveal" style="color: rgb(9, 41, 114)">¿Tienes dudas?</h2>
+    <p class="section-sub reveal" style="color: rgb(7, 52, 2); font-family: Lato">Las respuestas más comunes sobre inscripciones, programas y planteles.</p>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Cuándo inician las clases del ciclo Agosto 2026?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">Las clases del ciclo Agosto 2026 inician el <strong>lunes 4 de agosto de 2026</strong> para licenciaturas y preparatoria UAEMéx. Las licenciaturas ejecutivas y preparatoria SEP inician el <strong>sábado 30 de agosto</strong>. La maestría inicia el <strong>8 de septiembre</strong>.</div>
+      </div>
+
+      <div class="faq-item reveal delay-1">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Puedo estudiar si ya trabajo de tiempo completo?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">¡Sí! Las <strong>Licenciaturas Ejecutivas</strong> están diseñadas exactamente para eso: se cursan <strong>solo los sábados de 8:00 a 18:00 hrs</strong> y duran 38 meses. Además, tus prácticas profesionales se liberan con tu empleo actual. La <strong>Maestría en Docencia</strong> es 100% virtual con horario flexible.</div>
+      </div>
+
+      <div class="faq-item reveal delay-2">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Qué documentos necesito para inscribirme?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">Los documentos generales son: <strong>Acta de nacimiento certificada</strong>, <strong>CURP</strong>, <strong>Certificado del nivel anterior</strong> (secundaria o bachillerato según el programa) y <strong>4 fotografías infantil recientes en blanco y negro</strong>. Algunos programas requieren también certificado médico con tipo de sangre. Contáctanos para la lista exacta de tu programa.</div>
+      </div>
+
+      <div class="faq-item reveal delay-3">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Los títulos y certificados tienen validez oficial?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">Sí. ISES está <strong>incorporado a la UAEMéx</strong> (Universidad Autónoma del Estado de México) y a la <strong>SEP</strong>. Todos los títulos, certificados y grados tienen validez oficial en todo el país y son reconocidos por instituciones públicas y privadas.</div>
+      </div>
+
+      <div class="faq-item reveal delay-4">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿En qué planteles puedo cursar la Licenciatura Ejecutiva?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a"><strong>Plantel Maquinita:</strong> Administración y Derecho.<br><strong>Plantel Villada:</strong> Psicología, Pedagogía y Recursos Humanos.<br>Todas inician el sábado 30 de agosto de 2026 con horario de 8:00 a 18:00 hrs.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Hay opciones para terminar la preparatoria si ya trabajo?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">Sí, tenemos dos opciones ideales: <strong>Preparatoria Abierta SEP</strong> (Plantel Bravo, sábados 8–16 hrs, sin límite de edad) donde tú decides el ritmo, y el <strong>Curso de Preparación CENEVAL</strong> (Plantel Villada, 10 sesiones en sábados y domingos) para obtener tu certificado rápidamente.</div>
+      </div>
+
+      <div class="faq-item reveal delay-1">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Cómo puedo obtener más información o agendar una visita?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">Puedes contactarnos por <strong>WhatsApp al +52 722 675 3239</strong>, llamar directamente al plantel de tu preferencia, o llenar el formulario en nuestra página de <a href="contacto.html" style="color:var(--verde);font-weight:700;">Contacto</a>. Un asesor te responderá a la brevedad. También puedes usar <strong>ISELA</strong>, nuestra asistente de inteligencia artificial, para orientación vocacional personalizada.</div>
+      </div>
+
+    </div>
+
+
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner reveal-scale">
+    <h2>¿Listo para empezar?</h2>
+    <p>Inscripciones abiertas para el ciclo Agosto 2026. Contáctanos y un asesor te guiará.</p>
+    <div class="cta-btns">
+      <a href="contacto.html" class="btn-white">Solicitar información</a>
+      <a href="https://wa.me/527226753239?text=Hola%20quiero%20informaci%C3%B3n%20sobre%20ISES%20Toluca" target="_blank" rel="noopener" class="btn btn-primary">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="logo-ises.png" alt="ISES"><div class="footer-logo-text">ISES Toluca</div></div>
+
+    <div class="footer-nav">
+      <a href="nosotros.html">Quiénes somos</a>
+      <a href="oferta.html">Oferta educativa</a>
+      <a href="planteles.html">Nuestros planteles</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="contacto.html">Contacto</a>
+    </div>
+    <div class="footer-socials">
+      <a href="#" class="footer-social">f</a>
+      <a href="#" class="footer-social">📷</a>
+      <a href="https://wa.me/527226753239" target="_blank" rel="noopener" class="footer-social">💬</a>
+    </div>
+    <div class="footer-copy">© 2026 <strong>ISES Toluca</strong> · Todos los derechos reservados. <span style="margin-left:12px; opacity:0.5;">|</span> <a href="#" onclick="document.getElementById('adminModal').style.display='flex'; return false;" style="margin-left:12px; font-size:12px; opacity:0.6; text-decoration:none; cursor:pointer; font-weight:600;">⚙️ Admin</a></div>
+  </div>
+</footer>
+
+<!-- Modal Admin -->
+<div id="adminModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:white; border-radius:12px; padding:40px; max-width:400px; width:90%; box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+    <h2 style="margin:0 0 20px 0; font-size:20px; font-weight:900; text-align:center;">Panel de Administración</h2>
+    <p style="margin:0 0 24px 0; font-size:13px; color:#666; text-align:center;">Ingresa la contraseña para acceder</p>
+    <input id="adminPassword" type="password" placeholder="Contraseña" style="width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:6px; font-size:14px; box-sizing:border-box; margin-bottom:16px;">
+    <button onclick="checkAdminPassword()" style="width:100%; padding:12px; background:#2a6fdb; color:white; border:none; border-radius:6px; font-size:14px; font-weight:800; cursor:pointer; margin-bottom:8px;">Acceder</button>
+    <button onclick="document.getElementById('adminModal').style.display='none'" style="width:100%; padding:12px; background:#f0f4f0; color:#2a2a2a; border:none; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer;">Cerrar</button>
+  </div>
+</div>
+
+<script>
+function checkAdminPassword() {
+  const password = document.getElementById('adminPassword').value;
+  // Contraseña: 'ises2026'
+  if (password === 'ises2026') {
+    sessionStorage.setItem('adminAuth', 'true');
+    window.location.href = 'admin.html';
+  } else {
+    alert('Contraseña incorrecta');
+    document.getElementById('adminPassword').value = '';
+  }
+}
+document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') checkAdminPassword();
+});
+</script>
+
+<!-- FABs -->
+<div class="fab-group">
+  <div class="fab-wrap"><span class="fab-label">WhatsApp</span><a href="https://wa.me/527226753239" target="_blank" rel="noopener" class="fab fab-wa">💬</a></div>
+  <div class="fab-wrap"><span class="fab-label">Llamar</span><a href="tel:7222721215" class="fab fab-sm fab-call">📞</a></div>
+</div>
+
+<script>
+// ── NAV ──
+const menuBtn = document.getElementById('menuBtn');
+const navDrawer = document.getElementById('navDrawer');
+menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); navDrawer.classList.toggle('open'); });
+function closeMenu() { menuBtn.classList.remove('open'); navDrawer.classList.remove('open'); }
+document.addEventListener('click', e => { if (!menuBtn.contains(e.target) && !navDrawer.contains(e.target)) closeMenu(); });
+
+// ── HERO ENTRANCE ──
+const heroInner = document.querySelector('.hero-inner');
+if (heroInner) requestAnimationFrame(() => requestAnimationFrame(() => heroInner.classList.remove('is-hidden')));
+
+// ── SCROLL REVEAL ──
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// ── CONTADORES HERO ──
+function animateCounter(el, target, suffix) {
+  let start = 0;
+  const duration = 1200;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(ease * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const nums = entry.target.querySelectorAll('.hero-stat-num');
+      const targets = [5, 15, 40];
+      const suffixes = ['', '+', '+'];
+      // Mostrar 0 mientras el bloque entra, y arrancar el conteo cuando ya es visible
+      nums.forEach((el, i) => { el.textContent = '0' + suffixes[i]; });
+      setTimeout(() => {
+        nums.forEach((el, i) => animateCounter(el, targets[i], suffixes[i]));
+      }, 750);
+      statObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) statObserver.observe(heroStats);
+
+// ── NOTICIAS HOME ──
+function renderizarNoticiasHome() {
+  const noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+  const hoy = new Date().toISOString().split('T')[0];
+  const container = document.getElementById('noticiasPreview');
+  
+  if (!container) return;
+  
+  // Filtrar noticias activas (no ocultas, dentro del rango de fechas)
+  const noticiasFiltradas = noticias.filter(noticia => {
+    if (noticia.oculta) return false;
+    if (noticia.fechaInicio && noticia.fechaInicio > hoy) return false;
+    if (noticia.fechaFin && noticia.fechaFin < hoy) return false;
+    return true;
+  }).slice(0, 3); // Solo las 3 primeras
+
+  if (noticiasFiltradas.length === 0) {
+    container.innerHTML = '<p style="text-align:center; color:#999; padding:20px; grid-column:1/-1;">No hay noticias en este momento.</p>';
+    return;
+  }
+
+  // Mapear etiquetas
+  const mapaEtiquetas = {
+    'Inscripciones': 'inscripcion',
+    'Eventos': 'evento',
+    'Noticias': '',
+    'Becas': 'evento',
+    'Programas': 'academico',
+    'Promoción activa': 'evento',
+    'Académico': 'academico',
+    'Otro': ''
+  };
+  
+  container.innerHTML = '';
+  noticiasFiltradas.forEach(noticia => {
+    const fecha = new Date(noticia.fechaCreacion).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    const tagClass = mapaEtiquetas[noticia.etiqueta] || '';
+    const div = document.createElement('div');
+    div.className = 'noticia-preview';
+    
+    const imagenHTML = noticia.imagen ? `<img src="${noticia.imagen}" alt="" style="width:100%; height:100%; object-fit:cover;">` : `<span>${noticia.emoji || '📰'}</span>`;
+    
+    div.innerHTML = `
+      <div class="noticia-preview-img" style="background:${noticia.imagen ? 'transparent' : 'var(--azul-light)'};">
+        ${imagenHTML}
+      </div>
+      <div class="noticia-preview-body">
+        ${noticia.etiqueta ? `<span class="noticia-tag ${tagClass}">${noticia.etiqueta}</span>` : ''}
+        <h3 class="noticia-title">${noticia.emoji ? noticia.emoji + ' ' : ''}${noticia.titulo}</h3>
+        <div class="noticia-fecha">${fecha}</div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderizarNoticiasHome();
+  
+  // Limpiar noticias viejas y crear noticias placeholder
+  localStorage.removeItem('noticias');
+  
+  const hoy = new Date();
+  const noticiasDefault = [
+    {
+      emoji: '🎓',
+      titulo: 'Ceremonia de inicio de ciclo escolar Agosto 2026',
+      etiqueta: 'Eventos',
+      resumen: 'Te invitamos a la ceremonia oficial de inicio del ciclo escolar Agosto 2026. Será un evento especial donde conocerás a tus maestros, compañeros y nuestras instalaciones.',
+      imagen: '',
+      oculta: false,
+      fechaInicio: '2026-06-01',
+      fechaFin: '2026-12-31',
+      fechaCreacion: new Date(hoy.getTime() - 10*24*60*60*1000).toISOString()
+    },
+    {
+      emoji: '📝',
+      titulo: 'Inscripciones abiertas — Ciclo Agosto–Enero 2026-2027',
+      etiqueta: 'Inscripciones',
+      resumen: '¡Las inscripciones ya están abiertas! Puedes inscribirte en cualquiera de nuestros programas: preparatoria, licenciaturas, licenciaturas ejecutivas, posgrado.',
+      imagen: '',
+      oculta: false,
+      fechaInicio: '2026-06-01',
+      fechaFin: '2026-12-31',
+      fechaCreacion: new Date(hoy.getTime() - 7*24*60*60*1000).toISOString()
+    },
+    {
+      emoji: '🎯',
+      titulo: 'Taller vocacional EVAPEM disponible en todos los planteles',
+      etiqueta: 'Académico',
+      resumen: 'ISES Toluca pone a disposición de estudiantes de secundaria el taller vocacional EVAPEM, una herramienta diseñada para ayudarte a identificar tus intereses y aptitudes.',
+      imagen: '',
+      oculta: false,
+      fechaInicio: '2026-06-01',
+      fechaFin: '2026-12-31',
+      fechaCreacion: new Date(hoy.getTime() - 5*24*60*60*1000).toISOString()
+    },
+    {
+      emoji: '🏆',
+      titulo: 'Estudiantes de ISES ganan competencia estatal de emprendimiento',
+      etiqueta: 'Noticias',
+      resumen: 'Con orgullo comunicamos que nuestros estudiantes de la Licenciatura en Administración obtuvieron el primer lugar en la Competencia Estatal de Emprendimiento 2026.',
+      imagen: '',
+      oculta: false,
+      fechaInicio: '2026-06-01',
+      fechaFin: '2026-12-31',
+      fechaCreacion: new Date(hoy.getTime() - 3*24*60*60*1000).toISOString()
+    }
+  ];
+  
+  localStorage.setItem('noticias', JSON.stringify(noticiasDefault));
+  renderizarNoticiasHome();
+});
+
+// ── FAQ ACORDEÓN ──
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // Cerrar todos
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  // Abrir el actual si estaba cerrado
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── PLANTEL HOVER HIGHLIGHT ──
+document.querySelectorAll('.plantel-item').forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    item.style.borderLeft = '4px solid var(--verde)';
+    item.style.paddingLeft = '12px';
+  });
+  item.addEventListener('mouseleave', () => {
+    item.style.borderLeft = '';
+    item.style.paddingLeft = '';
+  });
+});
+</script>
+<script>
+(function(){
+  // FILTRO POR NIVEL
+  var filter = document.getElementById('nivelFilter');
+  var grid = document.getElementById('progGrid');
+  if(filter && grid){
+    var chips = filter.querySelectorAll('.nivel-chip');
+    var cards = grid.querySelectorAll('.prog-preview-card');
+
+    // contar por nivel
+    var counts = { todos: cards.length };
+    cards.forEach(function(c){
+      var n = c.getAttribute('data-nivel') || 'otro';
+      counts[n] = (counts[n]||0) + 1;
+    });
+    chips.forEach(function(ch){
+      var n = ch.getAttribute('data-nivel');
+      var span = ch.querySelector('.nivel-chip-count');
+      if(!span && counts[n]){
+        span = document.createElement('span');
+        span.className = 'nivel-chip-count';
+        ch.appendChild(document.createTextNode(' '));
+        ch.appendChild(span);
+      }
+      if(span) span.textContent = counts[n] || 0;
+    });
+
+    chips.forEach(function(ch){
+      ch.addEventListener('click', function(){
+        var nivel = ch.getAttribute('data-nivel');
+        chips.forEach(function(c){ c.classList.toggle('active', c===ch); });
+        cards.forEach(function(card){
+          var match = (nivel==='todos') || (card.getAttribute('data-nivel')===nivel);
+          card.classList.toggle('is-hidden', !match);
+        });
+      });
+    });
+  }
+
+  // GALERÍA COLAPSABLE
+  var gToggle = document.getElementById('galeriaToggle');
+  var gPanel = document.getElementById('galeriaCollapsible');
+  var gLabel = document.getElementById('galeriaToggleLabel');
+  if(gToggle && gPanel){
+    gToggle.addEventListener('click', function(){
+      var open = gPanel.classList.toggle('open');
+      gToggle.classList.toggle('open', open);
+      gToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(gLabel) gLabel.textContent = open ? 'Ocultar galería' : 'Mostrar galería (10 fotos)';
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

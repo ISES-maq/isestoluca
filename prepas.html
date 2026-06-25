@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparatoria — Compara modalidades · ISES Toluca</title>
+<meta name="description" content="Compara las 4 modalidades de preparatoria en ISES Toluca: UAEMéx, SEP, Abierta y Certificado CENEVAL. Encuentra la opción ideal según tu edad, horario y meta.">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── HERO COMPACTO ── */
+.prepas-hero { background: var(--grad); color:#fff; padding:32px 20px 24px; text-align:center; }
+.prepas-hero-inner { max-width:480px; margin:0 auto; }
+.prepas-hero h1 { font-size:clamp(24px,6vw,34px); font-weight:900; line-height:1.15; margin-bottom:8px; }
+.prepas-hero h1 span { color:var(--naranja-med); }
+.prepas-hero p { font-family:'Lora',serif; font-style:italic; font-size:14px; color:rgba(255,255,255,0.85); }
+
+/* ── QUICK COMPARE TABLE ── */
+.compare-wrap { max-width:480px; margin:0 auto; padding:28px 16px 20px; }
+.compare-label { font-size:10px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:var(--naranja); margin-bottom:6px; text-align:center; }
+.compare-title { font-size:22px; font-weight:900; color:var(--verde); text-align:center; margin-bottom:6px; }
+.compare-sub { font-size:13px; color:var(--gris-med); font-family:'Lora',serif; text-align:center; margin-bottom:22px; line-height:1.6; }
+
+.compare-tbl { background:#fff; border-radius:var(--radio); box-shadow:var(--sombra); overflow:hidden; }
+.compare-tbl table { width:100%; border-collapse:collapse; font-size:11px; }
+.compare-tbl th, .compare-tbl td { padding:10px 8px; text-align:center; border-bottom:1px solid #f0f0f0; vertical-align:middle; }
+.compare-tbl th:first-child, .compare-tbl td:first-child { text-align:left; padding-left:14px; font-weight:700; color:var(--gris-dark); background:var(--gris-light); width:34%; font-size:10.5px; }
+.compare-tbl thead th { background:var(--verde); color:#fff; font-size:10px; letter-spacing:.5px; text-transform:uppercase; padding:11px 6px; font-weight:800; line-height:1.2; }
+.compare-tbl thead th a { color:#fff; text-decoration:none; display:block; padding:2px 0; border-bottom:1px dashed rgba(255,255,255,.4); transition:.15s; }
+.compare-tbl thead th a:hover { border-bottom-color:#fff; opacity:.9; }
+.compare-tbl thead th.uaemex { background:#1a4d7c; }
+.compare-tbl thead th.col-sep { background:#1a6b3c; }
+.compare-tbl thead th.abierta { background:#7c3aed; }
+.compare-tbl thead th.ceneval { background:#e07420; }
+.compare-tbl tbody tr:last-child td { border-bottom:none; }
+.compare-tbl tbody tr:nth-child(even) td:not(:first-child) { background:#fafbfc; }
+.compare-tbl .check { color:#1a6b3c; font-weight:900; font-size:14px; }
+.compare-tbl .x { color:#bbb; font-weight:900; font-size:14px; }
+
+.compare-scroll-hint { font-size:10px; color:var(--gris-med); text-align:center; margin-top:8px; font-style:italic; }
+@media (max-width:520px){
+  .compare-tbl table { font-size:10.5px; }
+  .compare-tbl thead th { font-size:9px; padding:10px 4px; }
+  .compare-tbl th:first-child, .compare-tbl td:first-child { font-size:10px; padding-left:10px; }
+  .compare-tbl th, .compare-tbl td { padding:9px 5px; }
+}
+
+/* ── DECISION HELPER ── */
+.decision-section { background:#fff; padding:36px 20px; }
+.decision-inner { max-width:480px; margin:0 auto; }
+.decision-card { display:flex; align-items:flex-start; gap:14px; padding:16px; border-radius:var(--radio); margin-bottom:12px; transition:.2s; border:1.5px solid transparent; text-decoration:none; color:inherit; }
+.decision-card:hover { transform:translateX(3px); box-shadow:var(--sombra); }
+.decision-card.uaemex { background:#e8f0fa; border-color:rgba(26,77,124,.2); }
+.decision-card.prepa-sep { background:#e6f4ec; border-color:rgba(26,107,60,.25); }
+.decision-card.abierta { background:#f3eafd; border-color:rgba(124,58,237,.2); }
+.decision-card.ceneval { background:var(--naranja-light); border-color:rgba(224,116,32,.2); }
+.decision-icon { width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; background:#fff; }
+.decision-body { flex:1; min-width:0; }
+.decision-tag { font-size:9px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:3px; }
+.decision-card.uaemex .decision-tag { color:#1a4d7c; }
+.decision-card.prepa-sep .decision-tag { color:#1a6b3c; }
+.decision-card.abierta .decision-tag { color:#7c3aed; }
+.decision-card.ceneval .decision-tag { color:var(--naranja); }
+.decision-card.prepa-sep .decision-name { color:#0f3a20; }
+.decision-card.prepa-sep .decision-desc { color:#2d5a3f; }
+.decision-name { font-size:14px; font-weight:900; color:var(--gris-dark); margin-bottom:4px; line-height:1.3; }
+.decision-desc { font-size:12px; color:var(--gris-med); line-height:1.5; }
+.decision-arrow { font-size:18px; color:var(--gris-med); flex-shrink:0; align-self:center; }
+
+/* ── DETAIL CARDS ── */
+.detail-section { padding:36px 20px; }
+.detail-inner { max-width:480px; margin:0 auto; }
+.detail-card { background:#fff; border-radius:var(--radio); box-shadow:var(--sombra); overflow:hidden; margin-bottom:16px; }
+.detail-head { padding:16px 18px; color:#fff; }
+.detail-head.uaemex { background:linear-gradient(135deg,#1a4d7c,#2563a8); }
+.detail-head.prepa-sep { background:linear-gradient(135deg,#1a6b3c,#25914f); }
+.detail-head.abierta { background:linear-gradient(135deg,#5b21b6,#7c3aed); }
+.detail-head.ceneval { background:linear-gradient(135deg,#c25b14,#e07420); }
+.detail-rvoe { display:inline-block; font-size:9.5px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:3px 10px; border-radius:4px; background:rgba(255,255,255,.22); margin-bottom:6px; }
+.detail-name { font-size:18px; font-weight:900; line-height:1.2; margin-bottom:6px; }
+.detail-tag { font-size:11.5px; opacity:.9; line-height:1.4; }
+.detail-body { padding:16px 18px 18px; }
+.detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+.detail-stat { background:var(--gris-light); border-radius:8px; padding:9px 11px; }
+.detail-stat-lbl { font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--gris-med); margin-bottom:2px; }
+.detail-stat-val { font-size:13px; font-weight:800; color:var(--gris-dark); line-height:1.2; }
+.detail-list { list-style:none; margin-bottom:14px; }
+.detail-list li { font-size:12.5px; color:var(--gris-med); padding:5px 0 5px 18px; position:relative; line-height:1.55; }
+.detail-list li::before { content:'✓'; position:absolute; left:0; top:5px; color:var(--verde); font-weight:900; }
+.detail-list li strong { color:var(--gris-dark); font-weight:700; }
+.detail-planteles { display:flex; flex-wrap:wrap; gap:6px; padding:10px 12px; background:var(--verde-light); border-radius:8px; margin-bottom:12px; }
+.detail-planteles-lbl { font-size:9.5px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--verde); margin-right:4px; align-self:center; }
+.detail-plantel-pill { background:#fff; border:1px solid rgba(26,107,60,.25); color:var(--verde); font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; }
+.detail-cta { display:flex; gap:8px; }
+.detail-cta a { flex:1; display:flex; align-items:center; justify-content:center; gap:5px; padding:10px; border-radius:999px; font-size:12px; font-weight:800; transition:.2s; }
+.detail-cta .wa { background:#25D366; color:#fff; box-shadow:0 3px 12px rgba(37,211,102,.3); }
+.detail-cta .wa:hover { transform:translateY(-1px); }
+.detail-cta .info { background:var(--verde-light); color:var(--verde); }
+.detail-cta .info:hover { background:var(--verde); color:#fff; }
+
+/* ── FAQ PREPA ── */
+.faq-prepa-section { background:var(--verde-pale); padding:36px 20px; }
+.faq-prepa-inner { max-width:480px; margin:0 auto; }
+.faq-list { display:flex; flex-direction:column; gap:10px; }
+.faq-item { background:#fff; border-radius:var(--radio); box-shadow:var(--sombra); overflow:hidden; transition:box-shadow .2s; }
+.faq-item.open { box-shadow:var(--sombra-hover); }
+.faq-q { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:15px 17px; background:none; border:none; text-align:left; font-family:inherit; font-size:13.5px; font-weight:800; color:var(--gris-dark); cursor:pointer; transition:.15s; line-height:1.4; }
+.faq-q:hover { background:var(--verde-pale); }
+.faq-item.open .faq-q { color:var(--verde); }
+.faq-chevron { width:26px; height:26px; border-radius:50%; background:var(--verde-light); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; transition:transform .3s ease; color:var(--verde); }
+.faq-item.open .faq-chevron { transform:rotate(180deg); background:var(--verde); color:#fff; }
+.faq-a { max-height:0; overflow:hidden; transition:max-height .35s ease, padding .25s ease; font-size:13px; color:var(--gris-med); line-height:1.7; font-family:'Lora',serif; padding:0 17px; }
+.faq-item.open .faq-a { max-height:600px; padding:0 17px 16px; }
+.faq-a strong { color:var(--verde); font-style:normal; }
+
+/* ── ISELA HINT ── */
+.isela-hint { background:linear-gradient(135deg,#1e0a3c,#1a3a6b); border-radius:var(--radio); padding:18px; margin-top:22px; display:flex; gap:12px; align-items:center; }
+.isela-hint p { font-size:12.5px; color:rgba(255,255,255,.85); line-height:1.5; flex:1; }
+.isela-hint p strong { color:#fff; display:block; margin-bottom:3px; font-size:13.5px; }
+.isela-hint a { background:linear-gradient(135deg,#7c3aed,#2563a8); color:#fff; font-size:11.5px; font-weight:800; padding:9px 14px; border-radius:999px; white-space:nowrap; flex-shrink:0; transition:.2s; }
+.isela-hint a:hover { transform:translateY(-1px); }
+
+/* ── REVEAL ── */
+.reveal { opacity:0; transform:translateY(20px); transition:opacity .55s ease,transform .55s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.delay-1 { transition-delay:.08s; } .delay-2 { transition-delay:.16s; } .delay-3 { transition-delay:.24s; }
+</style>
+</head>
+<body class="page-body">
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo-ises.png" alt="ISES"><div class="nav-logo-text">ISES Toluca <span>Donde sí se es</span></div></a>
+  <div class="nav-actions">
+    <a href="contacto.html" class="nav-cta">Inscríbete</a>
+    <button class="nav-menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" onclick="closeMenu()"><span class="nav-icon">🏠</span> Inicio</a>
+  <a href="nosotros.html" onclick="closeMenu()"><span class="nav-icon">🎓</span> Quiénes somos</a>
+  <a href="oferta.html" onclick="closeMenu()"><span class="nav-icon">📚</span> Oferta educativa</a>
+  <a href="prepas.html" class="active" onclick="closeMenu()"><span class="nav-icon">📖</span> Preparatoria — Compara</a>
+  <a href="planteles.html" onclick="closeMenu()"><span class="nav-icon">📍</span> Nuestros planteles</a>
+  <a href="faq.html" onclick="closeMenu()"><span class="nav-icon">❓</span> Preguntas frecuentes</a>
+  <a href="contacto.html" onclick="closeMenu()"><span class="nav-icon">✉️</span> Contacto</a>
+  <a href="isela.html" class="nav-isela-link" onclick="closeMenu()"><span class="nav-icon">🤖</span> ISELA — ¿Qué estudiar?</a>
+</div>
+
+<!-- HERO -->
+<div class="prepas-hero">
+  <div class="prepas-hero-inner">
+    <h1>Preparatoria en <span>ISES Toluca</span></h1>
+    <p>4 modalidades para que termines tu bachillerato como mejor te convenga.</p>
+    <p style="margin-top:10px;font-family:inherit;font-style:normal;font-size:12px;"><a href="#faq-prepa" style="color:#fff;text-decoration:underline;font-weight:700;">Ir a preguntas frecuentes ↓</a></p>
+  </div>
+</div>
+<div class="breadcrumb"><a href="index.html">Inicio</a><span>›</span> Preparatoria — Compara</div>
+
+<!-- DECISION HELPER (PRIMERO) -->
+<section class="decision-section">
+  <div class="decision-inner">
+    <p class="section-label reveal">¿Cuál te conviene?</p>
+    <h2 class="section-title reveal">Encuentra tu opción ideal</h2>
+    <p class="section-sub reveal">Elige según tu situación actual.</p>
+
+    <a href="#prepa-uaemex" class="decision-card uaemex reveal delay-1">
+      <div class="decision-icon">🎓</div>
+      <div class="decision-body">
+        <div class="decision-tag">Si terminaste secundaria</div>
+        <div class="decision-name">Preparatoria UAEMéx</div>
+        <div class="decision-desc">La de mayor prestigio académico. Padrón SNB, inglés certificado y orientación vocacional gratis.</div>
+      </div>
+      <div class="decision-arrow">›</div>
+    </a>
+
+    <a href="#prepa-sep" class="decision-card prepa-sep reveal delay-2">
+      <div class="decision-icon">🏫</div>
+      <div class="decision-body">
+        <div class="decision-tag">Si vienes de otra prepa</div>
+        <div class="decision-name">Preparatoria SEP</div>
+        <div class="decision-desc">Acepta semestres de cualquier sistema. Matutino o vespertino, ideal si combinas con un trabajo.</div>
+      </div>
+      <div class="decision-arrow">›</div>
+    </a>
+
+    <a href="#prepa-abierta" class="decision-card abierta reveal delay-3">
+      <div class="decision-icon">⏩</div>
+      <div class="decision-body">
+        <div class="decision-tag">Si ya trabajas L–V</div>
+        <div class="decision-name">Preparatoria Abierta SEP</div>
+        <div class="decision-desc">Solo sábados, sin límite de edad y a tu ritmo. ISES hace todos los trámites por ti.</div>
+      </div>
+      <div class="decision-arrow">›</div>
+    </a>
+
+    <a href="#prepa-ceneval" class="decision-card ceneval reveal delay-3">
+      <div class="decision-icon">⚡</div>
+      <div class="decision-body">
+        <div class="decision-tag">Si quieres acabar rápido</div>
+        <div class="decision-name">Certificado CENEVAL</div>
+        <div class="decision-desc">Para mayores de 21. Pasas un examen y obtienes tu certificado en pocas semanas. Tu pago vale hasta que apruebes.</div>
+      </div>
+      <div class="decision-arrow">›</div>
+    </a>
+  </div>
+</section>
+
+<!-- QUICK COMPARE TABLE -->
+<div class="compare-wrap">
+  <p class="compare-label reveal">Comparativa rápida</p>
+  <h2 class="compare-title reveal">¿Cuál es para ti?</h2>
+  <p class="compare-sub reveal">Las 4 opciones tienen <strong>validez oficial</strong>. La diferencia está en el horario, la duración y el plantel.</p>
+
+  <div class="compare-tbl reveal delay-1">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th class="uaemex"><a href="#prepa-uaemex">UAEMéx</a></th>
+          <th class="col-sep"><a href="#prepa-sep">SEP</a></th>
+          <th class="abierta"><a href="#prepa-abierta">Abierta</a></th>
+          <th class="ceneval"><a href="#prepa-ceneval">CENEVAL</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Validez oficial</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Duración</td>
+          <td>3 años</td>
+          <td>3 años</td>
+          <td>~1 año 8 m</td>
+          <td>10 sesiones</td>
+        </tr>
+        <tr>
+          <td>Horario</td>
+          <td>L–V Mat.</td>
+          <td>L–V Mat./Vesp.</td>
+          <td>Sábados</td>
+          <td>Sáb y Dom</td>
+        </tr>
+        <tr>
+          <td>Edad mínima</td>
+          <td>15 años</td>
+          <td>Egresado sec.</td>
+          <td>Sin límite</td>
+          <td>21+ años</td>
+        </tr>
+        <tr>
+          <td>Padrón SNB</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="x">—</span></td>
+          <td><span class="x">—</span></td>
+          <td><span class="x">—</span></td>
+        </tr>
+        <tr>
+          <td>Inglés CELe</td>
+          <td>6 semestres</td>
+          <td>
+</td>
+          <td><span class="x">—</span></td>
+          <td><span class="x">—</span></td>
+        </tr>
+        <tr>
+          <td>EVAPEM gratis</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="x">—</span></td>
+          <td><span class="x">—</span></td>
+          <td><span class="x">—</span></td>
+        </tr>
+        <tr>
+          <td>Compatible con trabajo</td>
+          <td><span class="x">—</span></td>
+          <td>Vesp.</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Plantel</td>
+          <td>Maquinita</td>
+          <td>Villada · Bravo . Santiago . Ixtlahuaca</td>
+          <td>Bravo</td>
+          <td>Villada</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="compare-scroll-hint">Las 4 modalidades te dan acceso a cualquier licenciatura.</p>
+</div>
+
+<div class="sep"></div>
+
+<!-- DETAIL CARDS -->
+<section class="detail-section">
+  <div class="detail-inner">
+    <p class="section-label reveal">Detalle por modalidad</p>
+    <h2 class="section-title reveal">Las 4 opciones a detalle</h2>
+
+    <!-- UAEMéx -->
+    <div class="detail-card reveal" id="prepa-uaemex">
+      <div class="detail-head uaemex">
+        <span class="detail-rvoe">Incorporada UAEMéx</span>
+        <div class="detail-name">Preparatoria UAEMéx</div>
+        <div class="detail-tag">El bachillerato con mayor prestigio académico de ISES.</div>
+      </div>
+      <div class="detail-body">
+        <div class="detail-grid">
+          <div class="detail-stat"><div class="detail-stat-lbl">Duración</div><div class="detail-stat-val">3 años</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Horario</div><div class="detail-stat-val">L–V 7:00–12:40</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Edad</div><div class="detail-stat-val">Desde 15 años</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Inicio</div><div class="detail-stat-val">4 ago 2026</div></div>
+        </div>
+        <ul class="detail-list">
+          <li>Miembro del <strong>Padrón de Calidad SNB (SEMS)</strong></li>
+          <li>Docentes acreditados por <strong>ANUIES</strong></li>
+          <li>Inglés <strong>CELe certificado</strong> los 6 semestres</li>
+          <li>Acreditaciones en tecnología (Word, Excel, PowerPoint · STPS + Educare)</li>
+          <li>Diagnóstico vocacional <strong>EVAPEM gratuito</strong> (38 rasgos)</li>
+        </ul>
+        <div class="detail-planteles">
+          <span class="detail-planteles-lbl">Plantel</span>
+          <span class="detail-plantel-pill">Maquinita</span>
+        </div>
+        <div class="detail-cta">
+          <a href="oferta.html#preparatoria" class="info">Ver más detalles</a>
+          <a href="https://wa.me/527226753239?text=Hola%2C%20me%20interesa%20la%20Preparatoria%20UAEM%C3%A9x." target="_blank" rel="noopener" class="wa">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEP -->
+    <div class="detail-card reveal" id="prepa-sep">
+      <div class="detail-head prepa-sep">
+        <span class="detail-rvoe">Incorporada SEP</span>
+        <div class="detail-name">Preparatoria SEP</div>
+        <div class="detail-tag">Bachillerato con validez nacional. Acepta semestres previos.</div>
+      </div>
+      <div class="detail-body">
+        <div class="detail-grid">
+          <div class="detail-stat"><div class="detail-stat-lbl">Duración</div><div class="detail-stat-val">3 años</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Horario Villada</div><div class="detail-stat-val">Mat. 7:00–13:30</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Horario Bravo</div><div class="detail-stat-val">Mat. 7:20–14:40 / Vesp.</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Inicio</div><div class="detail-stat-val">30 ago 2026</div></div>
+        </div>
+        <ul class="detail-list">
+          <li><strong>Certificado SEP</strong> con validez en todo el país</li>
+          <li>Tutorías y acompañamiento continuo</li>
+          <li><strong>Inglés los 6 semestres</strong></li>
+          <li>Valida semestres de cualquier sistema educativo previo</li>
+          <li>Plantel Bravo: <strong>matutino y vespertino</strong> disponibles</li>
+        </ul>
+        <div class="detail-planteles">
+          <span class="detail-planteles-lbl">Planteles</span>
+          <span class="detail-plantel-pill">Villada</span>
+          <span class="detail-plantel-pill">Bravo</span>
+        </div>
+        <div class="detail-cta">
+          <a href="oferta.html#tab-vill" class="info">Ver más detalles</a>
+          <a href="https://wa.me/527226753239?text=Hola%2C%20me%20interesa%20la%20Preparatoria%20SEP." target="_blank" rel="noopener" class="wa">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABIERTA -->
+    <div class="detail-card reveal" id="prepa-abierta">
+      <div class="detail-head abierta">
+        <span class="detail-rvoe">SEP — Preparatoria Abierta</span>
+        <div class="detail-name">Preparatoria Abierta</div>
+        <div class="detail-tag">Sin límite de edad y a tu ritmo. ISES hace los trámites.</div>
+      </div>
+      <div class="detail-body">
+        <div class="detail-grid">
+          <div class="detail-stat"><div class="detail-stat-lbl">Duración</div><div class="detail-stat-val">~1 año 8 meses</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Horario</div><div class="detail-stat-val">Sábados 8–16</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Edad</div><div class="detail-stat-val">Sin límite</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Inicio</div><div class="detail-stat-val">30 ago 2026</div></div>
+        </div>
+        <ul class="detail-list">
+          <li>Tú decides el <strong>ritmo y orden</strong> de las asignaturas</li>
+          <li><strong>Certificado SEP</strong> oficial — acceso a cualquier licenciatura</li>
+          <li>Se imparte <strong>clase real</strong>, no solo asesoría</li>
+          <li>ISES gestiona toda tu inscripción y trámites</li>
+          <li>Ideal para quien <strong>trabaja de lunes a viernes</strong></li>
+        </ul>
+        <div class="detail-planteles">
+          <span class="detail-planteles-lbl">Plantel</span>
+          <span class="detail-plantel-pill">Bravo</span>
+        </div>
+        <div class="detail-cta">
+          <a href="oferta.html#sub-brav-abierta" class="info">Ver más detalles</a>
+          <a href="https://wa.me/527226753239?text=Hola%2C%20me%20interesa%20la%20Preparatoria%20Abierta." target="_blank" rel="noopener" class="wa">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENEVAL -->
+    <div class="detail-card reveal" id="prepa-ceneval">
+      <div class="detail-head ceneval">
+        <span class="detail-rvoe">CENEVAL — Acuerdo SEP 286</span>
+        <div class="detail-name">Certificado de Preparatoria CENEVAL</div>
+        <div class="detail-tag">La forma más rápida de obtener tu certificado de bachillerato.</div>
+      </div>
+      <div class="detail-body">
+        <div class="detail-grid">
+          <div class="detail-stat"><div class="detail-stat-lbl">Duración</div><div class="detail-stat-val">10 sesiones</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Horario</div><div class="detail-stat-val">Sábado y Domingo</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Edad</div><div class="detail-stat-val">21+ años</div></div>
+          <div class="detail-stat"><div class="detail-stat-lbl">Inicio</div><div class="detail-stat-val">16 ago 2026</div></div>
+        </div>
+        <ul class="detail-list">
+          <li>Curso intensivo de <strong>preparación al examen CENEVAL</strong> (Acuerdo 286)</li>
+          <li>ISES gestiona tu inscripción al examen — sin trámites propios</li>
+          <li>Tu pago es válido <strong>hasta que apruebes</strong></li>
+          <li>Sede del examen: Ciudad de México</li>
+          <li>Certificado con <strong>validez SEP nacional</strong> — acceso a cualquier licenciatura</li>
+        </ul>
+        <div class="detail-planteles">
+          <span class="detail-planteles-lbl">Plantel</span>
+          <span class="detail-plantel-pill">Villada</span>
+        </div>
+        <div class="detail-cta">
+          <a href="oferta.html#sub-vill-cursos" class="info">Ver más detalles</a>
+          <a href="https://wa.me/527226753239?text=Hola%2C%20me%20interesa%20el%20Certificado%20CENEVAL%20de%20Preparatoria." target="_blank" rel="noopener" class="wa">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ PREPA -->
+<section class="faq-prepa-section" id="faq-prepa">
+  <div class="faq-prepa-inner">
+    <p class="section-label reveal">Preguntas frecuentes</p>
+    <h2 class="section-title reveal">Dudas sobre la prepa</h2>
+    <p class="section-sub reveal">Lo que más nos preguntan los estudiantes y sus familias.</p>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cuál preparatoria es mejor: UAEMéx, SEP, Abierta o CENEVAL?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">No hay una "mejor" en general — cada una sirve para un perfil distinto.<br><br>• <strong>UAEMéx:</strong> mayor prestigio académico, ideal si quieres entrar a una licenciatura UAEMéx.<br>• <strong>SEP:</strong> validez nacional, acepta semestres previos.<br>• <strong>Abierta:</strong> si trabajas de lunes a viernes y quieres a tu ritmo.<br>• <strong>CENEVAL:</strong> si quieres terminar rápido y tienes 21 años o más.<br><br>Los 4 certificados te dan acceso a cualquier licenciatura.</div>
+      </div>
+
+      <div class="faq-item reveal delay-1">
+        <button class="faq-q" onclick="toggleFaq(this)">¿La preparatoria UAEMéx es la única con validez oficial?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">No. <strong>Las 4 modalidades tienen validez oficial</strong>. La UAEMéx está incorporada a la Universidad Autónoma del Estado de México; las preparatorias SEP, Abierta y CENEVAL están bajo la <strong>Secretaría de Educación Pública</strong> (SEP federal). Cualquiera de las 4 te permite ingresar a una licenciatura pública o privada.</div>
+      </div>
+
+      <div class="faq-item reveal delay-2">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Puedo cambiarme de otra preparatoria a ISES?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Sí. La <strong>Preparatoria SEP</strong> (planteles Villada y Bravo) acepta semestres ya cursados de cualquier sistema educativo previo. Solo necesitas presentar tu trayectoria académica y, si aplica, pagar derechos de revalidación. Para casos especiales contáctanos por WhatsApp para revisar tu situación.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Qué es el examen CENEVAL y cómo funciona?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Es un <strong>examen único</strong> aplicado por el Centro Nacional de Evaluación (CENEVAL) bajo el <strong>Acuerdo SEP 286</strong>. Si lo apruebas, obtienes tu certificado de bachillerato con validez nacional sin necesidad de cursar 3 años.<br><br>En ISES tomas un curso de <strong>10 sesiones (sáb y dom)</strong> que te prepara para presentarlo. Requisitos: <strong>21 años cumplidos</strong>, secundaria terminada, y traer tu acta y CURP. <strong>Tu pago vale hasta que apruebes</strong> — si no pasas a la primera, te ayudamos a presentarlo de nuevo.</div>
+      </div>
+
+      <div class="faq-item reveal delay-1">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Hay límite de edad para inscribirme a la prepa?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Depende de la modalidad:<br><br>• <strong>UAEMéx:</strong> desde los 15 años (egresados de secundaria recientes).<br>• <strong>SEP escolarizada:</strong> sin límite estricto, ideal jóvenes.<br>• <strong>Preparatoria Abierta:</strong> <strong>sin límite de edad</strong> — adultos bienvenidos.<br>• <strong>CENEVAL:</strong> mínimo 21 años cumplidos.</div>
+      </div>
+
+      <div class="faq-item reveal delay-2">
+        <button class="faq-q" onclick="toggleFaq(this)">Si trabajo de lunes a viernes, ¿qué prepa puedo hacer?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Tienes 3 opciones compatibles con un trabajo de tiempo completo:<br><br>• <strong>Preparatoria Abierta SEP</strong> (Bravo, sábados 8–16) — la más popular para quienes trabajan.<br>• <strong>Certificado CENEVAL</strong> (Villada, sáb y dom) — la más rápida si tienes 21+.<br>• <strong>SEP Vespertino</strong> (Bravo) — si prefieres clase entre semana por la tarde.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Qué documentos necesito para inscribirme a la prepa?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Documentos generales para preparatoria:<br><br>• <strong>Acta de nacimiento certificada</strong> (original y copia)<br>• <strong>Certificado de Secundaria</strong> (original y copia)<br>• <strong>CURP</strong> reciente<br>• <strong>4 fotografías infantil B/N</strong> recientes<br>• <strong>Certificado médico</strong> con tipo de sangre<br><br>Para la <strong>UAEMéx</strong> se solicita además examen de admisión interno. Para <strong>CENEVAL</strong>, no se requiere certificado médico.</div>
+      </div>
+
+      <div class="faq-item reveal delay-1">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Con la prepa de ISES puedo entrar a cualquier universidad?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Sí. Cualquiera de las 4 modalidades te permite presentar examen de admisión a <strong>universidades públicas (UNAM, UAEMéx, IPN, UAM, etc.)</strong> y privadas. La <strong>Preparatoria UAEMéx</strong> tiene la ventaja de que con buen promedio puedes acceder a <strong>pase directo</strong> a algunas licenciaturas UAEMéx.</div>
+      </div>
+
+      <div class="faq-item reveal delay-2">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cuánto cuesta la preparatoria en ISES?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Los costos varían por modalidad y plantel. Para evitar información desactualizada, te invitamos a contactar directamente al plantel de tu interés por <a href="https://wa.me/527226753239" style="color:var(--azul);font-weight:700;text-decoration:underline;">WhatsApp +52 722 675 3239</a> o llenar el formulario en <a href="contacto.html" style="color:var(--azul);font-weight:700;text-decoration:underline;">Contacto</a>. Un asesor te enviará el listado de cuotas vigentes y opciones de pago.</div>
+      </div>
+    </div>
+
+    <div class="isela-hint reveal">
+      <span style="font-size:26px;flex-shrink:0;">🤖</span>
+      <p><strong>¿Sigues con dudas?</strong>Habla con ISELA — te ayuda a elegir entre las 4 modalidades según tu edad, horario y meta.</p>
+      <a href="isela.html">Hablar con ISELA →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="logo-ises.png" alt="ISES"><div class="footer-logo-text">ISES Toluca <span>Donde sí se es</span></div></div>
+    <div class="footer-isela"><div class="footer-isela-icon">🤖</div><div class="footer-isela-text"><strong>¿No sabes qué estudiar? Habla con ISELA</strong>Nuestra IA te orienta según tu perfil.</div><a href="isela.html">Probar →</a></div>
+    <div class="footer-nav">
+      <a href="index.html">Inicio</a><a href="nosotros.html">Quiénes somos</a>
+      <a href="oferta.html">Oferta educativa</a><a href="prepas.html">Preparatoria</a>
+      <a href="planteles.html">Planteles</a><a href="faq.html">FAQ</a>
+      <a href="contacto.html">Contacto</a><a href="isela.html">ISELA IA</a>
+    </div>
+    <div class="footer-copy">© 2026 <strong>ISES Toluca</strong> · Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<div class="fab-group">
+  <div class="fab-wrap"><span class="fab-label">WhatsApp</span><a href="https://wa.me/527226753239" target="_blank" rel="noopener" class="fab fab-wa">💬</a></div>
+  <div class="fab-wrap"><span class="fab-label">Llamar</span><a href="tel:7222721215" class="fab fab-sm fab-call">📞</a></div>
+</div>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navDrawer = document.getElementById('navDrawer');
+menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); navDrawer.classList.toggle('open'); });
+function closeMenu() { menuBtn.classList.remove('open'); navDrawer.classList.remove('open'); }
+document.addEventListener('click', e => { if (!menuBtn.contains(e.target) && !navDrawer.contains(e.target)) closeMenu(); });
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

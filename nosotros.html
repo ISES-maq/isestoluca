@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiénes Somos – ISES Toluca</title>
+<meta name="description" content="Conoce la misión, visión y valores de ISES Toluca. Más de 30 años formando generaciones de éxito en el Estado de México.">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* STATS */
+.stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:36px; }
+.stat-card { background:var(--grad); border-radius:var(--radio); padding:22px 10px; text-align:center; color:#fff; }
+.stat-num { font-size:30px; font-weight:900; color:var(--naranja-med); line-height:1; }
+.stat-lbl { font-size:10px; font-weight:700; opacity:.85; margin-top:4px; text-transform:uppercase; letter-spacing:.5px; }
+
+/* MV */
+.mv-card { background:#fff; border-radius:var(--radio); box-shadow:var(--sombra); padding:24px; border-top:4px solid var(--verde); margin-bottom:14px; transition:.2s; }
+.mv-card:hover { box-shadow:var(--sombra-hover); }
+.mv-card.azul { border-top-color:var(--azul); }
+.mv-card h3 { font-size:10px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:var(--verde); margin-bottom:12px; }
+.mv-card.azul h3 { color:var(--azul); }
+.mv-card p { font-family:'Lora',serif; font-size:14px; color:var(--gris-med); line-height:1.8; }
+
+/* VALORES */
+.valores-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.valor-card { background:#fff; border-radius:var(--radio); box-shadow:var(--sombra); padding:20px 14px; text-align:center; transition:.2s; }
+.valor-card:hover { transform:translateY(-3px); box-shadow:var(--sombra-hover); }
+.valor-icon { font-size:28px; margin-bottom:8px; }
+.valor-name { font-size:13px; font-weight:800; color:var(--verde); margin-bottom:4px; }
+.valor-desc { font-size:11px; color:var(--gris-med); line-height:1.4; }
+
+/* DIFERENCIADORES */
+.diff-item { background:#fff; border-radius:var(--radio); box-shadow:var(--sombra); padding:18px; margin-bottom:10px; display:flex; gap:14px; align-items:flex-start; transition:.2s; }
+.diff-item:hover { transform:translateX(4px); box-shadow:var(--sombra-hover); }
+.diff-icon { width:44px; height:44px; border-radius:12px; background:var(--verde-light); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+.diff-title { font-size:14px; font-weight:800; color:var(--gris-dark); margin-bottom:3px; }
+.diff-desc { font-size:12px; color:var(--gris-med); line-height:1.5; }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .5s ease,transform .5s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.delay-1 { transition-delay:.08s; } .delay-2 { transition-delay:.16s; }
+.delay-3 { transition-delay:.24s; } .delay-4 { transition-delay:.32s; }
+</style>
+</head>
+<body class="page-body">
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo-ises.png" alt="ISES"><div class="nav-logo-text">ISES Toluca <span>Donde sí se es</span></div></a>
+  <div class="nav-actions">
+    <a href="contacto.html" class="nav-cta">Inscríbete</a>
+    <button class="nav-menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" onclick="closeMenu()"><span class="nav-icon">🏠</span> Inicio</a>
+  <a href="nosotros.html" class="active" onclick="closeMenu()"><span class="nav-icon">🎓</span> Quiénes somos</a>
+  <a href="oferta.html" onclick="closeMenu()"><span class="nav-icon">📚</span> Oferta educativa</a>
+  <a href="prepas.html" onclick="closeMenu()"><span class="nav-icon">📖</span> Preparatoria — Compara</a>
+  <a href="planteles.html" onclick="closeMenu()"><span class="nav-icon">📍</span> Nuestros planteles</a>
+  <a href="noticias.html" onclick="closeMenu()"><span class="nav-icon">📰</span> Noticias</a>
+  <a href="contacto.html" onclick="closeMenu()"><span class="nav-icon">✉️</span> Contacto</a>
+</div>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-badge">Más de 40 años de trayectoria</div>
+    <h1>Quiénes <span>somos</span></h1>
+    <p>Una institución comprometida con el acceso a la educación de calidad para todos los sectores del Estado de México.</p>
+  </div>
+</div>
+<div class="breadcrumb"><a href="index.html">Inicio</a><span>›</span> Quiénes somos</div>
+
+<div class="section" style="padding-bottom:52px;">
+
+  <div class="stat-row reveal">
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-lbl">Planteles</div></div>
+    <div class="stat-card"><div class="stat-num">15+</div><div class="stat-lbl">Programas</div></div>
+    <div class="stat-card"><div class="stat-num">40+</div><div class="stat-lbl">Años</div></div>
+  </div>
+
+  <p class="section-label reveal">Identidad institucional</p>
+  <h2 class="section-title reveal">Misión y Visión</h2>
+
+  <div class="mv-card reveal">
+    <h3>Nuestra Misión</h3>
+    <p>Brindar educación de calidad a todos los sectores de la población, formando personas íntegras y libres, potenciando sus talentos, con igualdad de oportunidades, llevándolos al éxito a través del compromiso ético institucional, para que promuevan el desarrollo de la sociedad con genuina conciencia social.</p>
+  </div>
+  <div class="mv-card azul reveal">
+    <h3>Nuestra Visión</h3>
+    <p>Consolidar al grupo ISES como una institución educativa de prestigio, que ofrezca carreras técnicas y formación continua, a través de un modelo educativo propio, actualizando los procesos administrativos, para continuar formando generaciones de éxito y manteniéndose a la vanguardia en el Estado de México.</p>
+  </div>
+
+  <div style="height:32px;"></div>
+  <p class="section-label reveal">Lo que nos guía</p>
+  <h2 class="section-title reveal">Nuestros valores</h2>
+  <div class="valores-grid">
+    <div class="valor-card reveal delay-1"><div class="valor-icon">🎓</div><div class="valor-name">Excelencia</div><div class="valor-desc">Estándares académicos de primer nivel en cada programa</div></div>
+    <div class="valor-card reveal delay-2"><div class="valor-icon">🤝</div><div class="valor-name">Compromiso</div><div class="valor-desc">Con el éxito de cada estudiante y su familia</div></div>
+    <div class="valor-card reveal delay-3"><div class="valor-icon">⚖️</div><div class="valor-name">Ética</div><div class="valor-desc">Formación íntegra con conciencia social genuina</div></div>
+    <div class="valor-card reveal delay-4"><div class="valor-icon">🌱</div><div class="valor-name">Inclusión</div><div class="valor-desc">Educación accesible para todos los sectores</div></div>
+    <div class="valor-card reveal delay-1"><div class="valor-icon">💡</div><div class="valor-name">Innovación</div><div class="valor-desc">Vanguardia en métodos y tecnologías educativas</div></div>
+    <div class="valor-card reveal delay-2"><div class="valor-icon">🏆</div><div class="valor-name">Éxito</div><div class="valor-desc">Formamos generaciones de profesionistas exitosos</div></div>
+  </div>
+
+  <div style="height:32px;"></div>
+  <p class="section-label reveal">Por qué elegirnos</p>
+  <h2 class="section-title reveal">Nuestra diferencia</h2>
+
+  <div class="diff-item reveal"><div class="diff-icon">👨‍🏫</div><div><div class="diff-title">80% de docentes con posgrado</div><div class="diff-desc">Maestrías y doctorados que garantizan enseñanza de primer nivel en todos los planteles.</div></div></div>
+  <div class="diff-item reveal"><div class="diff-icon">👥</div><div><div class="diff-title">Grupos reducidos</div><div class="diff-desc">Atención personalizada para que ningún alumno se quede atrás.</div></div></div>
+  <div class="diff-item reveal"><div class="diff-icon">🤝</div><div><div class="diff-title">Red de convenios institucionales</div><div class="diff-desc">Fundaciones, ONG, gobierno municipal, estatal y federal para prácticas y servicio social.</div></div></div>
+  <div class="diff-item reveal"><div class="diff-icon">🕐</div><div><div class="diff-title">Horarios flexibles</div><div class="diff-desc">Matutinos, vespertinos, sabatinos y virtuales para estudiar sin dejar de trabajar.</div></div></div>
+  <div class="diff-item reveal"><div class="diff-icon">📜</div><div><div class="diff-title">Múltiples opciones de titulación</div><div class="diff-desc">Ceneval, Memoria Laboral, Tesis — eliges la que mejor se adapta a tu perfil.</div></div></div>
+  <div class="diff-item reveal"><div class="diff-icon">🗺️</div><div><div class="diff-title">5 planteles estratégicamente ubicados</div><div class="diff-desc">Toluca (3 sedes), Santiago Tianguistenco e Ixtlahuaca. Siempre cerca de ti.</div></div></div>
+
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="logo-ises.png" alt="ISES"><div class="footer-logo-text">ISES Toluca</div></div>
+
+    <div class="footer-nav">
+      <a href="index.html">Inicio</a><a href="oferta.html">Oferta educativa</a>
+      <a href="planteles.html">Planteles</a><a href="contacto.html">Contacto</a>
+      <a href="noticias.html">Noticias</a>
+    </div>
+    <div class="footer-copy">© 2026 <strong>ISES Toluca</strong> · Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<div class="fab-group">
+  <div class="fab-wrap"><span class="fab-label">WhatsApp</span><a href="https://wa.me/527226753239" target="_blank" rel="noopener" class="fab fab-wa">💬</a></div>
+  <div class="fab-wrap"><span class="fab-label">Llamar</span><a href="tel:7222721215" class="fab fab-sm fab-call">📞</a></div>
+</div>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navDrawer = document.getElementById('navDrawer');
+menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); navDrawer.classList.toggle('open'); });
+function closeMenu() { menuBtn.classList.remove('open'); navDrawer.classList.remove('open'); }
+document.addEventListener('click', e => { if (!menuBtn.contains(e.target) && !navDrawer.contains(e.target)) closeMenu(); });
+
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+revealEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

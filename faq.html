@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preguntas Frecuentes – ISES Toluca</title>
+<meta name="description" content="Respuestas a las preguntas más comunes sobre inscripciones, programas, requisitos, horarios y planteles de ISES Toluca. Ciclo Agosto 2026.">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── FAQ ACORDEÓN ── */
+.faq-list { display:flex; flex-direction:column; gap:10px; }
+.faq-item { background:#fff; border-radius:var(--radio); box-shadow:var(--sombra); overflow:hidden; transition:box-shadow .2s; }
+.faq-item.open { box-shadow:var(--sombra-hover); }
+.faq-q { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 18px; background:none; border:none; text-align:left; font-family:inherit; font-size:14px; font-weight:800; color:var(--gris-dark); cursor:pointer; transition:.15s; line-height:1.4; }
+.faq-q:hover { background:var(--verde-pale); }
+.faq-item.open .faq-q { color:var(--verde); }
+.faq-chevron { width:28px; height:28px; border-radius:50%; background:var(--verde-light); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; transition:transform .3s ease; color:var(--verde); }
+.faq-item.open .faq-chevron { transform:rotate(180deg); background:var(--verde); color:#fff; }
+.faq-a { max-height:0; overflow:hidden; transition:max-height .35s ease, padding .25s ease; font-size:13.5px; color:var(--gris-med); line-height:1.75; font-family:'Lora',serif; padding:0 18px; }
+.faq-item.open .faq-a { max-height:500px; padding:0 18px 18px; }
+.faq-a strong { color:var(--verde); font-style:normal; }
+.faq-a a { color:var(--azul); font-weight:700; text-decoration:underline; }
+
+/* CATEGORÍAS */
+.faq-cat { margin-bottom:32px; }
+.faq-cat-label { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.faq-cat-icon { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.faq-cat-icon.verde { background:var(--verde-light); }
+.faq-cat-icon.azul { background:var(--azul-light); }
+.faq-cat-icon.naranja { background:var(--naranja-light); }
+.faq-cat-name { font-size:13px; font-weight:900; color:var(--gris-dark); }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(20px); transition:opacity .5s ease,transform .5s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.delay-1 { transition-delay:.07s; } .delay-2 { transition-delay:.14s; }
+.delay-3 { transition-delay:.21s; }
+</style>
+</head>
+<body class="page-body">
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo-ises.png" alt="ISES"><div class="nav-logo-text">ISES Toluca <span>Donde sí se es</span></div></a>
+  <div class="nav-actions">
+    <a href="contacto.html" class="nav-cta">Inscríbete</a>
+    <button class="nav-menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" onclick="closeMenu()"><span class="nav-icon">🏠</span> Inicio</a>
+  <a href="nosotros.html" onclick="closeMenu()"><span class="nav-icon">🎓</span> Quiénes somos</a>
+  <a href="oferta.html" onclick="closeMenu()"><span class="nav-icon">📚</span> Oferta educativa</a>
+  <a href="prepas.html" onclick="closeMenu()"><span class="nav-icon">📖</span> Preparatoria — Compara</a>
+  <a href="planteles.html" onclick="closeMenu()"><span class="nav-icon">📍</span> Nuestros planteles</a>
+  <a href="faq.html" class="active" onclick="closeMenu()"><span class="nav-icon">❓</span> Preguntas frecuentes</a>
+  <a href="contacto.html" onclick="closeMenu()"><span class="nav-icon">✉️</span> Contacto</a>
+
+</div>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-badge">Respuestas rápidas</div>
+    <h1>Preguntas <span>frecuentes</span></h1>
+    <p>Todo lo que necesitas saber antes de inscribirte en ISES Toluca.</p>
+  </div>
+</div>
+<div class="breadcrumb"><a href="index.html">Inicio</a><span>›</span> Preguntas frecuentes</div>
+
+<div class="section" style="padding-bottom:52px;">
+
+  <!-- CATEGORÍA: INSCRIPCIONES -->
+  <div class="faq-cat reveal">
+    <div class="faq-cat-label">
+      <div class="faq-cat-icon verde">📝</div>
+      <div class="faq-cat-name">Inscripciones y fechas</div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cuándo inician las clases del ciclo Agosto 2026?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Las clases inician según el programa:<br><br>
+          • <strong>4 de agosto 2026:</strong> Licenciaturas escolarizadas y Preparatoria UAEMéx (Plantel Maquinita)<br>
+          • <strong>13 de agosto 2026:</strong> Lic. en Pedagogía (Plantel Villada)<br>
+          • <strong>16 de agosto 2026:</strong> Cursos de Inglés CELe y CENEVAL<br>
+          • <strong>30 de agosto 2026:</strong> Licenciaturas Ejecutivas y Preparatoria SEP<br>
+          • <strong>1 de septiembre 2026:</strong> Educación Preescolar (Plantel Bravo)<br>
+          • <strong>8 de septiembre 2026:</strong> Maestría en Docencia (Virtual)
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿En qué semestres puedo inscribirme a las licenciaturas?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Para las <strong>Licenciaturas Escolarizadas</strong> (Administración y Contaduría en Plantel Maquinita), las inscripciones están abiertas para <strong>1°, 3° y 5° semestre</strong>. Si ya cursaste semestres en otra institución, puedes tramitar tu cambio de plantel presentando tu trayectoria académica.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Puedo inscribirme si vengo de otra escuela o universidad?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Sí. ISES acepta <strong>cambios de plantel y revalidaciones</strong>. Para cambio de plantel necesitas presentar tu trayectoria académica y pagar los derechos correspondientes. Para equivalencias de otra institución, contáctanos directamente para revisar tu caso.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cómo me inscribo?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">El proceso es sencillo:<br><br>1. <strong>Elige tu programa y plantel</strong> en nuestra <a href="oferta.html">página de oferta educativa</a>.<br>2. <strong>Reúne tus documentos</strong> (acta de nacimiento, certificado del nivel anterior, CURP, fotos).<br>3. <strong>Acude al plantel</strong> o contáctanos por <a href="https://wa.me/527226753239">WhatsApp</a> para agendar tu visita.<br>4. Un asesor te guiará en todo el proceso de inscripción.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍA: PROGRAMAS -->
+  <div class="faq-cat reveal delay-1">
+    <div class="faq-cat-label">
+      <div class="faq-cat-icon azul">📚</div>
+      <div class="faq-cat-name">Programas educativos</div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Puedo estudiar si ya trabajo de tiempo completo?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">¡Sí! Las <strong>Licenciaturas Ejecutivas</strong> están diseñadas exactamente para eso: se cursan <strong>solo los sábados de 8:00 a 18:00 hrs</strong> y duran 38 meses. Tus prácticas profesionales se liberan con tu empleo actual. La <strong>Maestría en Docencia</strong> es 100% virtual con horario 100% flexible.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Qué diferencia hay entre la Preparatoria UAEMéx y la Preparatoria SEP?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a"><strong>Preparatoria UAEMéx</strong> (Plantel Maquinita): Mayor prestigio académico, acreditada por la ANUIES, con inglés CELe certificado los 6 semestres y diagnóstico vocacional EVAPEM gratuito. Ideal si quieres ingresar a licenciaturas UAEMéx.<br><br><strong>Preparatoria SEP</strong> (Planteles Villada y Bravo): Certificado con validez oficial SEP en todo el país. Acepta alumnos de cualquier semestre previo y de cualquier sistema educativo. Matutino y vespertino.<br><br>👉 <a href="prepas.html">Compara las 4 modalidades de prepa aquí</a> (UAEMéx, SEP, Abierta y CENEVAL).</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Los títulos y certificados tienen validez oficial?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Sí. ISES está <strong>incorporado a la UAEMéx</strong> y a la <strong>SEP</strong>. Todos los títulos, certificados y grados tienen validez oficial en todo el país y son reconocidos por instituciones públicas y privadas. Los programas con RVOE SEP también tienen validez nacional.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Hay opciones para terminar la preparatoria si ya trabajo?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Sí, tenemos dos opciones:<br><br>• <strong>Preparatoria Abierta SEP</strong> (Plantel Bravo, sábados 8–16 hrs): Tú decides el ritmo de avance, sin límite de edad, ISES hace todos los trámites.<br><br>• <strong>Certificado CENEVAL</strong> (Plantel Villada, 10 sesiones sáb y dom): Obtén tu certificado de preparatoria en pocas semanas. Tu pago es válido hasta que pases el examen.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Qué licenciaturas ejecutivas están disponibles y en qué plantel?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a"><strong>Plantel Maquinita:</strong> Administración y Derecho.<br><strong>Plantel Villada:</strong> Psicología, Pedagogía y Recursos Humanos.<br><br>Todas inician el <strong>30 de agosto de 2026</strong>, horario sabatino de 8:00 a 18:00 hrs. Duración: 38 meses.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿La Maestría es completamente en línea?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Sí. La <strong>Maestría en Docencia en Educación Media Superior</strong> es 100% virtual con horarios completamente flexibles. Cuenta con <strong>RVOE SEP 20130146</strong> y asesoría semanal en tiempo real con el docente. Dura 22 meses, incluye titulación y tiene 34% de beca disponible.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍA: DOCUMENTOS -->
+  <div class="faq-cat reveal delay-2">
+    <div class="faq-cat-label">
+      <div class="faq-cat-icon naranja">📋</div>
+      <div class="faq-cat-name">Documentos y requisitos</div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Qué documentos necesito para inscribirme?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Los documentos generales son:<br><br>
+          • <strong>Acta de nacimiento certificada</strong> (original y copia)<br>
+          • <strong>CURP</strong> (original y copia)<br>
+          • <strong>Certificado del nivel anterior</strong> (secundaria o bachillerato según programa)<br>
+          • <strong>4 fotografías infantil recientes</strong> en blanco y negro<br>
+          • <strong>Certificado médico</strong> con tipo de sangre (para preparatoria)<br><br>
+          Para <strong>Licenciaturas Ejecutivas</strong> se requiere además constancia laboral (tienes 1 año para presentarla). Contáctanos para la lista exacta de tu programa.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cuáles son las opciones de titulación?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">ISES ofrece múltiples modalidades de titulación según el programa:<br><br>
+          • <strong>Examen Ceneval (EGEL)</strong><br>
+          • <strong>Memoria Laboral</strong> (para ejecutivas, basada en tu experiencia profesional)<br>
+          • <strong>Tesis</strong><br><br>
+          Puedes elegir la que mejor se adapte a tu perfil y trayectoria. Nuestros asesores te orientan en cada caso.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Hay servicio social y prácticas profesionales?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Sí. ISES tiene <strong>convenios con fundaciones, ONG, gobierno municipal, estatal y federal</strong> para el servicio social. Para las licenciaturas ejecutivas, las prácticas profesionales se liberan con tu <strong>empleo actual</strong>. Para licenciaturas escolarizadas como Psicología, las prácticas inician desde el <strong>2° semestre</strong> con instituciones vinculadas.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍA: PLANTELES -->
+  <div class="faq-cat reveal delay-3">
+    <div class="faq-cat-label">
+      <div class="faq-cat-icon verde">📍</div>
+      <div class="faq-cat-name">Planteles y contacto</div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Dónde están ubicados los planteles de ISES Toluca?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Tenemos 5 planteles en el Estado de México:<br><br>
+          • <strong>Maquinita:</strong> Isidro Fabela Nte. 905, Santiago Miltepec, Toluca · Tel: 722 272 1215<br>
+          • <strong>Villada:</strong> José V. Villada 440, Col. El Ranchito, Toluca · Tel: 722 215 5800<br>
+          • <strong>Bravo:</strong> Bravo Nte. 307-2, Col. Centro, Toluca · Tel: 722 215 1050<br>
+          • <strong>Santiago:</strong> Vicente Guerrero 203, Santiago Tianguistenco · Tel: 713 135 2437<br>
+          • <strong>Ixtlahuaca:</strong> Fco. López Rayón 8, Ixtlahuaca · Tel: 712 283 0073<br><br>
+          Consulta mapas y direcciones en nuestra <a href="planteles.html">página de planteles</a>.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cómo puedo obtener más información o agendar una visita?<span class="faq-chevron">▾</span></button>
+        <div class="faq-a">Puedes contactarnos de varias formas:<br><br>
+          • <strong>WhatsApp:</strong> <a href="https://wa.me/527226753239">+52 722 675 3239</a><br>
+          • <strong>Formulario en línea:</strong> <a href="contacto.html">Página de contacto</a><br>
+          • <strong>Llamada directa</strong> al plantel de tu preferencia<br><br>
+          Un asesor te responderá a la brevedad.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="logo-ises.png" alt="ISES"><div class="footer-logo-text">ISES Toluca <span>Donde sí se es</span></div></div>
+    <div class="footer-nav">
+      <a href="index.html">Inicio</a><a href="nosotros.html">Quiénes somos</a>
+      <a href="oferta.html">Oferta educativa</a><a href="planteles.html">Planteles</a>
+      <a href="faq.html">FAQ</a><a href="contacto.html">Contacto</a>
+    </div>
+    <div class="footer-copy">© 2026 <strong>ISES Toluca</strong> · Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<div class="fab-group">
+  <div class="fab-wrap"><span class="fab-label">WhatsApp</span><a href="https://wa.me/527226753239" target="_blank" rel="noopener" class="fab fab-wa">💬</a></div>
+  <div class="fab-wrap"><span class="fab-label">Llamar</span><a href="tel:7222721215" class="fab fab-sm fab-call">📞</a></div>
+</div>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navDrawer = document.getElementById('navDrawer');
+menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); navDrawer.classList.toggle('open'); });
+function closeMenu() { menuBtn.classList.remove('open'); navDrawer.classList.remove('open'); }
+document.addEventListener('click', e => { if (!menuBtn.contains(e.target) && !navDrawer.contains(e.target)) closeMenu(); });
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
